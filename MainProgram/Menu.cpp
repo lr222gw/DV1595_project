@@ -22,7 +22,7 @@ void Menu::moveUp()
 	alternatives[prvSelected].setFillColor(sf::Color::Yellow);
 	alternatives[prvSelected].setCharacterSize(30);
 	
-	
+	 
 }
 
 void Menu::moveDown()
