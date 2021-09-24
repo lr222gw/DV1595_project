@@ -86,7 +86,7 @@ State Menu::update()
 		case EXIT:
 			finalState = State::EXIT;
 			break;
-		}
+		} 
 
 	}
 
