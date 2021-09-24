@@ -1,6 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player)
+	: Entity("../Images/sprites/player1.png",4,4,1)
 {
 	
 	switch (player) {
@@ -10,7 +11,7 @@ Player::Player(PlayerId player)
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
 
-		this->setTexture("../Images/sprites/playerOne.png");
+		this->setTexture("../Images/sprites/player1.png");
 
 		break;
 	case PlayerId::PlayerTwo:
@@ -18,7 +19,8 @@ Player::Player(PlayerId player)
 		downKey = sf::Keyboard::Key::Down;
 		leftKey = sf::Keyboard::Key::Left;
 		rightKey= sf::Keyboard::Key::Right;
-		this->setTexture("../Images/sprites/playerTwo.png");
+		this->setTexture("../Images/sprites/player2.png");
+		this->moveSprite(40.f,0.f);
 		break;
 	}
 }

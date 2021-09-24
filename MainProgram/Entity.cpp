@@ -2,6 +2,20 @@
 
 
 
+Entity::Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed)
+	: speed(speed)
+{
+	this->texture.loadFromFile(textureFile);
+	this->sprite.setTexture(this->texture);
+
+	animationHelper = new AnimationHelper(texture, sprite, nrOfColumns, nrOfRows);
+}
+
+Entity::~Entity()
+{
+	delete animationHelper;
+}
+
 void Entity::setPosition(float x, float y)
 {
 	this->sprite.setPosition(x, y);
@@ -11,8 +25,7 @@ void Entity::setTexture(std::string texturePath)
 {
 	this->texture.loadFromFile(texturePath);
 	this->sprite.setTexture(this->texture);
-	this->intRect = sf::IntRect(0, 0, texture.getSize().x / 8, texture.getSize().y / 2);
-	this->sprite.setTextureRect(this->intRect);
+	
 }
 
 void Entity::moveSprite(float x, float y)
@@ -22,5 +35,6 @@ void Entity::moveSprite(float x, float y)
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	animationHelper->update();
 	target.draw(this->sprite);
 }

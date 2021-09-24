@@ -1,23 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <string>
+#include "AnimationHelper.h"
 
 class Entity : public sf::Drawable {
 private:
 
 	sf::Sprite sprite;
 	sf::Texture texture;
-	sf::IntRect intRect;
+	 
+	AnimationHelper* animationHelper;
 
-	float speed;
-	int timeCounter;
-	int updateTime;
+	float speed;	
 	 
 protected:
 
 public:
-
-	//virtual ~Entity();
+	Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed);
+	virtual ~Entity();
 
 	void setPosition(float x, float y);
 	void setTexture(std::string texturePath);
@@ -25,8 +25,6 @@ public:
 	void moveSprite(float x, float y);
 
 	virtual void move() = 0;
-
-
 
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
