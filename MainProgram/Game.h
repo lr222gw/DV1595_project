@@ -4,11 +4,15 @@
 class Game : public GameState
 {
 private:
-	sf::CircleShape circle;
 
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
+
+	sf::RectangleShape playerOneInfoBox;
+	sf::RectangleShape playerTwoInfoBox;
+	sf::RectangleShape gameArea;
+
 public:
 	Game();
 	virtual ~Game();

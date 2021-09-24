@@ -3,12 +3,27 @@
 #include "State.h"
 
 Game::Game()
-	:GameState("Game"), circle(50.f)
+	:GameState("Game")
 {
-	circle.setFillColor(sf::Color::Blue);
-	circle.setPosition(10.f, 250.f);
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
+
+	playerOneInfoBox.setFillColor(sf::Color::Cyan);
+	playerTwoInfoBox.setFillColor(sf::Color::Cyan);
+
+	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
+	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;
+	playerOneInfoBox.setSize(sf::Vector2f(oneSixthOfScreenWidth, window.getSize().y));
+	playerOneInfoBox.setPosition(0.f, 0.f);
+	playerTwoInfoBox.setSize(sf::Vector2f(oneSixthOfScreenWidth, window.getSize().y));
+	playerTwoInfoBox.setPosition(window.getSize().x - oneSixthOfScreenWidth, 0.f);
+
+	float padding = 4;
+	gameArea.setFillColor(sf::Color::Green);
+	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
+	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);
+	
+
 }
 
 Game::~Game()
@@ -17,13 +32,15 @@ Game::~Game()
 
 State Game::update()
 {
+	State finalState = State::NO_CHANGE;
 	
 	elapsedTimeSinceLastUpdate += clock.restart();
 	
 	while (elapsedTimeSinceLastUpdate > timePerFrame)
 	{
 		elapsedTimeSinceLastUpdate -= timePerFrame;
-		circle.move(4.f, 0);
+		
+		
 
 
 	}
@@ -34,13 +51,18 @@ State Game::update()
 
 	*/
 	
-	return State();
+	return finalState;
 }
 
 void Game::render()
 {
 	window.clear();
-	window.draw(circle);
+	
+	window.draw(playerOneInfoBox);
+	window.draw(playerTwoInfoBox);
+	window.draw(gameArea);
+
+
 	window.display();
 }
 
