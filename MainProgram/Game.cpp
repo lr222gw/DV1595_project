@@ -3,7 +3,9 @@
 #include "State.h"
 
 Game::Game()
-	:GameState("Game")
+	:GameState("Game"),
+	playerOne(PlayerId::PlayerOne),
+	playerTwo(PlayerId::PlayerTwo)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -22,6 +24,8 @@ Game::Game()
 	gameArea.setFillColor(sf::Color::Green);
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);
+
+	
 	
 
 }
@@ -62,6 +66,8 @@ void Game::render()
 	window.draw(playerTwoInfoBox);
 	window.draw(gameArea);
 
+	window.draw(playerOne);
+	window.draw(playerTwo);
 
 	window.display();
 }
