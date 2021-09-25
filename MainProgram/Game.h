@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Player.h"
+
 class Game : public GameState
 {
 private:
@@ -15,6 +16,9 @@ private:
 
 	Player playerOne;
 	Player playerTwo;
+
+	State currentState;
+
 
 public:
 	Game();

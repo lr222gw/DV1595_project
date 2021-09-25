@@ -7,13 +7,10 @@ AnimationHelper* Entity::getAnimationHelper()
 	return this->animationHelper;
 }
 
-Entity::Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed)
+Entity::Entity(float speed)
 	: speed(speed)
 {
-	this->texture.loadFromFile(textureFile);
-	this->sprite.setTexture(this->texture);
-
-	animationHelper = new AnimationHelper(texture, sprite, nrOfColumns, nrOfRows);
+	animationHelper = new AnimationHelper(sprite);
 }
 
 Entity::~Entity()
@@ -26,10 +23,11 @@ void Entity::setPosition(float x, float y)
 	this->sprite.setPosition(x, y);
 }
  
-void Entity::setTexture(std::string texturePath)
+void Entity::setTexture(std::string texturePath, int nrOfColumns, int nrOfRows )
 {
 	this->texture.loadFromFile(texturePath);
 	this->sprite.setTexture(this->texture);
+	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows);
 	
 }
 

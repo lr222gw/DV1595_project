@@ -23,7 +23,7 @@ private:
 	int updateTime;		//How many ticks before we change image
 	void moveIntRectAtUpdateTime();
 public:
-	AnimationHelper(sf::Texture &texture, sf::Sprite &sprite, int nrOfColumns, int nrOfRows);
+	AnimationHelper(sf::Sprite &sprite);
 
 	void setRowAnimationInstruction(int up, int down, int left, int right);
 	void animateUp();
@@ -31,6 +31,8 @@ public:
 	void animateLeft();
 	void animateRight();
 	void animateIdle();
+
+	void setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows);
 
 	void update();
 

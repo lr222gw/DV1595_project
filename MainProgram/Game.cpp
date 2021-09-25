@@ -25,9 +25,7 @@ Game::Game()
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);
 
-	
-	
-
+	currentState = State::NO_CHANGE;	
 }
 
 Game::~Game()
@@ -36,7 +34,7 @@ Game::~Game()
 
 State Game::update()
 {
-	State finalState = State::NO_CHANGE;
+	State finalState = currentState;
 	
 	elapsedTimeSinceLastUpdate += clock.restart();
 	
@@ -57,6 +55,7 @@ State Game::update()
 	om ingen förändring har skett ska retur göras motsvarande ingen förändring och annars ska State HIGHSCORE_INPUT returneras
 
 	*/
+
 	
 	return finalState;
 }
@@ -82,7 +81,13 @@ void Game::handleEvents()
 	{
 		if (event.type == sf::Event::Closed)
 		{
+			currentState = State::EXIT;
 			window.close();
+		}
+		if (event.type == sf::Event::KeyPressed) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				currentState = State::MENU;
+			}
 		}
 	}
 }

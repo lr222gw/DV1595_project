@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player, sf::RectangleShape *gameArea)
-	: Entity("../Images/sprites/player1.png",4,4,4)
+	: Entity(4)
 {
 	this->gameArea = gameArea;
 	switch (player) {
@@ -11,7 +11,7 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
 
-		this->setTexture("../Images/sprites/player1.png");
+		this->setTexture("../Images/sprites/player1.png", 4,4);
 		this->moveSprite(100.f, 0.f);
 
 		break;
@@ -20,7 +20,7 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		downKey = sf::Keyboard::Key::Down;
 		leftKey = sf::Keyboard::Key::Left;
 		rightKey= sf::Keyboard::Key::Right;
-		this->setTexture("../Images/sprites/player2.png");
+		this->setTexture("../Images/sprites/player2.png", 4, 4);
 		this->moveSprite(60.f,0.f);
 		break;
 	}

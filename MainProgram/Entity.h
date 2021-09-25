@@ -18,11 +18,11 @@ protected:
 	static const int DOWN	= 1;
 	static const int UP		= -1;
 public:
-	Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed);
+	Entity(float speed);
 	virtual ~Entity();
 
 	void setPosition(float x, float y);
-	void setTexture(std::string texturePath);	
+	void setTexture(std::string texturePath, int nrOfColumns, int nrOfRows );
 	void moveSprite(float x, float y);
 
 	sf::FloatRect getBounds();
