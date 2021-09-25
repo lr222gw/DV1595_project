@@ -10,6 +10,8 @@ Game::Game()
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
 
+	srand(time(NULL));
+
 	playerOneInfoBox.setFillColor(sf::Color::Cyan);
 	playerTwoInfoBox.setFillColor(sf::Color::Cyan);
 

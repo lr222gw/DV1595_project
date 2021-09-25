@@ -1,7 +1,9 @@
 #pragma once
 #include "GameState.h"
+#include "NumberBoard.h"
 #include "Player.h"
 #include "Cow.h"
+#include <stdlib.h>
 
 class Game : public GameState
 {
@@ -14,6 +16,8 @@ private:
 	sf::RectangleShape playerOneInfoBox;
 	sf::RectangleShape playerTwoInfoBox;
 	sf::RectangleShape gameArea;
+
+	NumberBoard theNumberBoard;
 
 	Player playerOne;
 	Player playerTwo;
