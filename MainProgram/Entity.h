@@ -8,13 +8,15 @@ private:
 
 	sf::Sprite sprite;
 	sf::Texture texture;
-	 
-	AnimationHelper* animationHelper;
-
+	AnimationHelper* animationHelper;	 
 	float speed;	
 	 
 protected:
-
+	AnimationHelper* getAnimationHelper();
+	static const int RIGHT	= 1;
+	static const int LEFT	= -1;
+	static const int DOWN	= 1;
+	static const int UP		= -1;
 public:
 	Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed);
 	virtual ~Entity();
@@ -23,6 +25,8 @@ public:
 	void setTexture(std::string texturePath);
 
 	void moveSprite(float x, float y);
+
+	void update();
 
 	virtual void move() = 0;
 

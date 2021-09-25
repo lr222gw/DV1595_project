@@ -45,7 +45,8 @@ State Game::update()
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 		
 		
-
+		playerOne.update();
+		playerTwo.update();
 
 	}
 	

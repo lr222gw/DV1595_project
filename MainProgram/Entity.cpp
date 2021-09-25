@@ -2,6 +2,11 @@
 
 
 
+AnimationHelper* Entity::getAnimationHelper()
+{
+	return this->animationHelper;
+}
+
 Entity::Entity(std::string textureFile, int nrOfColumns, int nrOfRows, float speed)
 	: speed(speed)
 {
@@ -30,8 +35,15 @@ void Entity::setTexture(std::string texturePath)
 
 void Entity::moveSprite(float x, float y)
 {
-	this->sprite.move(x, y);
+	this->sprite.move(x*speed, y * speed);
 }
+
+void Entity::update()
+{
+	this->move();
+	this->animationHelper->update();	
+}
+
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

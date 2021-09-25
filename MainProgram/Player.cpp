@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player)
-	: Entity("../Images/sprites/player1.png",4,4,1)
+	: Entity("../Images/sprites/player1.png",4,4,4)
 {
 	
 	switch (player) {
@@ -12,6 +12,7 @@ Player::Player(PlayerId player)
 		rightKey= sf::Keyboard::Key::D;
 
 		this->setTexture("../Images/sprites/player1.png");
+		this->moveSprite(100.f, 0.f);
 
 		break;
 	case PlayerId::PlayerTwo:
@@ -20,7 +21,7 @@ Player::Player(PlayerId player)
 		leftKey = sf::Keyboard::Key::Left;
 		rightKey= sf::Keyboard::Key::Right;
 		this->setTexture("../Images/sprites/player2.png");
-		this->moveSprite(40.f,0.f);
+		this->moveSprite(60.f,0.f);
 		break;
 	}
 }
@@ -28,7 +29,27 @@ Player::Player(PlayerId player)
 
 void Player::move()
 {
-
+	if (sf::Keyboard::isKeyPressed(this->upKey))
+	{
+		this->getAnimationHelper()->animateUp();
+		this->moveSprite(0.f,UP);
+	}
+	else if (sf::Keyboard::isKeyPressed(this->downKey))
+	{
+		this->getAnimationHelper()->animateDown();
+		this->moveSprite(0.f, DOWN);
+	}else if (sf::Keyboard::isKeyPressed(this->rightKey))
+	{
+		this->getAnimationHelper()->animateRight();
+		this->moveSprite(RIGHT, 0.f);
+	}
+	else if (sf::Keyboard::isKeyPressed(this->leftKey)) {
+		this->getAnimationHelper()->animateLeft();
+		this->moveSprite(LEFT, 0.f);
+	}
+	else {
+		this->getAnimationHelper()->animateIdle();
+	}
 
 
 }
