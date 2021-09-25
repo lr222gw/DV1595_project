@@ -9,11 +9,19 @@ private:
 	int up_row; 
 	int left_row; 
 	int right_row;
-	int idle_row;
+	int idle_column;
+
+	bool reversePlayback;
+	bool rightDir_playback;
 
 	sf::Sprite* sprite;
 	sf::Texture* texture;
 	sf::IntRect intRect;
+
+	int nrOfRows;
+	int nrOfColumns;
+	int columnsSubset;	// in case a row is used for several types of animation
+	int rowsSubset;		// in case the spritesheet has several different sprites
 
 	int lastRow;
 	int animationDirection; 
@@ -25,14 +33,15 @@ private:
 public:
 	AnimationHelper(sf::Sprite &sprite);
 
-	void setRowAnimationInstruction(int up, int down, int left, int right);
+	void toggleReversePlayback();
+	void setRowAnimationInstruction(int up, int down, int left, int right, int idle);
 	void animateUp();
 	void animateDown();
 	void animateLeft();
 	void animateRight();
 	void animateIdle();
 
-	void setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows);
+	void setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
 
 	void update();
 

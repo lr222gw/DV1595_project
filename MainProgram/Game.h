@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Player.h"
+#include "Cow.h"
 
 class Game : public GameState
 {
@@ -17,12 +18,17 @@ private:
 	Player playerOne;
 	Player playerTwo;
 
+	int nrOfCows;
+	int cowCapacity;
+	Cow* *cows;
+
 	State currentState;
 
 
 public:
 	Game();
-	virtual ~Game();
+	virtual ~Game();	
+
 	// Inherited via GameState
 	virtual State update() override;
 

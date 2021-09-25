@@ -4,38 +4,72 @@ void AnimationHelper::moveIntRectAtUpdateTime()
 {
 	if (this->timeCounter == 0) {
 
-		this->intRect.left = (this->intRect.left + this->intRect.width) % this->texture->getSize().x;
-		this->sprite->setTextureRect(this->intRect);
+		if (reversePlayback) {
+
+			if (rightDir_playback) {
+
+				this->intRect.left = (this->intRect.left + this->intRect.width) % (this->intRect.width * (this->columnsSubset));
+				if (this->intRect.left == 0) {
+					this->intRect.left = (this->intRect.width * (this->columnsSubset-2));
+					rightDir_playback = !rightDir_playback;
+				}
+			}
+			else {
+				this->intRect.left = (this->intRect.left - this->intRect.width) % (this->intRect.width * (this->columnsSubset));				
+			}
+			this->sprite->setTextureRect(this->intRect);
+			if (this->intRect.left == 0) {
+				rightDir_playback = !rightDir_playback;
+			}
+			
+		}
+		else {
+
+			this->intRect.left = (this->intRect.left + this->intRect.width ) % ((this->intRect.width) * (this->columnsSubset));
+			this->sprite->setTextureRect(this->intRect);
+			
+		}		
 	}
 }
 
 AnimationHelper::AnimationHelper(sf::Sprite& sprite)
-	: timeCounter(0), updateTime(60 )
+	: timeCounter(0), updateTime(60 ), nrOfRows(0), nrOfColumns(0), reversePlayback(false), rightDir_playback(true)
 {
+	this->texture = nullptr;
 	down_row = 0;
 	up_row = 1;
 	left_row = 2;
 	right_row = 3;
-	idle_row = -1;	
+	idle_column = 4;	
 	this->sprite = &sprite;
 	
 	lastRow = 1;
-	animationDirection = idle_row;
+	animationDirection = idle_column;
 }
 
-void AnimationHelper::setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows)
+void AnimationHelper::setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset)
 {
 	this->texture = &texture;
 	this->intRect = sf::IntRect(0, 0, texture.getSize().x / nrOfColumns, texture.getSize().y / nrOfRows);
 	this->sprite->setTextureRect(this->intRect);
+	this->nrOfRows = nrOfRows;
+	this->nrOfColumns = nrOfColumns;
+	this->columnsSubset = columnsSubset ; // remove one. Makes index start at 0 instead of 1...
+	this->rowsSubset = rowsSubset ;
 }
 
-void AnimationHelper::setRowAnimationInstruction(int up, int down, int left, int right)
+void AnimationHelper::toggleReversePlayback()
+{
+	this->reversePlayback = !this->reversePlayback;
+}
+
+void AnimationHelper::setRowAnimationInstruction(int up, int down, int left, int right, int idle)
 {
 	down_row = down;
 	up_row = up;
 	left_row = left;
 	right_row = right;
+	idle_column = idle;
 }
 
 void AnimationHelper::update()
@@ -67,10 +101,12 @@ void AnimationHelper::update()
 		lastRow = down_row;
 		moveIntRectAtUpdateTime();
 	}
-	else{
+	//else if (animationDirection == idle_column) 
+	else
+	{
 		this->intRect.top = this->intRect.height * lastRow;		
 		if (this->timeCounter == 0) {
-			this->intRect.left = 0;
+			this->intRect.left = idle_column * this->intRect.width;
 			this->sprite->setTextureRect(this->intRect);
 		}
 	}
@@ -98,5 +134,5 @@ void AnimationHelper::animateRight()
 
 void AnimationHelper::animateIdle()
 {
-	animationDirection = idle_row;
+	animationDirection = -1;
 }

@@ -11,7 +11,8 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
 
-		this->setTexture("../Images/sprites/player1.png", 4,4);
+		this->setTexture("../Images/sprites/player1.png", 4,4,4,4);
+		this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
 		this->moveSprite(100.f, 0.f);
 
 		break;
@@ -20,7 +21,8 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		downKey = sf::Keyboard::Key::Down;
 		leftKey = sf::Keyboard::Key::Left;
 		rightKey= sf::Keyboard::Key::Right;
-		this->setTexture("../Images/sprites/player2.png", 4, 4);
+		this->setTexture("../Images/sprites/player2.png", 4, 4, 4, 4);
+		this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 		this->moveSprite(60.f,0.f);
 		break;
 	}
@@ -63,6 +65,5 @@ void Player::move()
 	else {
 		this->getAnimationHelper()->animateIdle();
 	}
-
 
 }

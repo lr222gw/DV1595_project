@@ -23,11 +23,11 @@ void Entity::setPosition(float x, float y)
 	this->sprite.setPosition(x, y);
 }
  
-void Entity::setTexture(std::string texturePath, int nrOfColumns, int nrOfRows )
+void Entity::setTexture(std::string texturePath, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset)
 {
 	this->texture.loadFromFile(texturePath);
 	this->sprite.setTexture(this->texture);
-	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows);
+	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows,  columnsSubset,  rowsSubset);
 	
 }
 

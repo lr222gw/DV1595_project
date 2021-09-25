@@ -25,12 +25,26 @@ Game::Game()
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);
 
+	cowCapacity = 1;
+	cows = new Cow * [cowCapacity];
+	for (int i = 0; i < cowCapacity; i++)
+	{
+		cows[i] = new Cow(&this->gameArea, 2);
+		nrOfCows++;
+	}
+
 	currentState = State::NO_CHANGE;	
 }
 
 Game::~Game()
 {
+	for (int i = 0; i < nrOfCows; i++)
+	{
+		delete cows[i];
+	}
+	delete[] cows;
 }
+
 
 State Game::update()
 {
@@ -47,7 +61,10 @@ State Game::update()
 		playerOne.update();
 		playerTwo.update();
 		
-
+		for (int i = 0; i < nrOfCows; i++)
+		{
+			cows[i]->update();
+		}
 	}
 	
 	/*
@@ -70,7 +87,10 @@ void Game::render()
 
 	window.draw(playerOne);
 	window.draw(playerTwo);
-
+	for (int i = 0; i < nrOfCows; i++)
+	{
+		window.draw(*cows[i]);
+	}
 	window.display();
 }
 
