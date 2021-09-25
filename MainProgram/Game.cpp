@@ -4,8 +4,8 @@
 
 Game::Game()
 	:GameState("Game"),
-	playerOne(PlayerId::PlayerOne),
-	playerTwo(PlayerId::PlayerTwo)
+	playerOne(PlayerId::PlayerOne, &this->gameArea),
+	playerTwo(PlayerId::PlayerTwo, &this->gameArea)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -45,8 +45,10 @@ State Game::update()
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 		
 		
+		
 		playerOne.update();
 		playerTwo.update();
+		
 
 	}
 	

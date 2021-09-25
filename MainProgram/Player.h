@@ -10,8 +10,10 @@ private:
 	sf::Keyboard::Key leftKey;
 	sf::Keyboard::Key rightKey;
 
+	sf::RectangleShape* gameArea;
+
 public :
-	Player(PlayerId player);
+	Player(PlayerId player, sf::RectangleShape *gameArea);
 
 
 

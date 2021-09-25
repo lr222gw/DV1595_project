@@ -38,6 +38,16 @@ void Entity::moveSprite(float x, float y)
 	this->sprite.move(x*speed, y * speed);
 }
 
+sf::FloatRect Entity::getBounds()
+{
+	return this->sprite.getGlobalBounds();
+}
+
+bool Entity::hitBy(const sf::FloatRect& ref)
+{
+	return this->sprite.getGlobalBounds().intersects(ref);
+}
+
 void Entity::update()
 {
 	this->move();

@@ -22,9 +22,11 @@ public:
 	virtual ~Entity();
 
 	void setPosition(float x, float y);
-	void setTexture(std::string texturePath);
-
+	void setTexture(std::string texturePath);	
 	void moveSprite(float x, float y);
+
+	sf::FloatRect getBounds();
+	bool hitBy(const sf::FloatRect &ref);
 
 	void update();
 

@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player(PlayerId player)
+Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 	: Entity("../Images/sprites/player1.png",4,4,4)
 {
-	
+	this->gameArea = gameArea;
 	switch (player) {
 	case PlayerId::PlayerOne:
 		upKey	= sf::Keyboard::Key::W;
@@ -31,21 +31,34 @@ void Player::move()
 {
 	if (sf::Keyboard::isKeyPressed(this->upKey))
 	{
-		this->getAnimationHelper()->animateUp();
-		this->moveSprite(0.f,UP);
+		if (this->gameArea->getGlobalBounds().top < this->getBounds().top) 
+		{
+			this->getAnimationHelper()->animateUp();
+			this->moveSprite(0.f,UP);
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(this->downKey))
 	{
-		this->getAnimationHelper()->animateDown();
-		this->moveSprite(0.f, DOWN);
+		if (this->gameArea->getGlobalBounds().height > this->getBounds().top + this->getBounds().height)
+		{
+			this->getAnimationHelper()->animateDown();
+			this->moveSprite(0.f, DOWN);
+		}
 	}else if (sf::Keyboard::isKeyPressed(this->rightKey))
 	{
-		this->getAnimationHelper()->animateRight();
-		this->moveSprite(RIGHT, 0.f);
+		if (this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width > this->getBounds().left + this->getBounds().width)
+		{
+			this->getAnimationHelper()->animateRight();
+			this->moveSprite(RIGHT, 0.f);
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(this->leftKey)) {
-		this->getAnimationHelper()->animateLeft();
-		this->moveSprite(LEFT, 0.f);
+	else if (sf::Keyboard::isKeyPressed(this->leftKey)) 
+	{
+		if (this->gameArea->getGlobalBounds().left < this->getBounds().left)
+		{
+			this->getAnimationHelper()->animateLeft();
+			this->moveSprite(LEFT, 0.f);
+		}
 	}
 	else {
 		this->getAnimationHelper()->animateIdle();
