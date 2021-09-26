@@ -17,7 +17,7 @@ private:
 	sf::RectangleShape playerTwoInfoBox;
 	sf::RectangleShape gameArea;
 
-	NumberBoard theNumberBoard;
+	NumberBoard* theNumberBoard;
 
 	Player playerOne;
 	Player playerTwo;

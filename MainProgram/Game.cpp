@@ -25,7 +25,9 @@ Game::Game()
 	float padding = 4;
 	gameArea.setFillColor(sf::Color::Green);
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
-	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);
+	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
+
+	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 
 	cowCapacity = 1;
 	cows = new Cow * [cowCapacity];
@@ -86,6 +88,8 @@ void Game::render()
 	window.draw(playerOneInfoBox);
 	window.draw(playerTwoInfoBox);
 	window.draw(gameArea);
+
+	window.draw(*theNumberBoard);
 
 	window.draw(playerOne);
 	window.draw(playerTwo);
