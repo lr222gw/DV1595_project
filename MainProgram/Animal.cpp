@@ -1,8 +1,8 @@
 #include "Animal.h"
 
-Animal::Animal(sf::FloatRect gameArea, float speed,  int minTimeBetweenCrap, int maxTimeBetweenCrap)
+Animal::Animal(NumberBoard* theNumberBoard, sf::FloatRect gameArea, float speed,  int minTimeBetweenCrap, int maxTimeBetweenCrap)
 	:Entity(speed), gameArea(gameArea), currentDirection(Direction::Left), updateTime(60),timeCounter(0),
-	maxTimeBetweenCrap(maxTimeBetweenCrap), minTimeBetweenCrap(minTimeBetweenCrap)
+	maxTimeBetweenCrap(maxTimeBetweenCrap), minTimeBetweenCrap(minTimeBetweenCrap), theNumberBoard(theNumberBoard)
 {	
 	srand(time(NULL));
 	this->setPosition(gameArea.left + gameArea.width / 2.f, 
@@ -42,11 +42,6 @@ void Animal::setCrapTimeInterval(int minTimeBetweenCrap, int maxTimeBetweenCrap)
 	this->minTimeBetweenCrap = minTimeBetweenCrap;
 	this->maxTimeBetweenCrap = maxTimeBetweenCrap;
 }
-
-void Animal::move()
-{
-}
-
 
 int Animal::getCrapTimeCount() const
 {

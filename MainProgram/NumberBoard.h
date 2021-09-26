@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Tile.h"
+#include "Poo.h"
 
 class NumberBoard : public sf::Drawable {
 private:
@@ -9,6 +10,10 @@ private:
 	sf::Text texts[5*5];
 	sf::RectangleShape background;
 	sf::Font bingoFont;
+
+	int nrOfPoos;
+	Poo** poos;
+
 public:
 	NumberBoard(sf::FloatRect gameArea);
 	~NumberBoard();
@@ -16,6 +21,8 @@ public:
 	bool checkBingo();
 	void cleanTile();
 	void markTileAsCrapped(sf::FloatRect marking);
+
+	void recievePoo(Poo* poo);
 
 	sf::FloatRect getBounds() const;
 

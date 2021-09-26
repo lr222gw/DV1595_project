@@ -33,7 +33,7 @@ Game::Game()
 	cows = new Cow * [cowCapacity];
 	for (int i = 0; i < cowCapacity; i++)
 	{
-		cows[i] = new Cow(theNumberBoard->getBounds(), 2);
+		cows[i] = new Cow(theNumberBoard, theNumberBoard->getBounds(), 2);
 		nrOfCows++;
 	}
 

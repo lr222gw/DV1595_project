@@ -23,12 +23,17 @@ NumberBoard::NumberBoard(sf::FloatRect gameArea)
 		texts[i].setPosition(posX + squareSize/6.f, posY + squareSize / 6.f);
 		texts[i].setString(std::to_string(this->tiles[i]->getValue()));
 	}
+	nrOfPoos = 0;
+	poos = new Poo * [5*5];
 }
 
 NumberBoard::~NumberBoard()
 {
 	for (int i = 0; i < 5 * 5; i++) {
 		delete tiles[i];
+	}
+	for (int i = 0; i < nrOfPoos; i++) {
+		delete poos[i];
 	}
 }
 
@@ -44,6 +49,11 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 	}
 }
 
+void NumberBoard::recievePoo(Poo* poo)
+{
+	this->poos[nrOfPoos++] = poo;
+}
+
 sf::FloatRect NumberBoard::getBounds() const
 {
 	return this->background.getGlobalBounds();
@@ -55,5 +65,8 @@ void NumberBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (int i = 0; i < 5 * 5; i++) {
 		target.draw(squares[i]);
 		target.draw(texts[i]);
+	}
+	for (int i = 0; i < nrOfPoos; i++) {
+		target.draw(*poos[i]);
 	}
 }

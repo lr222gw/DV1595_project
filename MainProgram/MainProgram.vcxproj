@@ -29,6 +29,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NumberBoard.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Poo.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +42,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NumberBoard.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Poo.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>

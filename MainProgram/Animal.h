@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include <stdlib.h>
+#include "NumberBoard.h"
 
 enum class Direction { Left, Right, Up, Down };
 class Animal : public Entity {
@@ -19,17 +20,12 @@ private:
 	int crapTime = 2;
 	int crapInterval;
 protected:
+	NumberBoard* theNumberBoard;
 	Direction currentDirection;
-	/*sf::Clock	crapIntervalTimer;
-	int			crapIntervalTimerCounter;
-	sf::Clock	crapTimer;
-	int			crapTimerCounter;
-	sf::Time	crapInterval;
-	sf::Time	crapTimeDuration;*/
 	
 public:
 
-	Animal(sf::FloatRect gameArea, float speed, int maxTimeBetweenCrap, int minTimeBetweenCrap);
+	Animal(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed, int maxTimeBetweenCrap, int minTimeBetweenCrap);
 	sf::FloatRect	getGameArea();
 	Direction		getCurrentDirection();
 	void			setCurrentDirection(Direction dir);
@@ -43,6 +39,8 @@ public:
 	int		getCrapTimeCount() const;
 
 	void updateTimeCounter();
+
+	virtual void crapOnTile() = 0;
 	// Inherited via Entity
 	virtual void move() override = 0;
 

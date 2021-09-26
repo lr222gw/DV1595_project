@@ -1,7 +1,7 @@
 #include "Cow.h"
 
-Cow::Cow(sf::FloatRect gameArea, float speed)
-	: Animal(gameArea, speed, 5, 10)
+Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
+	: Animal(theNumberBoard,gameArea, speed, 5, 10)
 {
 	this->setTexture("../Images/sprites/cow.png",12,8, 3,4);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
@@ -67,9 +67,15 @@ void Cow::move()
 		this->getAnimationHelper()->animateIdle();
 		setRelieavingWaste(true);
 		resetCrapTimeInterval();
-		
+		crapOnTile();
 	}
 
 	
 
+}
+
+void Cow::crapOnTile()
+{
+	Poo* poo = new Poo(sf::Vector2f(this->getBounds().left, this->getBounds().top));
+	this->theNumberBoard->recievePoo(poo);
 }
