@@ -31,7 +31,7 @@ public:
 	void			setCurrentDirection(Direction dir);
 
 	bool			isRelieavingWaste();
-	void			setRelieavingWaste(bool status);
+	void			setRelieavingWaste(bool status);	
 	void			resetCrapTimeInterval();
 	void			setCrapTimeInterval(int minTimeBetweenCrap, int maxTimeBetweenCrap);
 

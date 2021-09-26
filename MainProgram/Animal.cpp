@@ -57,10 +57,12 @@ void Animal::updateTimeCounter()
 {
 	timeCounter = (timeCounter + 1) % updateTime;
 	if (timeCounter == 0) {
-
-		crapTimeCount = (crapTimeCount + 1) % crapTime;
-		crapIntervalCount = (crapIntervalCount + 1) % crapInterval;
+		// Do something for one whole second...
+		
 	}
+	// Do something only once per second...
+	crapTimeCount = (crapTimeCount + 1) % (crapTime * updateTime);
+	crapIntervalCount = (crapIntervalCount + 1) % (crapInterval * updateTime);
 }
 
 void Animal::resetCrapTimeInterval()

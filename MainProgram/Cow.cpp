@@ -59,17 +59,16 @@ void Cow::move()
 	else {
 
 		if (getCrapTimeCount() == 0) {
-			setRelieavingWaste(false);						
+			setRelieavingWaste(false);			
+			crapOnTile();
 		}
 	}
 
-	if (getCrapIntervalCount() == 0) {
+	if (getCrapIntervalCount() == 0 ) {
 		this->getAnimationHelper()->animateIdle();
 		setRelieavingWaste(true);
-		resetCrapTimeInterval();
-		crapOnTile();
+		resetCrapTimeInterval();		
 	}
-
 	
 
 }
