@@ -69,6 +69,8 @@ State Game::update()
 		{
 			cows[i]->update();
 		}
+
+		theNumberBoard->markTileAsCrapped(playerOne.getBounds());
 	}
 	
 	/*
