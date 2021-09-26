@@ -1,4 +1,5 @@
 #include "NumberBoard.h"
+#include "Animal.h"
 
 NumberBoard::NumberBoard(sf::FloatRect gameArea)
 {
@@ -47,6 +48,19 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 			tiles[i]->soilTile();
 		}
 	}
+}
+
+Poo* NumberBoard::collidedWithPoo(Animal& animal)
+{
+	Poo* collidedPoo = nullptr;
+
+	for (int i = 0; i < nrOfPoos && !collidedPoo; i++) {
+		if (animal.hitBy(poos[i]->getBounds())) {
+			collidedPoo = poos[i];
+		}
+	}
+
+	return collidedPoo;
 }
 
 void NumberBoard::recievePoo(Poo* poo)

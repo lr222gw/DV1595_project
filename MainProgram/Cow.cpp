@@ -14,6 +14,22 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 void Cow::move()
 {
 	if (!this->isRelieavingWaste()) {
+
+		if (Poo* collidedPoo = theNumberBoard->collidedWithPoo(*this)) {
+			if (collidedPoo->getBounds().left < this->getBounds().left  ) {
+				currentDirection = Direction::Up;
+			}
+			else if (collidedPoo->getBounds().left + collidedPoo->getBounds().width < this->getBounds().left + this->getBounds().width) {
+				currentDirection = Direction::Down;
+			}
+			else if (collidedPoo->getBounds().top < this->getBounds().top) {
+				currentDirection = Direction::Left;
+			}
+			else if (collidedPoo->getBounds().top - collidedPoo->getBounds().height > this->getBounds().top) {
+				currentDirection = Direction::Right;
+			}
+		}
+
 		if (getCurrentDirection() == Direction::Left) {
 
 			if (this->getGameArea().left < this->getBounds().left) {

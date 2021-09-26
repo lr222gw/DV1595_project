@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "Poo.h"
 
+class Animal;
 class NumberBoard : public sf::Drawable {
 private:
 	Tile* tiles[5*5];
@@ -21,6 +22,8 @@ public:
 	bool checkBingo();
 	void cleanTile();
 	void markTileAsCrapped(sf::FloatRect marking);
+
+	Poo* collidedWithPoo(Animal& animal);
 
 	void recievePoo(Poo* poo);
 
