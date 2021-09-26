@@ -36,6 +36,11 @@ void Entity::moveSprite(float x, float y)
 	this->sprite.move(x*speed, y * speed);
 }
 
+void Entity::setSpriteScale(float x, float y)
+{
+	this->sprite.setScale(x, y);
+}
+
 sf::FloatRect Entity::getBounds()
 {
 	return this->sprite.getGlobalBounds();
