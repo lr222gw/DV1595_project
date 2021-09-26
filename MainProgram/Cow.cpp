@@ -75,6 +75,26 @@ void Cow::move()
 
 void Cow::crapOnTile()
 {
-	Poo* poo = new Poo(sf::Vector2f(this->getBounds().left, this->getBounds().top));
+	sf::Vector2f posCowsButt;
+	if (currentDirection == Direction::Down) {
+		posCowsButt.x = this->getBounds().left + this->getBounds().width/4;
+		posCowsButt.y = this->getBounds().top;
+	}
+	else if (currentDirection == Direction::Up) {
+		posCowsButt.x = this->getBounds().left + this->getBounds().width / 4;
+		posCowsButt.y = this->getBounds().top + this->getBounds().height;
+	}
+	else if (currentDirection == Direction::Left) {
+		posCowsButt.x = this->getBounds().left + this->getBounds().width;
+		posCowsButt.y = this->getBounds().top + this->getBounds().height / 4; 
+	}
+	else if (currentDirection == Direction::Right) {
+		
+		posCowsButt.x = this->getBounds().left;
+		posCowsButt.y = this->getBounds().top + this->getBounds().height / 4;
+	
+	}
+	Poo* poo = new Poo(posCowsButt);
 	this->theNumberBoard->recievePoo(poo);
+	this->theNumberBoard->markTileAsCrapped(poo->getBounds());
 }

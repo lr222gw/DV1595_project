@@ -9,6 +9,8 @@ public:
 
 	Poo(sf::Vector2f position);
 
+	sf::FloatRect getBounds();
+
 	void moveShape();
 
 
