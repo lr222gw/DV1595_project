@@ -4,12 +4,9 @@ Animal::Animal(NumberBoard* theNumberBoard, sf::FloatRect gameArea, float speed,
 	:Entity(speed), gameArea(gameArea), currentDirection(Direction::Left), updateTime(60),timeCounter(0),
 	maxTimeBetweenCrap(maxTimeBetweenCrap), minTimeBetweenCrap(minTimeBetweenCrap), theNumberBoard(theNumberBoard)
 {	
-	srand(time(NULL));
-	this->setPosition(gameArea.left + gameArea.width / 2.f, 
-		gameArea.height / 2.f);
-
+	
+	
 	setCrapTimeInterval(minTimeBetweenCrap, maxTimeBetweenCrap);
-
 }
 
 sf::FloatRect Animal::getGameArea()

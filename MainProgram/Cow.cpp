@@ -13,15 +13,18 @@ void Cow::setDirectionToAorB(Direction alternativeOne, Direction alternativeTwo)
 }
 
 Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
-	: Animal(theNumberBoard,gameArea, speed, 5, 10),
+	: Animal(theNumberBoard,gameArea, speed, 10, 30),
 	lastCollidedPoo(nullptr)
 {
+	
 	this->setTexture("../Images/sprites/cow.png",12,8, 3,4);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
 	this->getAnimationHelper()->toggleReversePlayback();
 	this->setSpriteScale(2.f,2.f);
 
-	this->setCurrentDirection(Direction::Left);
+	this->setDirectionToAorB(Direction::Left,Direction::Right);
+	this->setPosition(gameArea.left + (gameArea.width / 10.f) * (rand() % (9-1) + 1),
+		(gameArea.height/ 10.f) * (rand() % (9 - 1) + 1));
 }
 
 void Cow::move()
@@ -103,7 +106,7 @@ void Cow::move()
 		}
 	}
 
-	if (getCrapIntervalCount() == 0 ) {
+	if (getCrapIntervalCount() == 0 ) { 
 		this->getAnimationHelper()->animateIdle();
 		setRelieavingWaste(true);
 		resetCrapTimeInterval();		

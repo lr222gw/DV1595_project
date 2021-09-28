@@ -25,7 +25,7 @@ protected:
 	
 public:
 
-	Animal(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed, int maxTimeBetweenCrap, int minTimeBetweenCrap);
+	Animal(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed, int minTimeBetweenCrap, int maxTimeBetweenCrap);
 	sf::FloatRect	getGameArea();
 	Direction		getCurrentDirection();
 	void			setCurrentDirection(Direction dir);

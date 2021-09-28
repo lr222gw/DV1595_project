@@ -3,6 +3,7 @@
 #include "NumberBoard.h"
 #include "Player.h"
 #include "Cow.h"
+#include "Entity.h"
 #include <stdlib.h>
 
 class Game : public GameState
@@ -25,6 +26,11 @@ private:
 	int nrOfCows;
 	int cowCapacity;
 	Cow* *cows;
+
+
+	void sortEntities();
+	int nrOfEntities = 4;
+	Entity* allEntities[4];
 
 	State currentState;
 

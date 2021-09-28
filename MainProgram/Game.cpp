@@ -2,6 +2,25 @@
 #include <iostream>
 #include "State.h"
 
+void Game::sortEntities()
+{
+	for (int i = 0; i < nrOfEntities; i++) {
+		int lowestEntityIndex = i;
+		float lowestEntityValue = allEntities[lowestEntityIndex]->getBounds().height + allEntities[lowestEntityIndex]->getBounds().top;
+		for (int j = i + 1; j < nrOfEntities; j++ ) {
+			float yPosOfEntityJ = allEntities[j]->getBounds().height + allEntities[j]->getBounds().top;
+			
+			if (lowestEntityValue > yPosOfEntityJ) {
+				lowestEntityIndex = j;
+				lowestEntityValue = allEntities[lowestEntityIndex]->getBounds().height + allEntities[lowestEntityIndex]->getBounds().top;
+			}
+		}
+		Entity* temp = allEntities[i];
+		allEntities[i] = allEntities[lowestEntityIndex];
+		allEntities[lowestEntityIndex] = temp;
+	}
+}
+
 Game::Game()
 	:GameState("Game"),
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
@@ -29,13 +48,18 @@ Game::Game()
 
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 
-	cowCapacity = 1;
+	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];
 	for (int i = 0; i < cowCapacity; i++)
 	{
 		cows[i] = new Cow(theNumberBoard, theNumberBoard->getBounds(), 2);
 		nrOfCows++;
 	}
+	
+	allEntities[0] = cows[0];
+	allEntities[1] = cows[1];
+	allEntities[2] = &playerOne;
+	allEntities[3] = &playerTwo;
 
 	currentState = State::NO_CHANGE;	
 }
@@ -71,8 +95,7 @@ State Game::update()
 			cows[i]->update();
 			cows[i]->updateTimeCounter();
 		}
-
-		theNumberBoard->markTileAsCrapped(playerOne.getBounds());
+	
 	}
 	
 	/*
@@ -92,14 +115,18 @@ void Game::render()
 	window.draw(playerOneInfoBox);
 	window.draw(playerTwoInfoBox);
 	window.draw(gameArea);
-
+	
 	window.draw(*theNumberBoard);
 
-	window.draw(playerOne);
-	window.draw(playerTwo);
-	for (int i = 0; i < nrOfCows; i++)
-	{
-		window.draw(*cows[i]);
+	//window.draw(playerOne);
+	//window.draw(playerTwo);
+	//for (int i = 0; i < nrOfCows; i++)
+	//{
+//		window.draw(*cows[i]);
+//	}
+	this->sortEntities();
+	for (int i = 0; i < nrOfEntities; i++) {
+		window.draw(*allEntities[i]);
 	}
 	window.display();
 }
