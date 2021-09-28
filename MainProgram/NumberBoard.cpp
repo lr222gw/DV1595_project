@@ -51,16 +51,23 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 }
 
 Poo* NumberBoard::collidedWithPoo(Animal& animal)
+//sf::FloatRect* NumberBoard::collidedWithPoo(Animal& animal)
 {
 	Poo* collidedPoo = nullptr;
+	//sf::FloatRect* collidedPoo = nullptr;
 
 	for (int i = 0; i < nrOfPoos && !collidedPoo; i++) {
+	//for (int i = 0; i < 5*5 ; i++) {
 		if (animal.hitBy(poos[i]->getBounds())) {
+		//if (tiles[i]->isSoiled() && animal.hitBy(squares[i].getGlobalBounds())) {
+			
 			collidedPoo = poos[i];
+			//collidedPoo = &squares[i].getGlobalBounds();
 		}
 	}
 
 	return collidedPoo;
+	//return collidedPoo->getBounds();
 }
 
 void NumberBoard::recievePoo(Poo* poo)

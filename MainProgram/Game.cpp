@@ -8,7 +8,7 @@ Game::Game()
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
-	timePerFrame = sf::seconds(1 / 160.f);
+	timePerFrame = sf::seconds(1 / 60.f);
 
 	srand(time(NULL));
 

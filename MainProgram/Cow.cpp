@@ -1,7 +1,20 @@
 #include "Cow.h"
 
+void Cow::setDirectionToAorB(Direction alternativeOne, Direction alternativeTwo)
+{
+	bool selectDirection = (rand() % 2 == 0);
+	if (selectDirection)
+	{
+		this->setCurrentDirection(alternativeOne);
+	}
+	else {
+		this->setCurrentDirection(alternativeTwo);
+	}
+}
+
 Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
-	: Animal(theNumberBoard,gameArea, speed, 5, 10)
+	: Animal(theNumberBoard,gameArea, speed, 5, 10),
+	lastCollidedPoo(nullptr)
 {
 	this->setTexture("../Images/sprites/cow.png",12,8, 3,4);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
@@ -15,19 +28,29 @@ void Cow::move()
 {
 	if (!this->isRelieavingWaste()) {
 
-		if (Poo* collidedPoo = theNumberBoard->collidedWithPoo(*this)) {
-			if (collidedPoo->getBounds().left < this->getBounds().left  ) {
-				currentDirection = Direction::Up;
+		
+		Poo* collidedPoo = theNumberBoard->collidedWithPoo(*this);
+		if (collidedPoo && lastCollidedPoo != collidedPoo) {
+			
+			if (this->getCurrentDirection() == Direction::Left ) 
+			{
+				setDirectionToAorB(Direction::Up, Direction::Down);
+								
 			}
-			else if (collidedPoo->getBounds().left + collidedPoo->getBounds().width < this->getBounds().left + this->getBounds().width) {
-				currentDirection = Direction::Down;
+			else if (this->getCurrentDirection() == Direction::Up) 
+			{
+				setDirectionToAorB(Direction::Right, Direction::Left);				
 			}
-			else if (collidedPoo->getBounds().top < this->getBounds().top) {
-				currentDirection = Direction::Left;
+			else if (this->getCurrentDirection() == Direction::Right) 
+			{
+				setDirectionToAorB(Direction::Down, Direction::Up);
 			}
-			else if (collidedPoo->getBounds().top - collidedPoo->getBounds().height > this->getBounds().top) {
-				currentDirection = Direction::Right;
+			else if (this->getCurrentDirection() == Direction::Down) 
+			{
+				setDirectionToAorB(Direction::Left, Direction::Right);				
 			}
+
+			lastCollidedPoo = collidedPoo;
 		}
 
 		if (getCurrentDirection() == Direction::Left) {
