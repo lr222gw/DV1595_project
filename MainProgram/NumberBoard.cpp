@@ -79,6 +79,11 @@ Poo* NumberBoard::collidedWithPoo(Animal& animal)
 	return collidedPoo;	
 }
 
+Tile* NumberBoard::getTile(int index)
+{
+	return tiles[index];
+}
+
 void NumberBoard::recievePoo(Poo* poo)
 {
 	if (nrOfPoos == pooCapacity) 

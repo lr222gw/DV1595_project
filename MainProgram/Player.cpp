@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player, sf::RectangleShape *gameArea)
-	: Entity(4)
+	: Entity(4), bingoBoard(nullptr)
 {
 	this->gameArea = gameArea;
 	switch (player) {
@@ -11,9 +11,10 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
 
-		this->setTexture("../Images/sprites/player1.png", 4,4,4,4);
+		this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
 		this->moveSprite(100.f, 0.f);
+		this->playerId = PlayerId::PlayerOne;
 
 		break;
 	case PlayerId::PlayerTwo:
@@ -21,10 +22,30 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		downKey = sf::Keyboard::Key::Down;
 		leftKey = sf::Keyboard::Key::Left;
 		rightKey= sf::Keyboard::Key::Right;
-		this->setTexture("../Images/sprites/player2.png", 4, 4, 4, 4);
+		this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 		this->moveSprite(60.f,0.f);
+
+		this->playerId = PlayerId::PlayerTwo;
 		break;
+	}
+}
+
+Player::~Player()
+{
+	delete bingoBoard;
+}
+
+void Player::initBingoBoard(NumberBoard* numberBoard)
+{
+	if (this->playerId == PlayerId::PlayerOne) {
+
+		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f());
+	}
+	else if (this->playerId == PlayerId::PlayerTwo) {
+
+		this->bingoBoard = new BingoBoard(numberBoard, 
+			sf::Vector2f(this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width,0.f));
 	}
 }
 
@@ -66,4 +87,12 @@ void Player::move()
 		this->getAnimationHelper()->animateIdle();
 	}
 
+	//TODO: should be placed somewhere else... Optimally only if a Animal defecates...
+	this->bingoBoard->updateBingoBoard();
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	Entity::draw( target, states);
+	target.draw(*bingoBoard);
 }

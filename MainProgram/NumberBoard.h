@@ -27,6 +27,7 @@ public:
 	void markTileAsCrapped(sf::FloatRect marking);
 
 	Poo* collidedWithPoo(Animal& animal);	
+	Tile* getTile(int index);
 
 	void recievePoo(Poo* poo);
 

@@ -4,7 +4,7 @@
 
 void Game::sortEntities()
 {
-	for (int i = 0; i < nrOfEntities; i++) {
+	for (int i = 0; i < nrOfEntities-1; i++) {
 		int lowestEntityIndex = i;
 		float lowestEntityValue = allEntities[lowestEntityIndex]->getBounds().height + allEntities[lowestEntityIndex]->getBounds().top;
 		for (int j = i + 1; j < nrOfEntities; j++ ) {
@@ -47,6 +47,8 @@ Game::Game()
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
 
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
+	playerOne.initBingoBoard(theNumberBoard);
+	playerTwo.initBingoBoard(theNumberBoard);
 
 	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];
@@ -118,12 +120,6 @@ void Game::render()
 	
 	window.draw(*theNumberBoard);
 
-	//window.draw(playerOne);
-	//window.draw(playerTwo);
-	//for (int i = 0; i < nrOfCows; i++)
-	//{
-//		window.draw(*cows[i]);
-//	}
 	this->sortEntities();
 	for (int i = 0; i < nrOfEntities; i++) {
 		window.draw(*allEntities[i]);

@@ -29,8 +29,8 @@ private:
 
 
 	void sortEntities();
-	int nrOfEntities = 4;
-	Entity* allEntities[4];
+	static const int nrOfEntities = 4;
+	Entity* allEntities[nrOfEntities];
 
 	State currentState;
 
