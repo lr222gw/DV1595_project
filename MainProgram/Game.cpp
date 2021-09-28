@@ -47,6 +47,7 @@ Game::~Game()
 		delete cows[i];
 	}
 	delete[] cows;
+	delete theNumberBoard;
 }
 
 

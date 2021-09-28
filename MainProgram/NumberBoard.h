@@ -13,7 +13,10 @@ private:
 	sf::Font bingoFont;
 
 	int nrOfPoos;
+	int pooCapacity;
 	Poo** poos;
+
+	void expandPooArray();
 
 public:
 	NumberBoard(sf::FloatRect gameArea);
@@ -23,8 +26,7 @@ public:
 	void cleanTile();
 	void markTileAsCrapped(sf::FloatRect marking);
 
-	Poo* collidedWithPoo(Animal& animal);
-	//sf::FloatRect* collidedWithPoo(Animal& animal);
+	Poo* collidedWithPoo(Animal& animal);	
 
 	void recievePoo(Poo* poo);
 

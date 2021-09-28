@@ -1,6 +1,19 @@
 #include "NumberBoard.h"
 #include "Animal.h"
 
+void NumberBoard::expandPooArray()
+{
+	pooCapacity += 5*5;
+	Poo** temp = new Poo * [pooCapacity];
+
+	for (int i = 0; i < nrOfPoos; i++ ) {
+		temp[i] = this->poos[i];
+	}
+	delete[] this->poos;
+
+	this->poos = temp;
+}
+
 NumberBoard::NumberBoard(sf::FloatRect gameArea)
 {
 	srand(time(NULL));
@@ -25,7 +38,9 @@ NumberBoard::NumberBoard(sf::FloatRect gameArea)
 		texts[i].setString(std::to_string(this->tiles[i]->getValue()));
 	}
 	nrOfPoos = 0;
-	poos = new Poo * [5*5];
+	//pooCapacity = 5 * 5;
+	pooCapacity = 2;
+	poos = new Poo * [pooCapacity];
 }
 
 NumberBoard::~NumberBoard()
@@ -36,6 +51,7 @@ NumberBoard::~NumberBoard()
 	for (int i = 0; i < nrOfPoos; i++) {
 		delete poos[i];
 	}
+	delete[] poos;
 }
 
 void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
@@ -51,28 +67,27 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 }
 
 Poo* NumberBoard::collidedWithPoo(Animal& animal)
-//sf::FloatRect* NumberBoard::collidedWithPoo(Animal& animal)
 {
 	Poo* collidedPoo = nullptr;
-	//sf::FloatRect* collidedPoo = nullptr;
 
 	for (int i = 0; i < nrOfPoos && !collidedPoo; i++) {
-	//for (int i = 0; i < 5*5 ; i++) {
 		if (animal.hitBy(poos[i]->getBounds())) {
-		//if (tiles[i]->isSoiled() && animal.hitBy(squares[i].getGlobalBounds())) {
 			
 			collidedPoo = poos[i];
-			//collidedPoo = &squares[i].getGlobalBounds();
 		}
 	}
-
-	return collidedPoo;
-	//return collidedPoo->getBounds();
+	return collidedPoo;	
 }
 
 void NumberBoard::recievePoo(Poo* poo)
 {
+	if (nrOfPoos == pooCapacity) 
+	{
+		expandPooArray();
+	}
+	
 	this->poos[nrOfPoos++] = poo;
+	
 }
 
 sf::FloatRect NumberBoard::getBounds() const
