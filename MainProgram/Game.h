@@ -18,6 +18,12 @@ private:
 	sf::RectangleShape playerTwoInfoBox;
 	sf::RectangleShape gameArea;
 
+	bool gameOver;
+	sf::Font endFont;
+	sf::Text endText;
+	Player* winner;
+	sf::RectangleShape gameOverScreen;
+
 	NumberBoard* theNumberBoard;
 
 	Player playerOne;

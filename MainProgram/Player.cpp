@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player, sf::RectangleShape *gameArea)
-	: Entity(4), bingoBoard(nullptr)
+	: Entity(4), bingoBoard(nullptr), wonTheGame(false)
 {
 	this->gameArea = gameArea;
 	switch (player) {
@@ -10,6 +10,8 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		downKey = sf::Keyboard::Key::S;
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
+		bingoKey = sf::Keyboard::Key::C;
+		actionKey = sf::Keyboard::Key::Space;
 
 		this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
@@ -18,10 +20,12 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 
 		break;
 	case PlayerId::PlayerTwo:
-		upKey	= sf::Keyboard::Key::Up;
-		downKey = sf::Keyboard::Key::Down;
-		leftKey = sf::Keyboard::Key::Left;
-		rightKey= sf::Keyboard::Key::Right;
+		upKey	= sf::Keyboard::Key::Numpad8;
+		downKey = sf::Keyboard::Key::Numpad5;
+		leftKey = sf::Keyboard::Key::Numpad4;
+		rightKey= sf::Keyboard::Key::Numpad6;
+		bingoKey = sf::Keyboard::Key::Numpad3;
+		actionKey = sf::Keyboard::Key::Enter;
 		this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 		this->moveSprite(60.f,0.f);
@@ -47,6 +51,26 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 		this->bingoBoard = new BingoBoard(numberBoard, 
 			sf::Vector2f(this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width,0.f));
 	}
+}
+
+bool Player::hasWon()
+{
+	return wonTheGame;
+}
+
+std::string Player::getPlayerIdentity()
+{
+	std::string toReturn; 
+	if (this->playerId == PlayerId::PlayerOne) 
+	{
+		toReturn = "Player One";
+	}
+	else if(this->playerId == PlayerId::PlayerTwo) 
+	{
+		toReturn = "Player Two";
+
+	}
+	return toReturn;
 }
 
 
@@ -85,6 +109,15 @@ void Player::move()
 	}
 	else {
 		this->getAnimationHelper()->animateIdle();
+	}
+
+	if (sf::Keyboard::isKeyPressed(this->bingoKey))
+	{
+		if (this->bingoBoard->checkBingo()) {
+			this->wonTheGame = true;
+			//Rotate player to look into camera...
+			this->getAnimationHelper()->animateDown();
+		}
 	}
 
 	//TODO: should be placed somewhere else... Optimally only if a Animal defecates...

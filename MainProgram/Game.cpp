@@ -24,7 +24,9 @@ void Game::sortEntities()
 Game::Game()
 	:GameState("Game"),
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
-	playerTwo(PlayerId::PlayerTwo, &this->gameArea)
+	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
+	gameOver(false),
+	winner(nullptr)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -45,6 +47,16 @@ Game::Game()
 	gameArea.setFillColor(sf::Color::Green);
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
+
+	gameOverScreen.setSize(sf::Vector2f((float)this->window.getSize().x, (float)this->window.getSize().y));
+	gameOverScreen.setFillColor(sf::Color::Black);
+	endFont.loadFromFile("../Images/fonts/BingoReky.ttf");
+	endText.setFont(endFont);
+	endText.setCharacterSize(80);
+	endText.setPosition(
+		(float)this->window.getSize().x/4.f, 
+		(float)this->window.getSize().y / 4.f 
+	);
 
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 	playerOne.initBingoBoard(theNumberBoard);
@@ -88,20 +100,30 @@ State Game::update()
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 		
 		
+		if (!playerOne.hasWon() && !playerTwo.hasWon()) {
+
+			playerOne.update();
+			playerTwo.update();
 		
-		playerOne.update();
-		playerTwo.update();
-		
-		for (int i = 0; i < nrOfCows; i++)
-		{
-			cows[i]->update();
-			cows[i]->updateTimeCounter();
+			for (int i = 0; i < nrOfCows; i++)
+			{
+				cows[i]->update();
+				cows[i]->updateTimeCounter();
+			}
 		}
+		else if(!gameOver) {
+			winner = playerOne.hasWon() ? &playerOne : &playerTwo;
+			endText.setString("Game Over!\nThe Winner is\n"+winner->getPlayerIdentity());
+			gameOver = true;
+			winner->setPosition(endText.getPosition().x + endText.getGlobalBounds().width, 500.f );
+			
+		}
+		
 	
 	}
 
 	theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
-	
+
 	/*
 
 	om ingen förändring har skett ska retur göras motsvarande ingen förändring och annars ska State HIGHSCORE_INPUT returneras
@@ -120,12 +142,21 @@ void Game::render()
 	window.draw(playerTwoInfoBox);
 	window.draw(gameArea);
 	
-	window.draw(*theNumberBoard);
+	if (!gameOver) {
+		window.draw(*theNumberBoard);
 
-	this->sortEntities();
-	for (int i = 0; i < nrOfEntities; i++) {
-		window.draw(*allEntities[i]);
+		this->sortEntities();
+		for (int i = 0; i < nrOfEntities; i++) {
+			window.draw(*allEntities[i]);
+		}
+	
 	}
+	else {
+		window.draw(gameOverScreen);
+		window.draw(endText);
+		window.draw(*winner);
+	}
+
 	window.display();
 }
 

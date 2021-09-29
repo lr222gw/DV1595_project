@@ -26,12 +26,12 @@ private:
 	Tile* specialTiles_x3[3];
 	Tile* specialTiles_x5[5];
 
-	bool checkBingo();
-	SpecialTile checkSpecialTiles();
+	SpecialTile checkSpecialTiles();	
 
 public:
 	BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos);
 
+	bool checkBingo();
 	void updateBingoBoard();
 	
 	// Inherited via Drawable
