@@ -1,9 +1,13 @@
 #include "Player.h"
 
-Player::Player(PlayerId player, sf::RectangleShape *gameArea)
+Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	: Entity(4), bingoBoard(nullptr), wonTheGame(false)
 {
 	this->gameArea = gameArea;
+	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
+	this->status_string.setFont(status_font);
+	this->status_string.setCharacterSize(30);
+	this->status_string.setString("Money: 0");
 	switch (player) {
 	case PlayerId::PlayerOne:
 		upKey	= sf::Keyboard::Key::W;
@@ -16,7 +20,7 @@ Player::Player(PlayerId player, sf::RectangleShape *gameArea)
 		this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
 		this->moveSprite(100.f, 0.f);
-		this->playerId = PlayerId::PlayerOne;
+		this->playerId = PlayerId::PlayerOne;		
 
 		break;
 	case PlayerId::PlayerTwo:
@@ -45,12 +49,30 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 	if (this->playerId == PlayerId::PlayerOne) {
 
 		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f());
+		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
 	}
 	else if (this->playerId == PlayerId::PlayerTwo) {
 
 		this->bingoBoard = new BingoBoard(numberBoard, 
-			sf::Vector2f(this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width,0.f));
+			sf::Vector2f(this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width,0.f)
+		);
+		this->status_string.setPosition(
+			sf::Vector2f(
+				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
+				500.f)
+		);
 	}
+}
+
+void Player::addMoney(int amount)
+{
+	this->money += amount;
+	this->status_string.setString("Money: "+ std::to_string(this->money));
+}
+
+int Player::getMoney() const
+{
+	return money;
 }
 
 bool Player::hasWon()
@@ -128,4 +150,6 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw( target, states);
 	target.draw(*bingoBoard);
+	
+	target.draw(this->status_string);
 }

@@ -5,7 +5,8 @@
 enum class PlayerId {PlayerOne, PlayerTwo};
 class Player : public Entity {
 
-private:
+private:	
+
 	PlayerId playerId;
 	sf::Keyboard::Key upKey;
 	sf::Keyboard::Key downKey;
@@ -15,8 +16,11 @@ private:
 	sf::Keyboard::Key actionKey;
 
 	sf::RectangleShape* gameArea;
-
 	BingoBoard *bingoBoard;
+	int money; 
+	
+	sf::Font status_font;
+	sf::Text status_string;
 
 	bool wonTheGame;
 
@@ -25,6 +29,8 @@ public :
 	virtual ~Player();
 	void initBingoBoard(NumberBoard* numberBoard);
 
+	void addMoney(int amount);
+	int getMoney() const;
 	bool hasWon();
 
 	std::string getPlayerIdentity();

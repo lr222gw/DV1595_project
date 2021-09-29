@@ -31,8 +31,8 @@ public:
 
 	void update();
 
-	virtual void move() = 0;
 
+	virtual void move() = 0;
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

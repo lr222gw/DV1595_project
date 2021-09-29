@@ -26,7 +26,7 @@ Game::Game()
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
-	winner(nullptr)
+	winner(nullptr), updateTime(60), timeCount(0)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -93,7 +93,7 @@ State Game::update()
 {
 	State finalState = currentState;
 	
-	elapsedTimeSinceLastUpdate += clock.restart();
+	elapsedTimeSinceLastUpdate += clock.restart();	
 	
 	while (elapsedTimeSinceLastUpdate > timePerFrame)
 	{
@@ -122,7 +122,13 @@ State Game::update()
 	
 	}
 
-	theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
+	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
+
+	timeCount = (timeCount + 1) % (60*5);
+	if (timeCount == 0) {
+		playerOne.addMoney(5);
+		playerTwo.addMoney(5);
+	}
 
 	/*
 
