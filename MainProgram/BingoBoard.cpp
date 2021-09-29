@@ -1,7 +1,62 @@
 #include "BingoBoard.h"
 
+bool BingoBoard::checkBingo()
+{
+	bool gotBingo = false;
+
+	// Check each Row
+	for (int i = 0; i < 5 && !gotBingo; i++) {
+		int j = 0;
+		while (this->numberBoardsTiles[(i * 5) + j]->isSoiled()) {
+			j++;
+		}
+		if (j == 5) {
+			gotBingo = true;
+		}
+		else {
+			j = 0;
+		}
+	}
+
+	// Check each Column
+	for (int i = 0; i < 5 && !gotBingo; i++) {
+		int j = 0;
+		while (j < 5 && this->numberBoardsTiles[((j * 5)) + i]->isSoiled()) {
+			j++;
+		}
+		if (j == 5) {
+			gotBingo = true;
+		}
+		else {
+			j = 0;
+		}
+	}
+
+	// Check first Diagonal
+	int i = 0;
+	while (i <= 24 && this->numberBoardsTiles[i]->isSoiled()) {
+		i += 6;
+	}
+	gotBingo = i == 30 ? true : gotBingo;
+
+	// Check second Diagonal
+	i = 4;
+	while (i <= 20 && this->numberBoardsTiles[i]->isSoiled()) {
+		i += 4;
+	}
+	gotBingo = i == 24 ? true : gotBingo;
+
+
+	return gotBingo;
+}
+
+SpecialTile BingoBoard::checkSpecialTiles()
+{
+
+	return SpecialTile::no_special;
+}
+
 BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
-	
 {
 	
 	Tile* tempArr[5*5]{ 0 };
@@ -39,6 +94,7 @@ void BingoBoard::updateBingoBoard()
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
 		}
 	}
+	checkBingo();
 }
 
 void BingoBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const

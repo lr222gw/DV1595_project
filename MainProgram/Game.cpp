@@ -99,6 +99,8 @@ State Game::update()
 		}
 	
 	}
+
+	theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
 	
 	/*
 

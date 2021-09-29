@@ -5,9 +5,15 @@
 #include "NumberBoard.h"
 #include "Tile.h"
 
+enum class SpecialTile {
+	special_x1,
+	special_x2,
+	special_x3,
+	no_special
+};
 class BingoBoard : public sf::Drawable {
 private:
-
+	
 	sf::RectangleShape squares[5 * 5];
 	sf::Text texts[5 * 5];
 	sf::Font bingoFont;
@@ -16,6 +22,9 @@ private:
 	Tile* specialTiles_x1[1];
 	Tile* specialTiles_x3[3];
 	Tile* specialTiles_x5[5];
+
+	bool checkBingo();
+	SpecialTile checkSpecialTiles();
 
 public:
 	BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos);
