@@ -7,7 +7,7 @@ bool BingoBoard::checkBingo()
 	// Check each Row
 	for (int i = 0; i < 5 && !gotBingo; i++) {
 		int j = 0;
-		while (this->numberBoardsTiles[(i * 5) + j]->isSoiled()) {
+		while (j < 5 && this->numberBoardsTiles[(i * 5) + j]->isSoiled()) {
 			j++;
 		}
 		if (j == 5) {
@@ -58,6 +58,12 @@ SpecialTile BingoBoard::checkSpecialTiles()
 
 BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 {
+
+	this->bingoImage_texture.loadFromFile("../Images/bingo.png");
+	this->bingoImage_sprite.setTexture(bingoImage_texture);
+	this->bingoImage_sprite.setScale(.2,.2f);
+	this->bingoImage_sprite.setPosition(drawPos.x, drawPos.y + 150.f);
+	this->bingoImage_sprite.setColor(sf::Color(0, 0, 0, 0));
 	
 	Tile* tempArr[5*5]{ 0 };
 	for (int i = 0; i < 5 * 5;i++) {
@@ -94,7 +100,10 @@ void BingoBoard::updateBingoBoard()
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
 		}
 	}
-	checkBingo();
+	if (checkBingo()) 
+	{
+		this->bingoImage_sprite.setColor(sf::Color(255, 255, 255, 255));
+	}
 }
 
 void BingoBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -103,4 +112,5 @@ void BingoBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(squares[i]);
 		target.draw(texts[i]);
 	}
+	target.draw(bingoImage_sprite);
 }

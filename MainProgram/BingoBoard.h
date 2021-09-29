@@ -17,6 +17,9 @@ private:
 	sf::RectangleShape squares[5 * 5];
 	sf::Text texts[5 * 5];
 	sf::Font bingoFont;
+	
+	sf::Texture bingoImage_texture;
+	sf::Sprite bingoImage_sprite;
 
 	Tile* numberBoardsTiles[5 * 5]; 
 	Tile* specialTiles_x1[1];
