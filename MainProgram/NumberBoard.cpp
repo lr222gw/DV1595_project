@@ -57,7 +57,7 @@ NumberBoard::~NumberBoard()
 void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 {
 	bool squareFound = false;
-	for (int i = 0; i < 5 * 5 && !squareFound; i++) {
+	for (int i = 0; i < 5 * 5 ; i++) {
 		if (squares[i].getGlobalBounds().intersects(marking) && !tiles[i]->isSoiled()) {
 			squareFound = true;
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
