@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
-	: Entity(4), bingoBoard(nullptr), wonTheGame(false)
+	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0)
 {
 	this->gameArea = gameArea;
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
@@ -37,6 +37,9 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 		this->playerId = PlayerId::PlayerTwo;
 		break;
 	}
+
+
+	
 }
 
 Player::~Player()
@@ -61,6 +64,18 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
 				500.f)
 		);
+	}
+}
+
+const sf::Vector2f Player::getDirection() const
+{
+	return direction;
+}
+
+void Player::recieveItem(Item* item)
+{
+	if (nrOfItems < itemsCAP) {
+		this->items[nrOfItems++] = item;
 	}
 }
 
@@ -104,6 +119,8 @@ void Player::move()
 		{
 			this->getAnimationHelper()->animateUp();
 			this->moveSprite(0.f,UP);
+			direction.x = 0.f;
+			direction.y = UP;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(this->downKey))
@@ -112,6 +129,8 @@ void Player::move()
 		{
 			this->getAnimationHelper()->animateDown();
 			this->moveSprite(0.f, DOWN);
+			direction.x = 0.f;
+			direction.y = DOWN;
 		}
 	}else if (sf::Keyboard::isKeyPressed(this->rightKey))
 	{
@@ -119,6 +138,8 @@ void Player::move()
 		{
 			this->getAnimationHelper()->animateRight();
 			this->moveSprite(RIGHT, 0.f);
+			direction.x = RIGHT;
+			direction.y = 0.f;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(this->leftKey)) 
@@ -127,6 +148,8 @@ void Player::move()
 		{
 			this->getAnimationHelper()->animateLeft();
 			this->moveSprite(LEFT, 0.f);
+			direction.x = LEFT;
+			direction.y = 0.f;
 		}
 	}
 	else {
@@ -142,6 +165,18 @@ void Player::move()
 		}
 	}
 
+	if (nrOfItems != 0 && items[selectedItem]) {
+		items[selectedItem]->setPosition(this->getBounds().left, this->getBounds().top);
+		
+	}
+
+	if (sf::Keyboard::isKeyPressed(this->actionKey) && items[selectedItem])
+	{
+		items[selectedItem]->use(this);
+		items[selectedItem] = nullptr;
+	}
+	
+
 	//TODO: should be placed somewhere else... Optimally only if a Animal defecates...
 	this->bingoBoard->updateBingoBoard();
 }
@@ -149,7 +184,7 @@ void Player::move()
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw( target, states);
-	target.draw(*bingoBoard);
-	
+	target.draw(*bingoBoard);	
+
 	target.draw(this->status_string);
 }

@@ -4,13 +4,16 @@
 
 void Game::sortEntities()
 {
-	for (int i = 0; i < nrOfEntities-1; i++) {
+	for (int i = 0; i < nrOfEntities-1; i++) 
+	{
 		int lowestEntityIndex = i;
 		float lowestEntityValue = allEntities[lowestEntityIndex]->getBounds().height + allEntities[lowestEntityIndex]->getBounds().top;
-		for (int j = i + 1; j < nrOfEntities; j++ ) {
+		for (int j = i + 1; j < nrOfEntities; j++ ) 
+		{
 			float yPosOfEntityJ = allEntities[j]->getBounds().height + allEntities[j]->getBounds().top;
 			
-			if (lowestEntityValue > yPosOfEntityJ) {
+			if (lowestEntityValue > yPosOfEntityJ) 
+			{
 				lowestEntityIndex = j;
 				lowestEntityValue = allEntities[lowestEntityIndex]->getBounds().height + allEntities[lowestEntityIndex]->getBounds().top;
 			}
@@ -26,7 +29,7 @@ Game::Game()
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
-	winner(nullptr), updateTime(60), timeCount(0)
+	winner(nullptr), updateTime(60), timeCount(0), nrOfCows(0)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -56,7 +59,7 @@ Game::Game()
 	endText.setPosition(
 		(float)this->window.getSize().x/4.f, 
 		(float)this->window.getSize().y / 4.f 
-	);
+	);    
 
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 	playerOne.initBingoBoard(theNumberBoard);
@@ -74,6 +77,11 @@ Game::Game()
 	allEntities[1] = cows[1];
 	allEntities[2] = &playerOne;
 	allEntities[3] = &playerTwo;
+
+	//TODO: remove
+	//temp: For testing only	
+
+	shop.buyItem(&playerOne);
 
 	currentState = State::NO_CHANGE;	
 }
@@ -107,6 +115,10 @@ State Game::update()
 		
 			for (int i = 0; i < nrOfCows; i++)
 			{
+				Item* item = shop.checkCollision(cows[i]->getBounds()); // Checks collision with all items...
+				if (item) {
+					item->collided(cows[i]);					
+				}
 				cows[i]->update();
 				cows[i]->updateTimeCounter();
 			}
@@ -119,7 +131,7 @@ State Game::update()
 			
 		}
 		
-	
+		this->shop.updateItems();
 	}
 
 	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
@@ -155,6 +167,7 @@ void Game::render()
 		for (int i = 0; i < nrOfEntities; i++) {
 			window.draw(*allEntities[i]);
 		}
+		window.draw(this->shop);
 	
 	}
 	else {

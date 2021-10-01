@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Cow.h"
 #include "Entity.h"
+#include "Shop.h"
 #include <stdlib.h>
 
 class Game : public GameState
@@ -34,6 +35,8 @@ private:
 	int nrOfCows;
 	int cowCapacity;
 	Cow* *cows;
+
+	Shop shop;
 
 
 	void sortEntities();

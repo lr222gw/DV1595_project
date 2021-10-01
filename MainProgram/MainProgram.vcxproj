@@ -26,11 +26,14 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NumberBoard.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Poo.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,11 +44,14 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NumberBoard.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Poo.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
