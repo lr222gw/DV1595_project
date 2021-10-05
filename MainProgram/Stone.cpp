@@ -9,6 +9,11 @@ Stone::Stone()
 	this->getAnimationHelper()->toggleReversePlayback();
 }
 
+std::string Stone::present()
+{
+	return "Stone";
+}
+
 void Stone::setDirection(sf::Vector2f direction)
 {
 	this->direction = direction;

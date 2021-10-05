@@ -1,7 +1,8 @@
 #include "Player.h"
+#include "Shop.h"
 
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
-	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0)
+	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
 {
 	this->gameArea = gameArea;
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
@@ -15,6 +16,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 		leftKey = sf::Keyboard::Key::A;
 		rightKey= sf::Keyboard::Key::D;
 		bingoKey = sf::Keyboard::Key::C;
+		buyKey = sf::Keyboard::Key::Q;
 		actionKey = sf::Keyboard::Key::Space;
 
 		this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
@@ -29,6 +31,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 		leftKey = sf::Keyboard::Key::Numpad4;
 		rightKey= sf::Keyboard::Key::Numpad6;
 		bingoKey = sf::Keyboard::Key::Numpad3;
+		buyKey = sf::Keyboard::Key::Numpad7;
 		actionKey = sf::Keyboard::Key::Enter;
 		this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 		this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
@@ -65,6 +68,11 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				500.f)
 		);
 	}
+}
+
+void Player::setShop(Shop* shop)
+{
+	this->shop = shop;
 }
 
 const sf::Vector2f Player::getDirection() const
@@ -110,9 +118,35 @@ std::string Player::getPlayerIdentity()
 	return toReturn;
 }
 
+void Player::checkEventInput(sf::Event event)
+{
+	if (event.type == event.KeyPressed && event.key.code == (this->bingoKey))
+	{
+		if (this->bingoBoard->checkBingo()) {
+			this->wonTheGame = true;
+			//Rotate player to look into camera...
+			this->getAnimationHelper()->animateDown();
+		}
+	}
+
+	if (event.type == event.KeyPressed && event.key.code == (this->buyKey))
+	{
+		this->shop->buyItem(this);
+
+	}
+	
+	if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
+	{
+		items[selectedItem]->use(this);
+		items[selectedItem] = nullptr;
+		items[selectedItem] = items[--nrOfItems];
+	}
+}
+
 
 void Player::move()
 {
+	
 	if (sf::Keyboard::isKeyPressed(this->upKey))
 	{
 		if (this->gameArea->getGlobalBounds().top < this->getBounds().top) 
@@ -156,24 +190,9 @@ void Player::move()
 		this->getAnimationHelper()->animateIdle();
 	}
 
-	if (sf::Keyboard::isKeyPressed(this->bingoKey))
-	{
-		if (this->bingoBoard->checkBingo()) {
-			this->wonTheGame = true;
-			//Rotate player to look into camera...
-			this->getAnimationHelper()->animateDown();
-		}
-	}
-
 	if (nrOfItems != 0 && items[selectedItem]) {
 		items[selectedItem]->setPosition(this->getBounds().left, this->getBounds().top);
-		
-	}
 
-	if (sf::Keyboard::isKeyPressed(this->actionKey) && items[selectedItem])
-	{
-		items[selectedItem]->use(this);
-		items[selectedItem] = nullptr;
 	}
 	
 

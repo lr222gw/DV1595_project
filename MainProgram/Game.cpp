@@ -61,9 +61,18 @@ Game::Game()
 		(float)this->window.getSize().y / 4.f 
 	);    
 
+	storeText.setFont(endFont);
+	storeText.setCharacterSize(30);
+	storeText.setPosition(
+		(float)this->window.getSize().x / 3.f,
+		(float)this->window.getSize().y / 1.2f
+	);
+
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 	playerOne.initBingoBoard(theNumberBoard);
 	playerTwo.initBingoBoard(theNumberBoard);
+	playerOne.setShop(&shop);
+	playerTwo.setShop(&shop);
 
 	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];
@@ -109,7 +118,7 @@ State Game::update()
 		
 		
 		if (!playerOne.hasWon() && !playerTwo.hasWon()) {
-
+			
 			playerOne.update();
 			playerTwo.update();
 		
@@ -132,6 +141,7 @@ State Game::update()
 		}
 		
 		this->shop.updateItems();
+		storeText.setString("Buy Item: " + this->shop.presentItem());
 	}
 
 	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
@@ -168,7 +178,7 @@ void Game::render()
 			window.draw(*allEntities[i]);
 		}
 		window.draw(this->shop);
-	
+		window.draw(this->storeText);
 	}
 	else {
 		window.draw(gameOverScreen);
@@ -184,6 +194,7 @@ void Game::handleEvents()
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
+		
 		if (event.type == sf::Event::Closed)
 		{
 			currentState = State::EXIT;
@@ -194,6 +205,9 @@ void Game::handleEvents()
 				currentState = State::MENU;
 			}
 		}
+
+		playerOne.checkEventInput(event);
+		playerTwo.checkEventInput(event);
 	}
 }
 

@@ -24,6 +24,7 @@ private:
 	bool gameOver;
 	sf::Font endFont;
 	sf::Text endText;
+	sf::Text storeText;
 	Player* winner;
 	sf::RectangleShape gameOverScreen;
 

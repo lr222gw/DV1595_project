@@ -11,6 +11,7 @@ public:
 	bool isTerminated();
 	void terminate();
 
+	virtual std::string present() = 0;
 	virtual void use(Player* playerPtr) = 0;
 	virtual void collided(Entity* collidedWith) = 0;
 

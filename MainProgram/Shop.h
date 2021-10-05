@@ -9,13 +9,16 @@ private:
 	int nrOfItem;
 	int itemsCAP;
 	Item** items;
+	int nrOfSoldItem;
+	int soldItemsCAP;
+	Item** soldItems;
 
 	void expand();
 public:
 	Shop();
 	virtual ~Shop();
-
-	//Item* buyItem(void(*recieveItemFunc)(Item*));
+	
+	std::string presentItem();
 	void buyItem(Player* buyer);
 
 	void updateItems();

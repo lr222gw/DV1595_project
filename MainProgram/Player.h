@@ -4,6 +4,7 @@
 #include "BingoBoard.h"
 #include "Stone.h"
 
+class Shop;
 enum class PlayerId {PlayerOne, PlayerTwo};
 class Player : public Entity {
 
@@ -16,11 +17,13 @@ private:
 	sf::Keyboard::Key rightKey;
 	sf::Keyboard::Key bingoKey;
 	sf::Keyboard::Key actionKey;
+	sf::Keyboard::Key buyKey;
 	
 	sf::Vector2f direction;
 
 	sf::RectangleShape* gameArea;
 	BingoBoard *bingoBoard;
+	Shop *shop;
 	int money; 
 
 	//TODO: Rethink array... 
@@ -38,6 +41,7 @@ public :
 	Player(PlayerId player, sf::RectangleShape *gameArea);
 	virtual ~Player();
 	void initBingoBoard(NumberBoard* numberBoard);
+	void setShop(Shop* shop);
 
 	const sf::Vector2f getDirection() const;
 
@@ -47,6 +51,8 @@ public :
 	bool hasWon();
 
 	std::string getPlayerIdentity();
+
+	void checkEventInput(sf::Event event);
 
 	// Inherited via Entity
 	virtual void move() override;

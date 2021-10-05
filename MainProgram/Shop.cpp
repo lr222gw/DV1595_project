@@ -5,10 +5,15 @@ Shop::Shop()
 {
 	this->itemsCAP = 3;
 	items = new Item * [this->itemsCAP]{nullptr};	
+	soldItems = new Item * [this->itemsCAP]{nullptr};
 
 
 	Stone* tempStone = new Stone();
+	Stone* tempStone2 = new Stone();
+	Stone* tempStone3 = new Stone();
 	items[this->nrOfItem++] = tempStone;
+	items[this->nrOfItem++] = tempStone2;
+	items[this->nrOfItem++] = tempStone3;
 }
 
 Shop::~Shop()
@@ -16,24 +21,40 @@ Shop::~Shop()
 	for (int i = 0; i < this->nrOfItem; i++) {
 		delete this->items[i];
 	}
+	for (int i = 0; i < this->nrOfSoldItem; i++) {
+		delete this->soldItems[i];
+	}
+
+	delete[] this->soldItems;
 	delete[] this->items;
 }
 
 
+std::string Shop::presentItem()
+{
+		
+	return nrOfItem > 0 ? items[0]->present() : "Nothing left";
+}
+
 void Shop::buyItem(Player* buyer)
 {
-
-	buyer->recieveItem(items[0]);
-	
+	if (nrOfItem > 0) {
+		soldItems[nrOfSoldItem++] = items[0];
+		items[0] = items[--nrOfItem];
+		if (nrOfSoldItem >= soldItemsCAP) {
+			//Expand
+		}
+		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
+	}		
 }
 
 void Shop::updateItems()
 {
-	for (int i = 0; i < this->nrOfItem; i++) {
-		this->items[i]->move();
-		if (this->items[i]->isTerminated()) {
-			auto temp = this->items[i];
-			this->items[i] = this->items[this->nrOfItem--];
+	for (int i = 0; i < this->nrOfSoldItem; i++) {
+		this->soldItems[i]->move();
+		if (this->soldItems[i]->isTerminated()) {
+			auto temp = this->soldItems[i];
+			this->soldItems[i] = this->soldItems[this->nrOfSoldItem--];
 			delete temp;
 		}
 	}
@@ -42,10 +63,10 @@ void Shop::updateItems()
 Item* Shop::checkCollision(sf::FloatRect entityBounds)
 {
 	Item* item = nullptr;
-	for (int i = 0; i < itemsCAP && !item; i++) {
-		if (items[i]) {
-			if (items[i]->hitBy(entityBounds)){
-				item = items[i];
+	for (int i = 0; i < nrOfSoldItem && !item; i++) {
+		if (soldItems[i]) {
+			if (soldItems[i]->hitBy(entityBounds)){
+				item = soldItems[i];
 			}
 		}
 	}
@@ -55,9 +76,9 @@ Item* Shop::checkCollision(sf::FloatRect entityBounds)
 void Shop::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
-	for (int i = 0; i < nrOfItem; i++) { 	
+	for (int i = 0; i < nrOfSoldItem; i++) {
 		
-		target.draw(*items[i]);
+		target.draw(*soldItems[i]);
 		
 	}
 }
