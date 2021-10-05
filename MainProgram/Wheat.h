@@ -1,6 +1,6 @@
 #pragma once
 #include "Item.h"
-
+#include "Cow.h"
 
 class Game;
 class Wheat : public Item {
@@ -8,6 +8,7 @@ enum class Status { Held, Collided, Dropped };
 private:
 	Status status;
 	Game* gamePtr;
+	Cow* goToCow;
 public:
 	Wheat(Game* gamePtr);
 	// Inherited via Item

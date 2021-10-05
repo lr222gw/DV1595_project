@@ -104,7 +104,7 @@ Game::~Game()
 	delete theNumberBoard;
 }
 
-void Game::cowGoTo(sf::Vector2f pos)
+Cow* Game::cowGoTo(sf::Vector2f pos)
 {
 	Cow *goToCow = nullptr;
 	for (int i = 0; i < nrOfCows && !goToCow; i++)
@@ -119,6 +119,7 @@ void Game::cowGoTo(sf::Vector2f pos)
 			
 		}
 	}
+	return goToCow;
 }
 
 

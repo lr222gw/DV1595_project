@@ -13,6 +13,7 @@ Wheat::Wheat(Game* gamePtr)
 
 void Wheat::move()
 {
+    // Not needed here...
 }
 
 std::string Wheat::present()
@@ -22,29 +23,33 @@ std::string Wheat::present()
 
 bool Wheat::use(Player* playerPtr)
 {
-    this->gamePtr->cowGoTo(
+    this->goToCow = this->gamePtr->cowGoTo(
         sf::Vector2f(
             this->getBounds().left + this->getBounds().width / 2.f,
             this->getBounds().top + this->getBounds().height / 2.f
         )        
     );
-    status = Status::Dropped;
+    if (this->goToCow) {
 
-    return true;
+        status = Status::Dropped;
+    }
+
+    return status == Status::Dropped;
 }
 
 void Wheat::collided(Entity* collidedWith)
 {
     if (status == Status::Dropped) {
-        this->moveSprite(0.f, 1.f);
-        status = Status::Collided;        
+        this->setPosition(-100.f, -100.f);
+        status = Status::Collided;
+        this->terminate();
 
         auto cow = dynamic_cast<Cow*>(collidedWith);
         if (cow) {
             cow->setRelieavingWaste(true);
            
             cow->setGoal(sf::Vector2f(0.f, 0.f)); // TODO: This should cause cow to go back to plane
-            
+            this->goToCow-> setGoal(sf::Vector2f(0.f, 0.f));
         }
     }
 }
