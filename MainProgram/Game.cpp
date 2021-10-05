@@ -87,6 +87,9 @@ Game::Game()
 	allEntities[2] = &playerOne;
 	allEntities[3] = &playerTwo;
 
+	shop.setGamePtr(this);
+	shop.restockItems();
+
 
 	currentState = State::NO_CHANGE;	
 }
@@ -99,6 +102,23 @@ Game::~Game()
 	}
 	delete[] cows;
 	delete theNumberBoard;
+}
+
+void Game::cowGoTo(sf::Vector2f pos)
+{
+	Cow *goToCow = nullptr;
+	for (int i = 0; i < nrOfCows && !goToCow; i++)
+	{
+		if (!cows[i]->hasGoal()) {
+			goToCow = cows[i];
+			sf::Vector2f cowPos(
+				goToCow->getBounds().left + goToCow->getBounds().width / 2.f,
+				goToCow->getBounds().top + goToCow->getBounds().height/ 2.f
+			);
+			goToCow->setGoal(pos - cowPos);
+			
+		}
+	}
 }
 
 
@@ -118,6 +138,7 @@ State Game::update()
 			playerOne.update();
 			playerTwo.update();
 		
+			//Check if a item collides with any Cow
 			for (int i = 0; i < nrOfCows; i++)
 			{
 				Item* item = shop.checkCollision(cows[i]->getBounds()); // Checks collision with all items...
@@ -127,6 +148,8 @@ State Game::update()
 				cows[i]->update();
 				cows[i]->updateTimeCounter();
 			}
+			
+
 		}
 		else if(!gameOver) {
 			winner = playerOne.hasWon() ? &playerOne : &playerTwo;

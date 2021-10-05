@@ -2,7 +2,8 @@
 
 #include "Entity.h"
 #include "BingoBoard.h"
-#include "Stone.h"
+//#include "Stone.h"
+#include "Item.h"
 
 class Shop;
 enum class PlayerId {PlayerOne, PlayerTwo};
@@ -49,7 +50,7 @@ public :
 	void addMoney(int amount);
 	int getMoney() const;
 	void removeMoney(int amount);
-	bool hasWon();
+	bool hasWon();	
 
 	std::string getPlayerIdentity();
 

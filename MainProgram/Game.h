@@ -51,6 +51,8 @@ public:
 	Game();
 	virtual ~Game();	
 
+	void cowGoTo(sf::Vector2f pos);
+
 	// Inherited via GameState
 	virtual State update() override;
 

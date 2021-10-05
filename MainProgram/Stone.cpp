@@ -19,12 +19,13 @@ void Stone::setDirection(sf::Vector2f direction)
 	this->direction = direction;
 }
 
-void Stone::use(Player* playerPtr)
+bool Stone::use(Player* playerPtr)
 {
 		
 	this->getAnimationHelper()->animateDown();
 	this->setDirection(playerPtr->getDirection());
 	status = Status::Thrown;
+	return true;
 	
 }
 
@@ -38,7 +39,7 @@ void Stone::collided(Entity* collidedWith)
 		auto cow = dynamic_cast<Cow*>(collidedWith);
 		if (cow) {
 			cow->setRelieavingWaste(true);
-			//cow->crapOnTile();
+			
 		}
 	}
 }

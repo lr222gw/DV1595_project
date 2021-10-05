@@ -1,19 +1,13 @@
 #include "Shop.h"
+#include "Game.h"
 
 Shop::Shop()
-	: nrOfItem(0)
+	: nrOfItem(0), gamePtr(nullptr), nrOfSoldItem(0)
 {
-	this->itemsCAP = 3;
-	items = new Item * [this->itemsCAP]{nullptr};	
-	soldItems = new Item * [this->itemsCAP]{nullptr};
-
-
-	Stone* tempStone = new Stone();
-	Stone* tempStone2 = new Stone();
-	Stone* tempStone3 = new Stone();
-	items[this->nrOfItem++] = tempStone;
-	items[this->nrOfItem++] = tempStone2;
-	items[this->nrOfItem++] = tempStone3;
+	this->itemsCAP = 4;
+	this->soldItemsCAP = 4;
+	items = new Item * [this->itemsCAP]{ nullptr };
+	soldItems = new Item * [this->soldItemsCAP]{ nullptr };
 }
 
 Shop::~Shop()
@@ -27,6 +21,23 @@ Shop::~Shop()
 
 	delete[] this->soldItems;
 	delete[] this->items;
+}
+
+void Shop::restockItems()
+{
+	Stone* tempStone = new Stone();
+	Stone* tempStone2 = new Stone();
+	Stone* tempStone3 = new Stone();
+	Wheat* tempWheat = new Wheat(gamePtr);
+	items[this->nrOfItem++] = tempWheat;
+	items[this->nrOfItem++] = tempStone;
+	items[this->nrOfItem++] = tempStone2;
+	items[this->nrOfItem++] = tempStone3;
+}
+
+void Shop::setGamePtr(Game* gamePtr)
+{
+	this->gamePtr = gamePtr;
 }
 
 

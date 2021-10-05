@@ -155,9 +155,11 @@ void Player::checkEventInput(sf::Event event)
 	
 	if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
 	{
-		items[selectedItem]->use(this);
-		items[selectedItem] = nullptr;
-		items[selectedItem] = items[--nrOfItems];
+		if (items[selectedItem]->use(this)) {
+
+			items[selectedItem] = nullptr;
+			items[selectedItem] = items[--nrOfItems];
+		}
 	}
 }
 
