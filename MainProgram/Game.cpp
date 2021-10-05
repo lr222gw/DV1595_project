@@ -87,10 +87,6 @@ Game::Game()
 	allEntities[2] = &playerOne;
 	allEntities[3] = &playerTwo;
 
-	//TODO: remove
-	//temp: For testing only	
-
-	shop.buyItem(&playerOne);
 
 	currentState = State::NO_CHANGE;	
 }

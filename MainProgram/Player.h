@@ -48,6 +48,7 @@ public :
 	void recieveItem(Item* item);
 	void addMoney(int amount);
 	int getMoney() const;
+	void removeMoney(int amount);
 	bool hasWon();
 
 	std::string getPlayerIdentity();

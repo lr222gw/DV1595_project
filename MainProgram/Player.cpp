@@ -84,7 +84,20 @@ void Player::recieveItem(Item* item)
 {
 	if (nrOfItems < itemsCAP) {
 		this->items[nrOfItems++] = item;
+		
+		if (this->playerId == PlayerId::PlayerOne) {
+
+			this->items[nrOfItems - 1]->setPosition(40.f + (nrOfItems * 10), 250 + (nrOfItems / 10)*10);
+		}
+		else if (this->playerId == PlayerId::PlayerTwo) {
+
+			this->items[nrOfItems - 1]->setPosition(				
+					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f + (nrOfItems * 10),
+					250 + (nrOfItems / 10) * 10
+			);
+		}
 	}
+	
 }
 
 void Player::addMoney(int amount)
@@ -96,6 +109,11 @@ void Player::addMoney(int amount)
 int Player::getMoney() const
 {
 	return money;
+}
+
+void Player::removeMoney(int amount)
+{
+	this->money -= amount;
 }
 
 bool Player::hasWon()

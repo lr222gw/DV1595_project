@@ -33,17 +33,19 @@ Shop::~Shop()
 std::string Shop::presentItem()
 {
 		
-	return nrOfItem > 0 ? items[0]->present() : "Nothing left";
+	return nrOfItem > 0 ? items[0]->present() + " " + std::to_string(items[0]->getPrice()) : "Nothing left";
 }
 
 void Shop::buyItem(Player* buyer)
 {
-	if (nrOfItem > 0) {
+	if (nrOfItem > 0 && buyer->getMoney() >= items[0]->getPrice()) {
+		buyer->removeMoney(items[0]->getPrice());
 		soldItems[nrOfSoldItem++] = items[0];
 		items[0] = items[--nrOfItem];
 		if (nrOfSoldItem >= soldItemsCAP) {
 			//Expand
 		}
+		
 		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
 	}		
 }
