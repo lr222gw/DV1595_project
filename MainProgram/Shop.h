@@ -4,6 +4,7 @@
 #include "Stone.h"
 #include "Wheat.h"
 #include "Player.h"
+#include "DungBeetle.h"
 class Game;
 class Shop : public sf::Drawable {
 private:
@@ -26,7 +27,7 @@ public:
 	void buyItem(Player* buyer);
 
 	void updateItems();
-	Item* checkCollision(sf::FloatRect entityBounds);
+	Item* checkCollision(sf::FloatRect entityBounds) const;
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

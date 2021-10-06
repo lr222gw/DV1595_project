@@ -20,9 +20,15 @@ std::string DungBeetle::present()
 
 bool DungBeetle::use(Player* playerPtr)
 {
-    return false;
+    return true;
 }
 
 void DungBeetle::collided(Entity* collidedWith)
 {
+    auto poo = dynamic_cast<Poo*>(collidedWith);
+    if (poo) {
+        
+        int r = 34;
+
+    }
 }

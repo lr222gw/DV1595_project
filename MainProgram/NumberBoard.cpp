@@ -66,12 +66,12 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 	}
 }
 
-Poo* NumberBoard::collidedWithPoo(Animal& animal)
+Poo* NumberBoard::collidedWithPoo(Entity& entity)
 {
 	Poo* collidedPoo = nullptr;
 
 	for (int i = 0; i < nrOfPoos && !collidedPoo; i++) {
-		if (animal.hitBy(poos[i]->getBounds())) {
+		if (entity.hitBy(poos[i]->getBounds())) {
 			
 			collidedPoo = poos[i];
 		}
@@ -82,6 +82,16 @@ Poo* NumberBoard::collidedWithPoo(Animal& animal)
 Tile* NumberBoard::getTile(int index)
 {
 	return tiles[index];
+}
+
+Poo** NumberBoard::getPoos() const
+{
+	return this->poos;
+}
+
+const int NumberBoard::getNrOfPoos() const
+{
+	return nrOfPoos;
 }
 
 void NumberBoard::recievePoo(Poo* poo)

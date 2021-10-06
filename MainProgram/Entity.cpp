@@ -41,7 +41,7 @@ void Entity::setSpriteScale(float x, float y)
 	this->sprite.setScale(x, y);
 }
 
-sf::FloatRect Entity::getBounds()
+sf::FloatRect Entity::getBounds() const
 {
 	return this->sprite.getGlobalBounds();
 }

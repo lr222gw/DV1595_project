@@ -26,7 +26,7 @@ public:
 	void moveSprite(float x, float y);
 	void setSpriteScale(float x, float y);
 
-	sf::FloatRect getBounds();
+	sf::FloatRect getBounds() const;
 	bool hitBy(const sf::FloatRect &ref);
 
 	void update();

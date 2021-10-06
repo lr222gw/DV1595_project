@@ -27,12 +27,14 @@ void Shop::restockItems()
 {
 	Stone* tempStone = new Stone();
 	Stone* tempStone2 = new Stone();
-	Stone* tempStone3 = new Stone();
+	//Stone* tempStone3 = new Stone();
 	Wheat* tempWheat = new Wheat(gamePtr);
+	DungBeetle* tempBeetle = new DungBeetle(gamePtr);
+	items[this->nrOfItem++] = tempBeetle;
 	items[this->nrOfItem++] = tempWheat;
 	items[this->nrOfItem++] = tempStone;
 	items[this->nrOfItem++] = tempStone2;
-	items[this->nrOfItem++] = tempStone3;
+	//items[this->nrOfItem++] = tempStone3;
 }
 
 void Shop::setGamePtr(Game* gamePtr)
@@ -73,7 +75,7 @@ void Shop::updateItems()
 	}
 }
 
-Item* Shop::checkCollision(sf::FloatRect entityBounds)
+Item* Shop::checkCollision(sf::FloatRect entityBounds) const
 {
 	Item* item = nullptr;
 	for (int i = 0; i < nrOfSoldItem && !item; i++) {

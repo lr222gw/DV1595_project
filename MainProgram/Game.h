@@ -52,6 +52,8 @@ public:
 	virtual ~Game();	
 
 	Cow* cowGoTo(sf::Vector2f pos);
+	
+	void checkCollisionPooAndItem() const;
 
 	// Inherited via GameState
 	virtual State update() override;

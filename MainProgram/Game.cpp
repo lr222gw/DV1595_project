@@ -122,6 +122,18 @@ Cow* Game::cowGoTo(sf::Vector2f pos)
 	return goToCow;
 }
 
+void Game::checkCollisionPooAndItem() const
+{
+	Poo** poos = this->theNumberBoard->getPoos();
+	const int nrOfPoos = this->theNumberBoard->getNrOfPoos();
+	for (int i = 0; i < nrOfPoos; i++) {
+		Item* item = this->shop.checkCollision(poos[i]->getBounds());
+		if (item) {
+			item->collided(poos[i]);
+		}
+	}
+}
+
 
 State Game::update()
 {
@@ -149,6 +161,12 @@ State Game::update()
 				cows[i]->update();
 				cows[i]->updateTimeCounter();
 			}
+
+			//Check if Poo Collides with any Items
+			checkCollisionPooAndItem();
+			/*for (int i = 0; i < this->theNumberBoard->collidedWithPoo()) {
+
+			}*/
 			
 
 		}
