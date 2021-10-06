@@ -1,17 +1,16 @@
 #include "Poo.h"
 Poo::Poo(sf::Vector2f position)
+	:Entity(0)
 {
-	pooShape.setSize(sf::Vector2f(30,30));
-	pooShape.setFillColor(sf::Color(120,100,20,200));
-	pooShape.setPosition(position);
+	this->setTexture("../Images/sprites/poop.png", 5, 1, 5, 1);
+	this->setSpriteScale(.70f, .70f);
+	this->getAnimationHelper()->setRowAnimationInstruction(0, 0, 0, 0, 0);
+	this->getAnimationHelper()->animateDown();
+
+	this->setPosition(position.x, position.y);
 }
 
-sf::FloatRect Poo::getBounds()
-{
-	return pooShape.getGlobalBounds();
-}
 
-void Poo::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Poo::move()
 {
-	target.draw(this->pooShape);
 }

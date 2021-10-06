@@ -1,20 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Entity.h"
 
-class Poo : public sf::Drawable{
+//class Poo : public sf::Drawable{
+class Poo : public Entity{
 private:
-	sf::RectangleShape pooShape;
 	sf::Time timeLeft;
 public:
 
 	Poo(sf::Vector2f position);
 
-	sf::FloatRect getBounds();
 
 	void moveShape();
 
-
-	// Inherited via Drawable
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	// Inherited via Entity
+	virtual void move() override;
 
 };

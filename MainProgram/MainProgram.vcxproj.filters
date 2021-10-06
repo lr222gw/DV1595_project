@@ -66,6 +66,9 @@
     <ClCompile Include="Wheat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DungBeetle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wheat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DungBeetle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

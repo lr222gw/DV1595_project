@@ -6,10 +6,12 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 {
 	
 	this->setTexture("../Images/sprites/cow_2.png",12,8, 3,4);
+	//this->setTexture("../Images/sprites/dungbeetle.png",4,2, 4,2);
+	//this->getAnimationHelper()->setRowAnimationInstruction(0,0,0,1,1);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
 	this->getAnimationHelper()->toggleReversePlayback();
 
-	this->setSpriteScale(.5f,.5f);
+	this->setSpriteScale(0.5f,0.5f);
 	this->setDirectionToAorB(Direction::Left,Direction::Right);
 	this->setPosition(gameArea.left + (gameArea.width / 10.f) * (rand() % (9-1) + 1),
 		(gameArea.height/ 10.f) * (rand() % (9 - 1) + 1));

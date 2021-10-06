@@ -23,6 +23,7 @@
     <ClCompile Include="AnimationHelper.cpp" />
     <ClCompile Include="BingoBoard.cpp" />
     <ClCompile Include="Cow.cpp" />
+    <ClCompile Include="DungBeetle.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="AnimationHelper.h" />
     <ClInclude Include="BingoBoard.h" />
     <ClInclude Include="Cow.h" />
+    <ClInclude Include="DungBeetle.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
