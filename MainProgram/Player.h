@@ -22,6 +22,7 @@ private:
 	
 	sf::Vector2f direction;
 
+	sf::RectangleShape playerInfoBox;
 	sf::RectangleShape* gameArea;
 	BingoBoard *bingoBoard;
 	Shop *shop;

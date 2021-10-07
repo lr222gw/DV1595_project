@@ -2,10 +2,9 @@
 #include "Player.h"
 
 Stone::Stone()
-	: Item(8, 30), status(Status::Held)
+	: Item(8, 30, .1f, .1f), status(Status::Held)
 {
-	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);
-	this->setSpriteScale(0.10f,0.10f);
+	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->getAnimationHelper()->toggleReversePlayback();
 }
 

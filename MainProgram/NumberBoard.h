@@ -25,6 +25,7 @@ public:
 	bool checkBingo();
 	void cleanTile();
 	void markTileAsCrapped(sf::FloatRect marking);
+	void unmarkTileAsCrapped(sf::FloatRect marking);
 
 	Poo* collidedWithPoo(Entity& animal);
 	Tile* getTile(int index);

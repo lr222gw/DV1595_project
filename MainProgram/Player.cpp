@@ -9,39 +9,41 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->status_string.setFont(status_font);
 	this->status_string.setCharacterSize(30);
 	this->status_string.setString("Money: 0");
+	
+	playerInfoBox.setFillColor(sf::Color::Cyan);
+
 	switch (player) {
-	case PlayerId::PlayerOne:
-		upKey	= sf::Keyboard::Key::W;
-		downKey = sf::Keyboard::Key::S;
-		leftKey = sf::Keyboard::Key::A;
-		rightKey= sf::Keyboard::Key::D;
-		bingoKey = sf::Keyboard::Key::C;
-		buyKey = sf::Keyboard::Key::Q;
-		actionKey = sf::Keyboard::Key::Space;
+		case PlayerId::PlayerOne:
+			upKey	= sf::Keyboard::Key::W;
+			downKey = sf::Keyboard::Key::S;
+			leftKey = sf::Keyboard::Key::A;
+			rightKey= sf::Keyboard::Key::D;
+			bingoKey = sf::Keyboard::Key::C;
+			buyKey = sf::Keyboard::Key::Q;
+			actionKey = sf::Keyboard::Key::Space;
 
-		this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
-		this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
-		this->moveSprite(100.f, 0.f);
-		this->playerId = PlayerId::PlayerOne;		
+			this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
+			this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
+			this->moveSprite(100.f, 0.f);
+			this->playerId = PlayerId::PlayerOne;				
 
-		break;
-	case PlayerId::PlayerTwo:
-		upKey	= sf::Keyboard::Key::Numpad8;
-		downKey = sf::Keyboard::Key::Numpad5;
-		leftKey = sf::Keyboard::Key::Numpad4;
-		rightKey= sf::Keyboard::Key::Numpad6;
-		bingoKey = sf::Keyboard::Key::Numpad3;
-		buyKey = sf::Keyboard::Key::Numpad7;
-		actionKey = sf::Keyboard::Key::Enter;
-		this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
-		this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
-		this->moveSprite(60.f,0.f);
+			break;
+		case PlayerId::PlayerTwo:
+			upKey	= sf::Keyboard::Key::Numpad8;
+			downKey = sf::Keyboard::Key::Numpad5;
+			leftKey = sf::Keyboard::Key::Numpad4;
+			rightKey= sf::Keyboard::Key::Numpad6;
+			bingoKey = sf::Keyboard::Key::Numpad3;
+			buyKey = sf::Keyboard::Key::Numpad7;
+			actionKey = sf::Keyboard::Key::Enter;
+			this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
+			this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
+			this->moveSprite(60.f,0.f);
+			this->playerId = PlayerId::PlayerTwo;
 
-		this->playerId = PlayerId::PlayerTwo;
-		break;
+			
+			break;
 	}
-
-
 	
 }
 
@@ -56,6 +58,8 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 
 		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f());
 		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
+		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
+		playerInfoBox.setPosition(0.f, 0.f);
 	}
 	else if (this->playerId == PlayerId::PlayerTwo) {
 
@@ -67,6 +71,8 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
 				500.f)
 		);
+		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
+		playerInfoBox.setPosition(gameArea->getGlobalBounds().left + gameArea->getGlobalBounds().width, 0.f);
 	}
 }
 
@@ -87,7 +93,7 @@ void Player::recieveItem(Item* item)
 		
 		if (this->playerId == PlayerId::PlayerOne) {
 
-			this->items[nrOfItems - 1]->setPosition(40.f + (nrOfItems * 10), 250 + (nrOfItems / 10)*10);
+			this->items[nrOfItems - 1]->setPosition(40.f + (nrOfItems * 10), 250 + (nrOfItems / 10)*10);			
 		}
 		else if (this->playerId == PlayerId::PlayerTwo) {
 
@@ -96,6 +102,8 @@ void Player::recieveItem(Item* item)
 					250 + (nrOfItems / 10) * 10
 			);
 		}
+
+		this->items[nrOfItems - 1]->setThumbnailScale();
 	}
 	
 }
@@ -156,7 +164,7 @@ void Player::checkEventInput(sf::Event event)
 	if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
 	{
 		if (items[selectedItem]->use(this)) {
-
+			items[selectedItem]->setDefaultScale();
 			items[selectedItem] = nullptr;
 			items[selectedItem] = items[--nrOfItems];
 		}
@@ -212,7 +220,7 @@ void Player::move()
 
 	if (nrOfItems != 0 && items[selectedItem]) {
 		items[selectedItem]->setPosition(this->getBounds().left, this->getBounds().top);
-
+		
 	}
 	
 
@@ -223,7 +231,7 @@ void Player::move()
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw( target, states);
-	target.draw(*bingoBoard);	
-
+	target.draw(this->playerInfoBox);
+	target.draw(*bingoBoard);		
 	target.draw(this->status_string);
 }

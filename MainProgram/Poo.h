@@ -10,9 +10,6 @@ public:
 
 	Poo(sf::Vector2f position);
 
-
-	void moveShape();
-
 	// Inherited via Entity
 	virtual void move() override;
 

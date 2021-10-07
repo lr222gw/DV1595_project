@@ -2,7 +2,7 @@
 #include "Game.h"
 
 DungBeetle::DungBeetle(Game* gamePtr)
-	:Item(3, 5), gamePtr(gamePtr)
+	:Item(3, 5, 1.5f, 0.5f), gamePtr(gamePtr), status(Status::Held)
 {
     this->setTexture("../Images/sprites/dungbeetle.png", 4, 2, 4, 2);    
     this->getAnimationHelper()->setRowAnimationInstruction(0, 0, 0, 1, 1);
@@ -11,6 +11,13 @@ DungBeetle::DungBeetle(Game* gamePtr)
 
 void DungBeetle::move()
 {
+    if (this->status == Status::Dropped) {
+        this->moveSprite(direction, 0.f);
+        if (gamePtr->isOutSideGameArea(this->getBounds())) {
+            this->terminate();
+            this->status = Status::Done;
+        }
+    }
 }
 
 std::string DungBeetle::present()
@@ -20,15 +27,30 @@ std::string DungBeetle::present()
 
 bool DungBeetle::use(Player* playerPtr)
 {
+    this->status    = Status::Dropped;
+    this->direction = playerPtr->getDirection().x;
+    if (this->direction == 1) 
+    {
+        this->getAnimationHelper()->animateRight();
+    }
+    else 
+    {
+        this->getAnimationHelper()->animateLeft();
+    }
     return true;
 }
 
 void DungBeetle::collided(Entity* collidedWith)
 {
-    auto poo = dynamic_cast<Poo*>(collidedWith);
+    Poo* poo = dynamic_cast<Poo*>(collidedWith);
     if (poo) {
         
-        int r = 34;
+        this->gamePtr->unmarkTileAsCrapped_forwarded(poo->getBounds());
+        poo->setPosition(-100.f, -100.f);
+    }
+    else if (Cow* cow = dynamic_cast<Cow*>(collidedWith)) {
+        this->direction *= -1; 
 
+        this->direction == 1 ? this->getAnimationHelper()->animateRight() : this->getAnimationHelper()->animateLeft();        
     }
 }

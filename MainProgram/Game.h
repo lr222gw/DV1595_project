@@ -17,8 +17,7 @@ private:
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
 
-	sf::RectangleShape playerOneInfoBox;
-	sf::RectangleShape playerTwoInfoBox;
+	
 	sf::RectangleShape gameArea;
 
 	bool gameOver;
@@ -54,6 +53,8 @@ public:
 	Cow* cowGoTo(sf::Vector2f pos);
 	
 	void checkCollisionPooAndItem() const;
+	void unmarkTileAsCrapped_forwarded(sf::FloatRect poo_floatRect);
+	bool isOutSideGameArea(sf::FloatRect floatRect) const;
 
 	// Inherited via GameState
 	virtual State update() override;

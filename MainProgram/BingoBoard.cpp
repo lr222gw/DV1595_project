@@ -99,6 +99,9 @@ void BingoBoard::updateBingoBoard()
 		if (numberBoardsTiles[i]->isSoiled()) {
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
 		}
+		else if (!numberBoardsTiles[i]->isSoiled()) {
+			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));
+		}
 	}
 	if (checkBingo()) 
 	{

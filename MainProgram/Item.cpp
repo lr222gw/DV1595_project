@@ -1,9 +1,10 @@
 #include "Item.h"
 #include "Player.h"
 
-Item::Item(float speed, int price)
-	: Entity(speed), shouldTerminate(false), price(price)
+Item::Item(float speed, int price, float defaultScale, float thumbnailScale)
+	: Entity(speed), shouldTerminate(false), price(price), defaultScale(defaultScale), thumbnailScale(thumbnailScale)
 {
+	this->setDefaultScale();
 }
 
 bool Item::isTerminated()
@@ -19,5 +20,15 @@ void Item::terminate()
 int Item::getPrice() const
 {
 	return this->price;
+}
+
+void Item::setDefaultScale()
+{
+	this->setSpriteScale(defaultScale, defaultScale);
+}
+
+void Item::setThumbnailScale()
+{
+	this->setSpriteScale(thumbnailScale, thumbnailScale);
 }
 

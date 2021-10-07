@@ -36,15 +36,10 @@ Game::Game()
 
 	srand(time(NULL));
 
-	playerOneInfoBox.setFillColor(sf::Color::Cyan);
-	playerTwoInfoBox.setFillColor(sf::Color::Cyan);
+	
 
 	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
 	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;
-	playerOneInfoBox.setSize(sf::Vector2f(oneSixthOfScreenWidth, window.getSize().y));
-	playerOneInfoBox.setPosition(0.f, 0.f);
-	playerTwoInfoBox.setSize(sf::Vector2f(oneSixthOfScreenWidth, window.getSize().y));
-	playerTwoInfoBox.setPosition(window.getSize().x - oneSixthOfScreenWidth, 0.f);
 
 	float padding = 4;
 	gameArea.setFillColor(sf::Color::Green);
@@ -134,6 +129,30 @@ void Game::checkCollisionPooAndItem() const
 	}
 }
 
+void Game::unmarkTileAsCrapped_forwarded(sf::FloatRect poo_floatRect)
+{
+	this->theNumberBoard->unmarkTileAsCrapped(poo_floatRect);
+}
+
+bool Game::isOutSideGameArea(sf::FloatRect floatRect) const
+{
+	bool isOutside = false;
+	if (floatRect.left + floatRect.width < this->gameArea.getGlobalBounds().left) {
+		isOutside = true;
+	}
+	else if (floatRect.left > this->gameArea.getGlobalBounds().left + this->gameArea.getGlobalBounds().width) {
+		isOutside = true;
+	}
+	else if (floatRect.top + floatRect.height  < this->gameArea.getGlobalBounds().top) {
+		isOutside = true;
+	}
+	else if (floatRect.top > this->gameArea.getGlobalBounds().height) {
+		isOutside = true;
+	}
+
+	return isOutside;
+}
+
 
 State Game::update()
 {
@@ -204,19 +223,21 @@ void Game::render()
 {
 	window.clear();
 	
-	window.draw(playerOneInfoBox);
-	window.draw(playerTwoInfoBox);
 	window.draw(gameArea);
 	
 	if (!gameOver) {
 		window.draw(*theNumberBoard);
 
 		this->sortEntities();
+		window.draw(this->shop);
 		for (int i = 0; i < nrOfEntities; i++) {
 			window.draw(*allEntities[i]);
 		}
-		window.draw(this->shop);
+		
 		window.draw(this->storeText);
+
+		//window.draw(playerOneInfoBox);
+		//window.draw(playerTwoInfoBox);
 	}
 	else {
 		window.draw(gameOverScreen);

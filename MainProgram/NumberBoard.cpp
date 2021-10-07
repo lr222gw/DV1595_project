@@ -56,12 +56,22 @@ NumberBoard::~NumberBoard()
 
 void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 {
-	bool squareFound = false;
+	bool squareFound = false;//TODO: Remove?
 	for (int i = 0; i < 5 * 5 ; i++) {
 		if (squares[i].getGlobalBounds().intersects(marking) && !tiles[i]->isSoiled()) {
-			squareFound = true;
+			squareFound = true; //TODO: Remove?
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
 			tiles[i]->soilTile();
+		}
+	}
+}
+
+void NumberBoard::unmarkTileAsCrapped(sf::FloatRect marking)
+{	
+	for (int i = 0; i < 5 * 5; i++) {
+		if (squares[i].getGlobalBounds().intersects(marking) && tiles[i]->isSoiled()) {			
+			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));
+			tiles[i]->unsoilTile();
 		}
 	}
 }
