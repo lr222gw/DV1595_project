@@ -77,10 +77,10 @@ Game::Game()
 		nrOfCows++;
 	}
 	
-	allEntities[0] = cows[0];
-	allEntities[1] = cows[1];
-	allEntities[2] = &playerOne;
-	allEntities[3] = &playerTwo;
+	allEntities[0] = &playerOne;
+	allEntities[1] = &playerTwo;
+	allEntities[2] = cows[0];
+	allEntities[3] = cows[1];
 
 	shop.setGamePtr(this);
 	shop.restockItems();

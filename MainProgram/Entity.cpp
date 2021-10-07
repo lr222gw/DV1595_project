@@ -48,7 +48,14 @@ sf::FloatRect Entity::getBounds() const
 
 bool Entity::hitBy(const sf::FloatRect& ref)
 {
-	return this->sprite.getGlobalBounds().intersects(ref);
+	sf::FloatRect smallerHitBox;
+	smallerHitBox.width = this->sprite.getGlobalBounds().width / 2.f;
+	smallerHitBox.height = this->sprite.getGlobalBounds().height / 2.f;
+	smallerHitBox.left = this->sprite.getGlobalBounds().left + smallerHitBox.width / 2.f;
+	smallerHitBox.top = this->sprite.getGlobalBounds().top + smallerHitBox.height / 2.f;
+	
+	return smallerHitBox.intersects(ref);
+	//return this->sprite.getGlobalBounds().intersects(ref);
 }
 
 void Entity::update()
@@ -61,5 +68,38 @@ void Entity::update()
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	animationHelper->update();
+	auto floatRect = this->sprite.getGlobalBounds();
+
+	//Collision Debug...
+
+	sf::FloatRect smallerHitBox;
+	smallerHitBox.width = this->sprite.getGlobalBounds().width / 2.f;
+	smallerHitBox.height = this->sprite.getGlobalBounds().height / 2.f;
+	smallerHitBox.left = this->sprite.getGlobalBounds().left + smallerHitBox.width / 2.f;
+	smallerHitBox.top = this->sprite.getGlobalBounds().top + smallerHitBox.height / 2.f;
+
+	sf::RectangleShape rectTop(sf::Vector2f(smallerHitBox.width, 2.f));
+	rectTop.setPosition(smallerHitBox.left, smallerHitBox.top);
+	rectTop.setFillColor(sf::Color::White);
+
+	sf::RectangleShape rectLeft(sf::Vector2f(2.f, smallerHitBox.height));
+	rectLeft.setPosition(smallerHitBox.left, smallerHitBox.top);
+	rectLeft.setFillColor(sf::Color::White);
+
+	sf::RectangleShape rectRight(sf::Vector2f(2.f, smallerHitBox.height));
+	rectRight.setPosition(smallerHitBox.left + smallerHitBox.width, smallerHitBox.top);
+	rectRight.setFillColor(sf::Color::White);
+
+	sf::RectangleShape rectBottom(sf::Vector2f(smallerHitBox.width, 2.f));
+	rectBottom.setPosition(smallerHitBox.left, smallerHitBox.top + smallerHitBox.height);
+	rectBottom.setFillColor(sf::Color::White);
+
+	
+
 	target.draw(this->sprite);
+	target.draw(rectTop);
+	target.draw(rectLeft);
+	target.draw(rectRight);
+	target.draw(rectBottom);
 }
+ 

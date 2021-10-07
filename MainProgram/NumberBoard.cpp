@@ -82,7 +82,6 @@ Poo* NumberBoard::collidedWithPoo(Entity& entity)
 
 	for (int i = 0; i < nrOfPoos && !collidedPoo; i++) {
 		if (entity.hitBy(poos[i]->getBounds())) {
-			
 			collidedPoo = poos[i];
 		}
 	}

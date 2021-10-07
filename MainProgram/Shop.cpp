@@ -93,7 +93,9 @@ void Shop::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	for (int i = 0; i < nrOfSoldItem; i++) {
 		
-		target.draw(*soldItems[i]);
+		if (soldItems[i]) {
+			target.draw(*soldItems[i]);
+		}
 		
 	}
 }

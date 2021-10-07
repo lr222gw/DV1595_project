@@ -7,6 +7,8 @@ private:
 	Poo* lastCollidedPoo;
 	void setDirectionToAorB(Direction alternativeOne, Direction alternativeTwo); 
 	sf::Vector2f goal;
+
+	sf::Vector2f dirToMove ;
 	
 public:
 	bool hasGoal();

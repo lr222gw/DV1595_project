@@ -6,8 +6,6 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 {
 	
 	this->setTexture("../Images/sprites/cow_2.png",12,8, 3,4);
-	//this->setTexture("../Images/sprites/dungbeetle.png",4,2, 4,2);
-	//this->getAnimationHelper()->setRowAnimationInstruction(0,0,0,1,1);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
 	this->getAnimationHelper()->toggleReversePlayback();
 
@@ -59,14 +57,16 @@ void Cow::move()
 	else {
 		if (!this->isRelieavingWaste()) {
 
+			//sf::Vector2f dirToMove(0.f,0.f); 
+			
+			this->moveSprite(dirToMove.x, dirToMove.y);
 
 			Poo* collidedPoo = theNumberBoard->collidedWithPoo(*this);
 			if (collidedPoo && lastCollidedPoo != collidedPoo) {
-
+				
 				if (this->getCurrentDirection() == Direction::Left)
 				{
 					setDirectionToAorB(Direction::Up, Direction::Down);
-
 				}
 				else if (this->getCurrentDirection() == Direction::Up)
 				{
@@ -84,12 +84,16 @@ void Cow::move()
 				lastCollidedPoo = collidedPoo;
 			}
 
+			float padding = 30.f;
+
 			if (getCurrentDirection() == Direction::Left) {
 
 				if (this->getGameArea().left < this->getBounds().left) {
 
 					this->getAnimationHelper()->animateLeft();
-					this->moveSprite(LEFT, 0.f);
+					dirToMove.x = LEFT; 
+					dirToMove.y = 0.f;
+					//this->moveSprite(LEFT, 0.f);
 				}
 				else {
 					this->setCurrentDirection(Direction::Up);
@@ -99,32 +103,39 @@ void Cow::move()
 				if (this->getGameArea().left + this->getGameArea().width > this->getBounds().left + this->getBounds().width) {
 
 					this->getAnimationHelper()->animateRight();
-					this->moveSprite(RIGHT, 0.f);
+					dirToMove.x = RIGHT;
+					dirToMove.y = 0.f;
+					//this->moveSprite(RIGHT, 0.f);
 				}
 				else {
 					this->setCurrentDirection(Direction::Down);
 				}
 			}
 			else if (getCurrentDirection() == Direction::Up) {
-				if (this->getGameArea().top < this->getBounds().top) {
+				if (this->getGameArea().top - padding < this->getBounds().top) {
 
 					this->getAnimationHelper()->animateUp();
-					this->moveSprite(0.f, UP);
+					dirToMove.x = 0.f;
+					dirToMove.y = UP;
+					//this->moveSprite(0.f, UP);
 				}
 				else {
 					this->setCurrentDirection(Direction::Right);
 				}
 			}
 			else if (getCurrentDirection() == Direction::Down) {
-				if (this->getGameArea().top + this->getGameArea().height > this->getBounds().top + this->getBounds().height) {
+				if (this->getGameArea().top + this->getGameArea().height - padding > this->getBounds().top + this->getBounds().height) {
 
 					this->getAnimationHelper()->animateDown();
-					this->moveSprite(0.f, DOWN);
+					dirToMove.x = 0.f;
+					dirToMove.y = DOWN;
+					//this->moveSprite(0.f, DOWN);
 				}
 				else {
 					this->setCurrentDirection(Direction::Left);
 				}
-			}
+			}					
+
 		}
 		else {
 
