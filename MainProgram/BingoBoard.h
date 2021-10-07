@@ -28,11 +28,17 @@ private:
 
 	SpecialTile checkSpecialTiles();	
 
+	float squareSize;
+	sf::Vector2f drawPos;
+	sf::Vector2f bingoBoardSize;
+
 public:
 	BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos);
 
 	bool checkBingo();
 	void updateBingoBoard();
+	sf::Vector2f getBingoBoardSize();
+	void setPosition(sf::Vector2f pos);
 	
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

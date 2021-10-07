@@ -43,14 +43,16 @@ bool DungBeetle::use(Player* playerPtr)
 void DungBeetle::collided(Entity* collidedWith)
 {
     Poo* poo = dynamic_cast<Poo*>(collidedWith);
-    if (poo) {
-        
-        this->gamePtr->unmarkTileAsCrapped_forwarded(poo->getBounds());
-        poo->setPosition(-100.f, -100.f);
-    }
-    else if (Cow* cow = dynamic_cast<Cow*>(collidedWith)) {
-        this->direction *= -1; 
+    if (status == Status::Dropped) {
+        if (poo) {
 
-        this->direction == 1 ? this->getAnimationHelper()->animateRight() : this->getAnimationHelper()->animateLeft();        
+            this->gamePtr->unmarkTileAsCrapped_forwarded(poo->getBounds());
+            poo->setPosition(-100.f, -100.f);
+        }
+        else if (Cow* cow = dynamic_cast<Cow*>(collidedWith)) {
+            this->direction *= -1;
+
+            this->direction == 1 ? this->getAnimationHelper()->animateRight() : this->getAnimationHelper()->animateLeft();
+        }
     }
 }

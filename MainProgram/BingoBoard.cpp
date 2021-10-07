@@ -59,6 +59,7 @@ SpecialTile BingoBoard::checkSpecialTiles()
 BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 {
 
+	this->drawPos = drawPos;
 	this->bingoImage_texture.loadFromFile("../Images/bingo.png");
 	this->bingoImage_sprite.setTexture(bingoImage_texture);
 	this->bingoImage_sprite.setScale(.2,.2f);
@@ -69,8 +70,9 @@ BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 	for (int i = 0; i < 5 * 5;i++) {
 		tempArr[i] = numberBoard->getTile(i);
 	}
-	float squareSize = 30.f;
+	this->squareSize = 30.f;
 	float margin = 1.f;
+	this->bingoBoardSize = sf::Vector2f(squareSize * 5.f + 5.f, squareSize * 5.f + 5.f );
 	bingoFont.loadFromFile("../Images/fonts/BingoReky.ttf");
 	for (int i = 0; i < 5 * 5; i++) {
 
@@ -106,6 +108,23 @@ void BingoBoard::updateBingoBoard()
 	if (checkBingo()) 
 	{
 		this->bingoImage_sprite.setColor(sf::Color(255, 255, 255, 255));
+	}
+}
+
+sf::Vector2f BingoBoard::getBingoBoardSize()
+{
+	return this->bingoBoardSize;
+}
+
+void BingoBoard::setPosition(sf::Vector2f pos)
+{
+	this->drawPos = pos;
+	for (int i = 0; i < 5 * 5; i++) {
+
+		float posX = drawPos.x + squareSize * (i % 5);
+		float posY = drawPos.y + squareSize * ((i / 5));
+		squares[i].setPosition(posX, posY);
+		texts[i].setPosition(posX + squareSize / 6.f, posY + squareSize / 6.f);
 	}
 }
 

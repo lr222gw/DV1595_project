@@ -10,7 +10,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->status_string.setCharacterSize(30);
 	this->status_string.setString("Money: 0");
 	
-	playerInfoBox.setFillColor(sf::Color::Cyan);
+	playerInfoBox.setFillColor(sf::Color::Black);
 
 	switch (player) {
 		case PlayerId::PlayerOne:
@@ -53,13 +53,16 @@ Player::~Player()
 }
 
 void Player::initBingoBoard(NumberBoard* numberBoard)
-{
+{	
+	
 	if (this->playerId == PlayerId::PlayerOne) {
 
-		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f());
+		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f(0.f, 0.f));
 		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
 		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(0.f, 0.f);
+		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f;
+		this->bingoBoard->setPosition(sf::Vector2f(margin, margin));
 	}
 	else if (this->playerId == PlayerId::PlayerTwo) {
 
@@ -71,6 +74,9 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
 				500.f)
 		);
+		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f;
+		this->bingoBoard->setPosition(sf::Vector2f(margin + this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width, margin));
+
 		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(gameArea->getGlobalBounds().left + gameArea->getGlobalBounds().width, 0.f);
 	}
