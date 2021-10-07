@@ -229,11 +229,11 @@ void Game::render()
 		window.draw(*theNumberBoard);
 
 		this->sortEntities();
-		window.draw(this->shop);
 		for (int i = 0; i < nrOfEntities; i++) {
 			window.draw(*allEntities[i]);
 		}
 		
+		window.draw(this->shop);
 		window.draw(this->storeText);
 
 		//window.draw(playerOneInfoBox);

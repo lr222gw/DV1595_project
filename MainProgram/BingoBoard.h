@@ -22,9 +22,11 @@ private:
 	sf::Sprite bingoImage_sprite;
 
 	Tile* numberBoardsTiles[5 * 5]; 
-	Tile* specialTiles_x1[1];
-	Tile* specialTiles_x3[3];
-	Tile* specialTiles_x5[5];
+	Tile* specialTiles_x1[1];	
+	Tile* specialTiles_x3[3];	
+	Tile* specialTiles_x5[5];	
+
+	bool updateSpecialTile(int currentIndex, bool isSoiled);
 
 	SpecialTile checkSpecialTiles();	
 

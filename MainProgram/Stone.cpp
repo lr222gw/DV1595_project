@@ -2,10 +2,15 @@
 #include "Player.h"
 
 Stone::Stone()
-	: Item(8, 30, .1f, .1f), status(Status::Held)
+	: Item(8, 5, .1f, .1f), status(Status::Held)
 {
 	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->getAnimationHelper()->toggleReversePlayback();
+}
+
+Stone::~Stone()
+{
+	int i = 0;
 }
 
 std::string Stone::present()

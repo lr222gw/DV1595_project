@@ -14,6 +14,7 @@ private:
 
 public:
 	Stone();
+	~Stone();
 	virtual std::string present() override;
 	virtual bool use(Player* playerPtr) override;
 	virtual void collided(Entity* collidedWith) override;
