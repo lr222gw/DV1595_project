@@ -28,7 +28,14 @@ std::string DungBeetle::present()
 bool DungBeetle::use(Player* playerPtr)
 {
     this->status    = Status::Dropped;
-    this->direction = playerPtr->getDirection().x;
+
+    if (playerPtr->getDirection().x == 0) {               
+        this->direction = playerPtr->getDirection().y;                
+    }
+    else {
+        this->direction = playerPtr->getDirection().x;
+    }
+
     if (this->direction == 1) 
     {
         this->getAnimationHelper()->animateRight();
