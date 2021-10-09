@@ -29,7 +29,7 @@ private:
 	int money; 
 
 	//TODO: Rethink array... 
-	static const int itemsCAP = 4;
+	static const int itemsCAP = 10;
 	int nrOfItems;
 	int selectedItem;
 	Item* items[itemsCAP];

@@ -18,9 +18,9 @@ Shop::~Shop()
 	for (int i = 0; i < this->nrOfSoldItem; i++) {
 		delete this->soldItems[i];
 	}
-
-	delete[] this->soldItems;
+	
 	delete[] this->items;
+	delete[] this->soldItems;
 }
 
 void Shop::restockItems()
@@ -55,8 +55,21 @@ void Shop::buyItem(Player* buyer)
 		buyer->removeMoney(items[0]->getPrice());
 		soldItems[nrOfSoldItem++] = items[0];
 		items[0] = items[--nrOfItem];
+		items[nrOfItem] = nullptr;
+
 		if (nrOfSoldItem >= soldItemsCAP) {
 			//Expand
+			this->soldItemsCAP += 10;
+			Item** temp = new Item * [this->soldItemsCAP]{ nullptr };
+			for (int i = 0; i < nrOfSoldItem; i++) {
+				temp[i] = this->soldItems[i];
+			}
+			delete[] this->soldItems;
+			this->soldItems = temp;
+		}
+
+		if (nrOfItem == 0) {
+			restockItems();
 		}
 		
 		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
