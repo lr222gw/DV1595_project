@@ -25,6 +25,7 @@ NumberBoard::NumberBoard(sf::FloatRect gameArea)
 	background.setPosition(gameArea.left + (gameArea.width / 4.f) - 2.5f, (gameArea.height / 6.f) - 2.5f);
 
 	bingoFont.loadFromFile("../Images/fonts/BingoReky.ttf");
+	Tile::resetAllStaticData();
 	for (int i = 0; i < 5 * 5; i++) {
 		this->tiles[i] = new Tile();
 		squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));		
@@ -56,10 +57,8 @@ NumberBoard::~NumberBoard()
 
 void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 {
-	bool squareFound = false;//TODO: Remove?
 	for (int i = 0; i < 5 * 5 ; i++) {
 		if (squares[i].getGlobalBounds().intersects(marking) && !tiles[i]->isSoiled()) {
-			squareFound = true; //TODO: Remove?
 			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
 			tiles[i]->soilTile();
 		}

@@ -54,30 +54,9 @@ bool BingoBoard::updateSpecialTile(int currentIndex, bool isSoiled )
 {
 	auto temp = numberBoardsTiles[currentIndex];
 	bool wasSpecial = false;
-	//if (specialTiles_x1[0] == temp) {
-	//	wasSpecial = true;
-	//	if (isSoiled) {
-	//		squares[currentIndex].setFillColor(sf::Color((sf::Uint8)100, (sf::Uint8)150, (sf::Uint8)45));
-	//	}
-	//	else {
-	//		squares[currentIndex].setFillColor(sf::Color((sf::Uint8)100, (sf::Uint8)150, (sf::Uint8)45));
 
-	//	}
-	//}
-	//for (int j = 0; j < 3; j++) {
-	//	if (specialTiles_x3[j] == temp) {
-	//		wasSpecial = true;
-	//		if (isSoiled) {
-	//			squares[currentIndex].setFillColor(sf::Color((sf::Uint8)200, (sf::Uint8)150, (sf::Uint8)45));
-	//		}
-	//		else {
-	//			squares[currentIndex].setFillColor(sf::Color((sf::Uint8)200, (sf::Uint8)150, (sf::Uint8)45));
-
-	//		}
-	//	}
-	//}
 	for (int j = 0; j < 5; j++) {
-		if (specialTiles_x5[j] == temp) {
+		if (specialTiles[j] == temp) {
 			wasSpecial = true;
 			if (isSoiled) {
 				squares[currentIndex].setFillColor(sf::Color((sf::Uint8)130, (sf::Uint8)120, (sf::Uint8)0)); 
@@ -91,10 +70,17 @@ bool BingoBoard::updateSpecialTile(int currentIndex, bool isSoiled )
 	return wasSpecial;
 }
 
-SpecialTile BingoBoard::checkSpecialTiles()
+bool BingoBoard::checkSpecialTiles()
 {
+	bool hadUnusedSpecialTile = false;
+	for (int i = 0; i < 5; i++) {
 
-	return SpecialTile::no_special;
+		if (specialTiles[i] && specialTiles[i]->isSoiled()) {
+			hadUnusedSpecialTile = true;
+			specialTiles[i] = nullptr;
+		}
+	}
+	return hadUnusedSpecialTile;
 }
 
 BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
@@ -125,15 +111,11 @@ BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 		specialTilesArr_temp[i] = temp;
 	}
 
-	//specialTiles_x1[0] = specialTilesArr_temp[0];
-	//specialTiles_x3[0] = specialTilesArr_temp[1];
-	//specialTiles_x3[1] = specialTilesArr_temp[2];
-	//specialTiles_x3[2] = specialTilesArr_temp[3];
-	specialTiles_x5[0] = specialTilesArr_temp[4];
-	specialTiles_x5[1] = specialTilesArr_temp[5];
-	specialTiles_x5[2] = specialTilesArr_temp[6];
-	specialTiles_x5[3] = specialTilesArr_temp[7];
-	specialTiles_x5[4] = specialTilesArr_temp[8];
+	specialTiles[0] = specialTilesArr_temp[4];
+	specialTiles[1] = specialTilesArr_temp[5];
+	specialTiles[2] = specialTilesArr_temp[6];
+	specialTiles[3] = specialTilesArr_temp[7];
+	specialTiles[4] = specialTilesArr_temp[8];
 	
 
 	/// Setup bingo board
@@ -152,22 +134,6 @@ BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 		this->texts[i].setString(std::to_string(this->numberBoardsTiles[i]->getValue()));
 
 		bool wasSpecial = false;
-		//if (specialTiles_x1[0] == temp) {
-		//	wasSpecial = true;
-		//	squares[i].setFillColor(sf::Color((sf::Uint8)100, (sf::Uint8)150, (sf::Uint8)45));
-		//}
-		//for (int j = 0; j < 3; j++) {
-		//	if (specialTiles_x3[j] == temp) {
-		//		wasSpecial = true;
-		//		squares[i].setFillColor(sf::Color((sf::Uint8)200, (sf::Uint8)150, (sf::Uint8)45));
-		//	}
-		//}
-		/*for (int j = 0; j < 5; j++) {
-			if (specialTiles_x5[j] == temp) {
-				wasSpecial = true;
-				squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)50, (sf::Uint8)5));
-			}
-		}*/
 
 		if (!wasSpecial) {
 		
@@ -201,7 +167,8 @@ void BingoBoard::updateBingoBoard()
 				squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));
 			}
 		}
-	}
+	}	
+
 	if (checkBingo()) 
 	{
 		this->bingoImage_sprite.setColor(sf::Color(255, 255, 255, 255));
