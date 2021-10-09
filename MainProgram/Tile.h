@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 class Tile {
+private:
+	static int valueArray[5 * 5];
 
 	int id;
 	int value;
@@ -11,6 +13,7 @@ class Tile {
 	static int getUniqueValue(int id);
 public:
 	Tile();
+	static void resetAllStaticData();
 	int getId();
 	int getValue();
 	bool isSoiled();

@@ -228,10 +228,11 @@ void Player::move()
 		items[selectedItem]->setPosition(this->getBounds().left, this->getBounds().top);
 		
 	}
-	
-
-	//TODO: should be placed somewhere else... Optimally only if a Animal defecates...
+		
 	this->bingoBoard->updateBingoBoard();
+	if (this->bingoBoard->checkSpecialTiles()) {
+		money += 50;
+	}
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
