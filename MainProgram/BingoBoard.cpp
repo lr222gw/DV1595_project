@@ -80,10 +80,10 @@ bool BingoBoard::updateSpecialTile(int currentIndex, bool isSoiled )
 		if (specialTiles_x5[j] == temp) {
 			wasSpecial = true;
 			if (isSoiled) {
-				squares[currentIndex].setFillColor(sf::Color((sf::Uint8)170, (sf::Uint8)160, (sf::Uint8)30)); 
+				squares[currentIndex].setFillColor(sf::Color((sf::Uint8)130, (sf::Uint8)120, (sf::Uint8)0)); 
 			}
 			else {
-				squares[currentIndex].setFillColor(sf::Color((sf::Uint8)240, (sf::Uint8)220, (sf::Uint8)30));
+				squares[currentIndex].setFillColor(sf::Color((sf::Uint8)200, (sf::Uint8)180, (sf::Uint8)30));
 
 			}
 		}

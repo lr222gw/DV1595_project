@@ -36,14 +36,13 @@ bool Stone::use(Player* playerPtr)
 void Stone::collided(Entity* collidedWith)
 {
 	if (status == Status::Thrown) {
-		this->moveSprite(0.f, 1.f);
-		status = Status::Collided;
-		timeCount = 0;
-		
+						
 		auto cow = dynamic_cast<Cow*>(collidedWith);
 		if (cow) {
 			cow->setRelieavingWaste(true);
-			
+			this->moveSprite(0.f, 1.f);
+			status = Status::Collided;
+			timeCount = 0;
 		}
 	}
 }

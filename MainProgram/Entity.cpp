@@ -53,8 +53,14 @@ bool Entity::hitBy(const sf::FloatRect& ref)
 	smallerHitBox.height = this->sprite.getGlobalBounds().height / 2.f;
 	smallerHitBox.left = this->sprite.getGlobalBounds().left + smallerHitBox.width / 2.f;
 	smallerHitBox.top = this->sprite.getGlobalBounds().top + smallerHitBox.height / 2.f;
+
+	sf::FloatRect refSmallerHitBox = ref;
+	refSmallerHitBox.width = ref.width / 2.f;
+	refSmallerHitBox.height = ref.height / 2.f;
+	refSmallerHitBox.left = ref.left + refSmallerHitBox.width / 2.f;
+	refSmallerHitBox.top = ref.top + refSmallerHitBox.height / 2.f;
 	
-	return smallerHitBox.intersects(ref);
+	return smallerHitBox.intersects(refSmallerHitBox);
 	//return this->sprite.getGlobalBounds().intersects(ref);
 }
 
