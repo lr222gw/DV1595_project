@@ -52,3 +52,8 @@ void Wheat::collided(Entity* collidedWith)
         }
     }
 }
+
+void Wheat::resetItemSpecifics()
+{
+    this->status = Status::Held;
+}

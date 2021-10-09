@@ -83,7 +83,8 @@ Game::Game()
 	allEntities[3] = cows[1];
 
 	shop.setGamePtr(this);
-	shop.restockItems();
+	//shop.restockItems();
+	shop.initShop();
 
 
 	currentState = State::NO_CHANGE;	

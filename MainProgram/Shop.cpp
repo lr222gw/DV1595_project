@@ -2,12 +2,14 @@
 #include "Game.h"
 
 Shop::Shop()
-	: nrOfItem(0), gamePtr(nullptr), nrOfSoldItem(0)
+	: nrOfItem(0), gamePtr(nullptr), nrOfSoldItem(0), nrOfTerminatedItems(0)
 {
 	this->itemsCAP = 4;
 	this->soldItemsCAP = 4;
+	this->terminatedItemsCAP = 4;
 	items = new Item * [this->itemsCAP]{ nullptr };
 	soldItems = new Item * [this->soldItemsCAP]{ nullptr };
+	terminatedItems = new Item * [this->terminatedItemsCAP]{ nullptr };
 }
 
 Shop::~Shop()
@@ -18,15 +20,40 @@ Shop::~Shop()
 	for (int i = 0; i < this->nrOfSoldItem; i++) {
 		delete this->soldItems[i];
 	}
+	for (int i = 0; i < this->nrOfTerminatedItems; i++) {
+		delete this->terminatedItems[i];
+	}
 	
 	delete[] this->items;
 	delete[] this->soldItems;
+	delete[] this->terminatedItems;
 }
 
 void Shop::restockItems()
 {
-	Stone* tempStone = new Stone();
-	Stone* tempStone2 = new Stone();
+	sf::Clock test; test.restart();
+
+	for (int i = 0; nrOfTerminatedItems != 0 ; i++) {
+		terminatedItems[i]->resetItem();
+		items[nrOfItem++] = terminatedItems[i];
+		
+		terminatedItems[i] = terminatedItems[--nrOfTerminatedItems];
+		terminatedItems[nrOfTerminatedItems] = nullptr;
+	}
+
+	auto saveMe = test.getElapsedTime().asSeconds();
+	int f = 3;
+}
+
+void Shop::setGamePtr(Game* gamePtr)
+{
+	this->gamePtr = gamePtr;
+}
+
+void Shop::initShop()
+{
+	Stone* tempStone = new Stone(gamePtr);
+	Stone* tempStone2 = new Stone(gamePtr);
 	//Stone* tempStone3 = new Stone();
 	Wheat* tempWheat = new Wheat(gamePtr);
 	DungBeetle* tempBeetle = new DungBeetle(gamePtr);
@@ -35,11 +62,6 @@ void Shop::restockItems()
 	items[this->nrOfItem++] = tempStone;
 	items[this->nrOfItem++] = tempStone2;
 	//items[this->nrOfItem++] = tempStone3;
-}
-
-void Shop::setGamePtr(Game* gamePtr)
-{
-	this->gamePtr = gamePtr;
 }
 
 
@@ -81,10 +103,13 @@ void Shop::updateItems()
 	for (int i = 0; i < this->nrOfSoldItem; i++) {
 		if (this->soldItems[i]) {
 			this->soldItems[i]->move();
+
 			if (this->soldItems[i]->isTerminated()) {
 				auto temp = this->soldItems[i];
 				this->soldItems[i] = this->soldItems[--this->nrOfSoldItem];
-				delete temp;
+				//delete temp;
+				terminatedItems[nrOfTerminatedItems++] = temp;
+				restockItems();
 			}
 		}
 	}

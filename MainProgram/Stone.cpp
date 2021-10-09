@@ -1,8 +1,9 @@
 #include "Stone.h"
 #include "Player.h"
+#include "Game.h"
 
-Stone::Stone()
-	: Item(8, 5, .1f, .1f), status(Status::Held)
+Stone::Stone(Game* gamePtr)
+	: Item(8, 5, .1f, .1f), status(Status::Held), gamePtr(gamePtr)
 {
 	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->getAnimationHelper()->toggleReversePlayback();
@@ -51,24 +52,37 @@ void Stone::move()
 {
 	timeCount = (timeCount + 1) % (15); // 
 	
-	if (status == Status::Held) {
-		
-	}
-	else if (status == Status::Thrown) {
-		this->moveSprite(direction.x, direction.y);
-	}
-	else if (status == Status::Collided) {
-		this->moveSprite(0.f, 0.55f);
-		if (timeCount == 0) {
-			status = Status::Landed;
-			this->getAnimationHelper()->animateIdle();
+	if (!gamePtr->isOutSideGameArea(this->getBounds()) ) {
+		if (status == Status::Held) {
+
 		}
+		else if (status == Status::Thrown) {
+			this->moveSprite(direction.x, direction.y);
+		}
+		else if (status == Status::Collided) {
+			this->moveSprite(0.f, 0.55f);
+			if (timeCount == 0) {
+				status = Status::Landed;
+				this->getAnimationHelper()->animateIdle();
+			}
+		}
+		else if (status == Status::Landed) {
+
+			if (timeCount == 0) {
+				this->setPosition(-100.f, -100.f);
+				this->terminate();
+			}
+		}		
 	}
-	else if (status == Status::Landed) {
-				
-		if (timeCount == 0) {			
-			this->setPosition(-100.f, -100.f);
+	else {
+		if (status == Status::Thrown) {
+			this->terminate();
 		}
 	}
 	
+}
+
+void Stone::resetItemSpecifics()
+{
+	status = Status::Held;
 }

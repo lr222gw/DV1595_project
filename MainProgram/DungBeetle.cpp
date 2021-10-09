@@ -60,3 +60,8 @@ void DungBeetle::collided(Entity* collidedWith)
         }
     }
 }
+
+void DungBeetle::resetItemSpecifics()
+{
+    status = Status::Held;
+}

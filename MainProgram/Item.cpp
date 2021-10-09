@@ -32,3 +32,13 @@ void Item::setThumbnailScale()
 	this->setSpriteScale(thumbnailScale, thumbnailScale);
 }
 
+void Item::resetItem()
+{
+	this->shouldTerminate = false;
+	this->setThumbnailScale();
+	this->setPosition(-100.f,-100.f);
+	this->getAnimationHelper()->animateIdle();
+
+	this->resetItemSpecifics();
+}
+

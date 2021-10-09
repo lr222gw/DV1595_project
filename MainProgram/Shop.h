@@ -14,6 +14,9 @@ private:
 	int nrOfSoldItem;
 	int soldItemsCAP;
 	Item** soldItems;
+	int nrOfTerminatedItems;
+	int terminatedItemsCAP;
+	Item** terminatedItems;
 
 	Game* gamePtr;
 	void expand();
@@ -22,6 +25,7 @@ public:
 	Shop();
 	virtual ~Shop();
 	void setGamePtr(Game* gamePtr);
+	void initShop();
 	
 	std::string presentItem();
 	void buyItem(Player* buyer);

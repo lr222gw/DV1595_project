@@ -9,6 +9,9 @@ private:
 	Status status;
 	Game* gamePtr;
 	Cow* goToCow;
+protected:
+	// Inherited via Item
+	virtual void resetItemSpecifics() override;
 public:
 	Wheat(Game* gamePtr);
 	// Inherited via Item
@@ -16,4 +19,5 @@ public:
 	virtual std::string present() override;
 	virtual bool use(Player* playerPtr) override;
 	virtual void collided(Entity* collidedWith) override;
+
 };

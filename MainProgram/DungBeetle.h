@@ -19,4 +19,7 @@ public:
 	virtual std::string present() override;
 	virtual bool use(Player* playerPtr) override;
 	virtual void collided(Entity* collidedWith) override;
+
+	// Inherited via Item
+	virtual void resetItemSpecifics() override;
 };
