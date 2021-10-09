@@ -27,24 +27,21 @@ std::string DungBeetle::present()
 
 bool DungBeetle::use(Player* playerPtr)
 {
-    this->status    = Status::Dropped;
-
-    if (playerPtr->getDirection().x == 0) {               
-        this->direction = playerPtr->getDirection().y;                
-    }
-    else {
+        
+    if (playerPtr->getDirection().x != 0) {
         this->direction = playerPtr->getDirection().x;
+        this->status = Status::Dropped;
+        if (this->direction == 1) 
+        {
+            this->getAnimationHelper()->animateRight();
+        }
+        else 
+        {
+            this->getAnimationHelper()->animateLeft();
+        }
     }
 
-    if (this->direction == 1) 
-    {
-        this->getAnimationHelper()->animateRight();
-    }
-    else 
-    {
-        this->getAnimationHelper()->animateLeft();
-    }
-    return true;
+    return this->status == Status::Dropped;
 }
 
 void DungBeetle::collided(Entity* collidedWith)
