@@ -13,10 +13,10 @@ void OptionsMenu::moveUp()
 	}
 
 	alternatives[selected].setFillColor(sf::Color::Red);
-	alternatives[selected].setCharacterSize(30);
+	//alternatives[selected].setCharacterSize(30);
 
 	alternatives[prvSelected].setFillColor(sf::Color::Yellow);
-	alternatives[prvSelected].setCharacterSize(30);
+	//alternatives[prvSelected].setCharacterSize(30);
 
 
 }
@@ -28,10 +28,32 @@ void OptionsMenu::moveDown()
 	selected = (selected + 1) % (NR_OF_ALT);
 
 	alternatives[selected].setFillColor(sf::Color::Red);
-	alternatives[selected].setCharacterSize(30);
+	//alternatives[selected].setCharacterSize(30);
 
 	alternatives[prvSelected].setFillColor(sf::Color::Yellow);
-	alternatives[prvSelected].setCharacterSize(30);
+	//alternatives[prvSelected].setCharacterSize(30);
+}
+
+void OptionsMenu::updateOptions()
+{
+	for (int i = 0; i < (int)Actions::P2_Left; i++) {
+		alternatives[i].setFont(font);
+		alternatives[i].setFillColor(sf::Color::Yellow);
+		alternatives[i].setCharacterSize(20);
+		char asChar3 = ((char)((int)conf.getActionKey((Actions)i)) + 97);
+		alternatives[i].setString(conf.actionsEnumToString((Actions)i) + ": " + (char)((int)conf.getActionKey((Actions)i) + 97));
+		alternatives[i].setPosition(200.f, 120.f + (float)(window.getSize().y / 16) * i);
+	}
+
+	int j = 0;
+	for (int i = (int)Actions::P2_Left; i < (int)Actions::_END; i++) {
+		alternatives[i].setFont(font);
+		alternatives[i].setFillColor(sf::Color::Yellow);
+		alternatives[i].setCharacterSize(20);
+		alternatives[i].setString(conf.actionsEnumToString((Actions)i) + ": " + (char)((int)conf.getActionKey((Actions)i) + 97));
+		alternatives[i].setPosition(400.f, 120.f + (float)(window.getSize().y / 16) * j);
+		j++;
+	}
 }
 
 OptionsMenu::OptionsMenu()
@@ -42,14 +64,15 @@ OptionsMenu::OptionsMenu()
 	Presentation.setFillColor(sf::Color::Magenta);
 	Presentation.setCharacterSize(45);
 	Presentation.setString("Input Options");	
-	Presentation.setPosition(100.f, 50.f);
+	Presentation.setPosition(100.f, 50.f);	
+	
+	updateOptions();
 
 	alternatives[DONE].setFont(font);
 	alternatives[DONE].setFillColor(sf::Color::Yellow);
-	alternatives[DONE].setCharacterSize(30);
-	alternatives[DONE].setString("Done");	
+	alternatives[DONE].setCharacterSize(15);
+	alternatives[DONE].setString("Done");
 	alternatives[DONE].setPosition(100.f, (float)(window.getSize().y / 10) * 9);
-
 
 
 	selected = 0;
@@ -70,6 +93,10 @@ State OptionsMenu::update()
 		case DONE:
 			finalState = State::MENU;
 			break;
+
+		//default:
+
+			
 		}
 
 	}
@@ -98,6 +125,13 @@ void OptionsMenu::handleEvents()
 		{
 			window.close();
 		}
+
+		if (done && selected != 0) {
+			conf.setInputPair((Actions)selected, event.key.code);
+			updateOptions();
+			done = false;
+		}
+
 		if (event.type == sf::Event::KeyPressed) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 
@@ -110,6 +144,6 @@ void OptionsMenu::handleEvents()
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
 				done = true;
 			}
-		}
+		}		
 	}
 }

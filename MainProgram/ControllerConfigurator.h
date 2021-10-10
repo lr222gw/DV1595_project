@@ -3,18 +3,20 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <assert.h>
 
 enum class Actions{
 	P1_Left, P1_Right, P1_Up, P1_Down,	//P1 Movement
 	P1_Action, P1_Bingo, P1_Buy,		//P1 Actions
 
 	P2_Left, P2_Right, P2_Up, P2_Down,	//P2 Movement
-	P2_Action, P2_Bingo, P2_Buy			//P2 Actions
+	P2_Action, P2_Bingo, P2_Buy,		//P2 Actions
+
+	_END
 };
 
-struct InputPair {
+struct InputPair {	
 	Actions action;
-
 	sf::Keyboard::Key key;	
 };
 
@@ -33,6 +35,8 @@ private:
 
 public:
 	ControllerConfigurator();
+
+	std::string actionsEnumToString(Actions action);
 
 	void setInputPair(Actions action, sf::Keyboard::Key inputKey);
 	sf::Keyboard::Key getActionKey(Actions action);
