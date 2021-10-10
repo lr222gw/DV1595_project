@@ -4,9 +4,10 @@
 class Menu :public GameState
 {
 private:
-	static const int NR_OF_ALT = 2;
+	static const int NR_OF_ALT = 3;
 	static const int PLAY = 0;
-	static const int EXIT = 1;
+	static const int OPTIONS = 1;
+	static const int EXIT = 2;
 
 	sf::Text alternatives[NR_OF_ALT];
 	sf::Font font;

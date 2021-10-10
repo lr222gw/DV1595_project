@@ -51,7 +51,13 @@ Menu::Menu()
 	alternatives[PLAY].setFillColor(sf::Color::Red);
 	alternatives[PLAY].setCharacterSize(30);
 	alternatives[PLAY].setString("Play");
-	alternatives[PLAY].setPosition(200.f, 200.f);
+	alternatives[PLAY].setPosition(200.f, 250.f);
+
+	alternatives[OPTIONS].setFont(font);
+	alternatives[OPTIONS].setFillColor(sf::Color::Yellow);
+	alternatives[OPTIONS].setCharacterSize(30);
+	alternatives[OPTIONS].setString("Options");
+	alternatives[OPTIONS].setPosition(200.f, 300.f);
 
 	alternatives[EXIT].setFont(font);
 	alternatives[EXIT].setFillColor(sf::Color::Yellow);
@@ -81,6 +87,9 @@ State Menu::update()
 		switch (selected) {
 		case PLAY:
 			finalState = State::PLAY;
+			break;
+		case OPTIONS:
+			finalState = State::OPTIONS;
 			break;
 		case EXIT:
 			finalState = State::EXIT;

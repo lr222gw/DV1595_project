@@ -22,11 +22,13 @@
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="AnimationHelper.cpp" />
     <ClCompile Include="BingoBoard.cpp" />
+    <ClCompile Include="ControllerConfigurator.cpp" />
     <ClCompile Include="Cow.cpp" />
     <ClCompile Include="DungBeetle.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="Wheat.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -42,11 +44,13 @@
     <ClInclude Include="Animal.h" />
     <ClInclude Include="AnimationHelper.h" />
     <ClInclude Include="BingoBoard.h" />
+    <ClInclude Include="ControllerConfigurator.h" />
     <ClInclude Include="Cow.h" />
     <ClInclude Include="DungBeetle.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Wheat.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Menu.h" />

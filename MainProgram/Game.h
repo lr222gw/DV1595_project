@@ -16,7 +16,6 @@ private:
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
-
 	
 	sf::RectangleShape gameArea;
 
@@ -37,7 +36,6 @@ private:
 	Cow* *cows;
 
 	Shop shop;
-
 
 	void sortEntities();
 	static const int nrOfEntities = 4;

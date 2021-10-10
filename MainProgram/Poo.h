@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 
-//class Poo : public sf::Drawable{
 class Poo : public Entity{
 private:
 	sf::Time timeLeft;

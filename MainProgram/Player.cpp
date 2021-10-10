@@ -1,9 +1,11 @@
 #include "Player.h"
 #include "Shop.h"
 
+
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
 {
+	static ControllerConfigurator configurator;
 	this->gameArea = gameArea;
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	this->status_string.setFont(status_font);
@@ -14,13 +16,14 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 
 	switch (player) {
 		case PlayerId::PlayerOne:
-			upKey	= sf::Keyboard::Key::W;
-			downKey = sf::Keyboard::Key::S;
-			leftKey = sf::Keyboard::Key::A;
-			rightKey= sf::Keyboard::Key::D;
-			bingoKey = sf::Keyboard::Key::C;
-			buyKey = sf::Keyboard::Key::Q;
-			actionKey = sf::Keyboard::Key::Space;
+			
+			upKey	 = configurator.getActionKey(Actions::P1_Up);
+			downKey  = configurator.getActionKey(Actions::P1_Down);
+			leftKey  = configurator.getActionKey(Actions::P1_Left);
+			rightKey = configurator.getActionKey(Actions::P1_Right);
+			bingoKey = configurator.getActionKey(Actions::P1_Bingo);
+			buyKey	 = configurator.getActionKey(Actions::P1_Buy);
+			actionKey= configurator.getActionKey(Actions::P1_Action);
 
 			this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
@@ -29,13 +32,13 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 
 			break;
 		case PlayerId::PlayerTwo:
-			upKey	= sf::Keyboard::Key::Numpad8;
-			downKey = sf::Keyboard::Key::Numpad5;
-			leftKey = sf::Keyboard::Key::Numpad4;
-			rightKey= sf::Keyboard::Key::Numpad6;
-			bingoKey = sf::Keyboard::Key::Numpad3;
-			buyKey = sf::Keyboard::Key::Numpad7;
-			actionKey = sf::Keyboard::Key::Enter;
+			upKey	 = configurator.getActionKey(Actions::P2_Up);
+			downKey  = configurator.getActionKey(Actions::P2_Down);
+			leftKey  = configurator.getActionKey(Actions::P2_Left);
+			rightKey = configurator.getActionKey(Actions::P2_Right);
+			bingoKey = configurator.getActionKey(Actions::P2_Bingo);
+			buyKey	 = configurator.getActionKey(Actions::P2_Buy);
+			actionKey= configurator.getActionKey(Actions::P2_Action);
 			this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 			this->moveSprite(60.f,0.f);

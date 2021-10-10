@@ -31,8 +31,6 @@ Shop::~Shop()
 
 void Shop::restockItems()
 {
-	sf::Clock test; test.restart();
-
 	for (int i = 0; nrOfTerminatedItems != 0 ; i++) {
 		terminatedItems[i]->resetItem();
 		items[nrOfItem++] = terminatedItems[i];
@@ -40,9 +38,6 @@ void Shop::restockItems()
 		terminatedItems[i] = terminatedItems[--nrOfTerminatedItems];
 		terminatedItems[nrOfTerminatedItems] = nullptr;
 	}
-
-	auto saveMe = test.getElapsedTime().asSeconds();
-	int f = 3;
 }
 
 void Shop::setGamePtr(Game* gamePtr)

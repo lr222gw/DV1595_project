@@ -11,6 +11,7 @@
 #endif
 #include "Game.h"
 #include "Menu.h"
+#include "OptionsMenu.h"
 
 int main()
 {
@@ -26,7 +27,7 @@ int main()
 	{
 		current->handleEvents();
 		currentState = current->update();
-
+		
 		if (currentState != State::NO_CHANGE)
 		{
 
@@ -39,6 +40,10 @@ int main()
 			case State::PLAY:
 				delete current;
 				current = new Game();
+				break;
+			case State::OPTIONS:
+				delete current;
+				current = new OptionsMenu();
 				break;
 			}
 		}

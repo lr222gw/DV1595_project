@@ -1,4 +1,4 @@
 #pragma once
 
-enum class State { MENU, PLAY, EXIT, NO_CHANGE };
+enum class State { MENU, PLAY, OPTIONS, EXIT, NO_CHANGE };
 

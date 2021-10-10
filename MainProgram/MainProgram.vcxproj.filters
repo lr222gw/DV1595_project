@@ -69,6 +69,12 @@
     <ClCompile Include="DungBeetle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerConfigurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -123,6 +129,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DungBeetle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerConfigurator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

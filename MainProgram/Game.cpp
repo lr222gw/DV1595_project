@@ -184,9 +184,6 @@ State Game::update()
 
 			//Check if Poo Collides with any Items
 			checkCollisionPooAndItem();
-			/*for (int i = 0; i < this->theNumberBoard->collidedWithPoo()) {
-
-			}*/
 			
 
 		}
@@ -210,13 +207,6 @@ State Game::update()
 		playerTwo.addMoney(5);
 	}
 
-	/*
-
-	om ingen förändring har skett ska retur göras motsvarande ingen förändring och annars ska State HIGHSCORE_INPUT returneras
-
-	*/
-
-	
 	return finalState;
 }
 

@@ -4,13 +4,13 @@
 #include "BingoBoard.h"
 //#include "Stone.h"
 #include "Item.h"
+#include "ControllerConfigurator.h"
 
 class Shop;
 enum class PlayerId {PlayerOne, PlayerTwo};
 class Player : public Entity {
 
-private:	
-
+private:		
 	PlayerId playerId;
 	sf::Keyboard::Key upKey;
 	sf::Keyboard::Key downKey;
