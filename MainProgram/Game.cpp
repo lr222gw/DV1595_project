@@ -86,7 +86,7 @@ Game::Game()
 	//shop.restockItems();
 	shop.initShop();
 
-
+	
 	currentState = State::NO_CHANGE;	
 }
 

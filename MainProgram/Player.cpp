@@ -5,7 +5,9 @@
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
 {
-	static ControllerConfigurator configurator;
+	static ControllerConfigurator configurator;	
+	configurator.loadConfig();
+
 	this->gameArea = gameArea;
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	this->status_string.setFont(status_font);

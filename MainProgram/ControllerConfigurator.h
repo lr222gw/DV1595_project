@@ -26,15 +26,14 @@ private:
 	std::string configFilePath;
 	void createDefaultConfFile();
 	void appendInputPair(Actions action, sf::Keyboard::Key inputKey);
-	std::ifstream* createOrOpenFile(std::string path, std::ios_base::openmode mode);
-
-	void loadConfig();
+	std::ifstream* createOrOpenFile(std::string path, std::ios_base::openmode mode);	
 	void saveConfig();
 	static const int nrOfPairs = 14;
 	InputPair inputPairs[nrOfPairs];
 
 public:
 	ControllerConfigurator();
+	void loadConfig();
 
 	std::string actionsEnumToString(Actions action);
 

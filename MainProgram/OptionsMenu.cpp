@@ -13,12 +13,8 @@ void OptionsMenu::moveUp()
 	}
 
 	alternatives[selected].setFillColor(sf::Color::Red);
-	//alternatives[selected].setCharacterSize(30);
 
 	alternatives[prvSelected].setFillColor(sf::Color::Yellow);
-	//alternatives[prvSelected].setCharacterSize(30);
-
-
 }
 
 void OptionsMenu::moveDown()
@@ -28,10 +24,8 @@ void OptionsMenu::moveDown()
 	selected = (selected + 1) % (NR_OF_ALT);
 
 	alternatives[selected].setFillColor(sf::Color::Red);
-	//alternatives[selected].setCharacterSize(30);
 
 	alternatives[prvSelected].setFillColor(sf::Color::Yellow);
-	//alternatives[prvSelected].setCharacterSize(30);
 }
 
 void OptionsMenu::updateOptions()
@@ -126,13 +120,13 @@ void OptionsMenu::handleEvents()
 			window.close();
 		}
 
-		if (done && selected != 0) {
+		if (done && selected != 0 && event.type == sf::Event::KeyPressed) {
 			conf.setInputPair((Actions)selected, event.key.code);
 			updateOptions();
 			done = false;
 		}
-
-		if (event.type == sf::Event::KeyPressed) {
+		else if (event.type == sf::Event::KeyPressed) 
+		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 
 				moveDown();

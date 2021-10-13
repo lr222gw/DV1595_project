@@ -75,6 +75,20 @@ void ControllerConfigurator::loadConfig()
 	delete file;
 }
 
+void ControllerConfigurator::saveConfig()
+{
+	std::ofstream file(configFilePath, std::ios::beg);
+
+	if (file.is_open()) {
+		for (int i = 0; i < nrOfPairs; i++) {
+
+			file << (int)inputPairs[i].action << " " << (int)inputPairs[i].key << std::endl;
+		}
+	}
+
+	file.close();
+}
+
 ControllerConfigurator::ControllerConfigurator()
 {	
 	configFilePath = "controllerConf.txt";
@@ -147,16 +161,7 @@ void ControllerConfigurator::setInputPair(Actions action, sf::Keyboard::Key inpu
 		}
 	}
 
-	std::ofstream file(configFilePath, std::ios::beg);	
-
-	if(file.is_open()) {
-		for (int i = 0; i < nrOfPairs; i++) {
-
-			file << (int)inputPairs[i].action << " " << (int)inputPairs[i].key << std::endl;
-		}
-	}
-
-	file.close();
+	saveConfig();
 
 }
 
