@@ -16,6 +16,10 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	
 	playerInfoBox.setFillColor(sf::Color::Black);
 
+	nextItemTexture.loadFromFile("../Images/NEXT.png");
+	nextItem.setTexture(nextItemTexture);
+	nextItem.setScale(0.08f, 0.08f);
+
 	switch (player) {
 		case PlayerId::PlayerOne:
 			
@@ -101,16 +105,20 @@ void Player::recieveItem(Item* item)
 {
 	if (nrOfItems < itemsCAP) {
 		this->items[nrOfItems++] = item;
-		
+		float distanceFromTop = 300.f;
+		float distanceBetweenItems = 20.f;
+		int itemsPerRow = 5;
+		int widthOfRow = 100;
 		if (this->playerId == PlayerId::PlayerOne) {
 
-			this->items[nrOfItems - 1]->setPosition(40.f + (nrOfItems * 10), 250 + (nrOfItems / 10)*10);			
+			this->items[nrOfItems - 1]->setPosition(40.f + ((nrOfItems -2) * (int)distanceBetweenItems) % widthOfRow, distanceFromTop + ((nrOfItems - 2) / itemsPerRow)* distanceBetweenItems);
+			nextItem.setPosition((float)((nrOfItems ) * (int)distanceBetweenItems % widthOfRow), distanceBetweenItems + (float) (distanceFromTop + ((nrOfItems ) / itemsPerRow) * distanceBetweenItems));
 		}
 		else if (this->playerId == PlayerId::PlayerTwo) {
 
 			this->items[nrOfItems - 1]->setPosition(				
-					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f + (nrOfItems * 10),
-					250 + (nrOfItems / 10) * 10
+					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f  + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
+				distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
 			);
 		}
 
@@ -246,4 +254,5 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(this->playerInfoBox);
 	target.draw(*bingoBoard);		
 	target.draw(this->status_string);
+	target.draw(nextItem);
 }

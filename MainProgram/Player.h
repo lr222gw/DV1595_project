@@ -21,7 +21,9 @@ private:
 	sf::Keyboard::Key buyKey;
 	
 	sf::Vector2f direction;
-
+	
+	sf::Texture nextItemTexture;
+	sf::Sprite nextItem;
 	sf::RectangleShape playerInfoBox;
 	sf::RectangleShape* gameArea;
 	BingoBoard *bingoBoard;
