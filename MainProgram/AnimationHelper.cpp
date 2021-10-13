@@ -63,6 +63,25 @@ void AnimationHelper::toggleReversePlayback()
 	this->reversePlayback = !this->reversePlayback;
 }
 
+bool AnimationHelper::isCurrentDirectionDown()
+{
+	return lastRow == this->down_row;
+}
+
+bool AnimationHelper::isCurrentDirectionUp()
+{
+	return lastRow == this->up_row;
+}
+
+bool AnimationHelper::isCurrentDirectionLeft()
+{
+	return lastRow == this->left_row;
+}
+bool AnimationHelper::isCurrentDirectionRight()
+{
+	return lastRow == this->right_row;
+}
+
 void AnimationHelper::setRowAnimationInstruction(int up, int down, int left, int right, int idle)
 {
 	down_row = down;

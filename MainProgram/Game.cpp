@@ -69,7 +69,7 @@ Game::Game()
 	playerOne.setShop(&shop);
 	playerTwo.setShop(&shop);
 
-	cowCapacity = 2;
+	cowCapacity = 1;
 	cows = new Cow * [cowCapacity];
 	for (int i = 0; i < cowCapacity; i++)
 	{
@@ -80,7 +80,7 @@ Game::Game()
 	allEntities[0] = &playerOne;
 	allEntities[1] = &playerTwo;
 	allEntities[2] = cows[0];
-	allEntities[3] = cows[1];
+	//allEntities[3] = cows[1];
 
 	shop.setGamePtr(this);
 	//shop.restockItems();
@@ -161,8 +161,8 @@ State Game::update()
 	
 	elapsedTimeSinceLastUpdate += clock.restart();	
 	
-	while (elapsedTimeSinceLastUpdate > timePerFrame)
-	{
+	//while (elapsedTimeSinceLastUpdate > timePerFrame)
+	//{
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 		
 		
@@ -197,7 +197,7 @@ State Game::update()
 		
 		this->shop.updateItems();
 		storeText.setString("Buy Item: " + this->shop.presentItem());
-	}
+	/*}*/
 
 	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
 

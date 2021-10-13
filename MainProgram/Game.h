@@ -38,7 +38,8 @@ private:
 	Shop shop;
 
 	void sortEntities();
-	static const int nrOfEntities = 4;
+	//static const int nrOfEntities = 4;
+	static const int nrOfEntities = 3;
 	Entity* allEntities[nrOfEntities];
 
 	State currentState;

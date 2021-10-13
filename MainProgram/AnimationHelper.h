@@ -41,6 +41,12 @@ public:
 	void animateRight();
 	void animateIdle();
 
+	bool isCurrentDirectionDown();
+	bool isCurrentDirectionUp();
+	bool isCurrentDirectionLeft();
+	bool isCurrentDirectionRight();
+	
+
 	void setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
 
 	void update();

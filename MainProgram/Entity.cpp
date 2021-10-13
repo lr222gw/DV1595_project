@@ -103,9 +103,9 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	
 
 	target.draw(this->sprite);
-	target.draw(rectTop);
-	target.draw(rectLeft);
-	target.draw(rectRight);
-	target.draw(rectBottom);
+	//target.draw(rectTop);
+	//target.draw(rectLeft);
+	//target.draw(rectRight);
+	//target.draw(rectBottom);
 }
  

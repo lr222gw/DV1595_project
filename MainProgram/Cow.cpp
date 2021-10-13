@@ -162,23 +162,25 @@ void Cow::setGoal(sf::Vector2f pos)
 
 void Cow::crapOnTile()
 {
+	
 	sf::Vector2f posCowsButt;
-	if (currentDirection == Direction::Down) {
-		posCowsButt.x = this->getBounds().left + this->getBounds().width/4;
+	
+	if (getAnimationHelper()->isCurrentDirectionDown()) {
+		posCowsButt.x = this->getBounds().left + (this->getBounds().width / 4.f);
 		posCowsButt.y = this->getBounds().top;
 	}
-	else if (currentDirection == Direction::Up) {
-		posCowsButt.x = this->getBounds().left + this->getBounds().width / 4;
-		posCowsButt.y = this->getBounds().top + this->getBounds().height;
+	else if (getAnimationHelper()->isCurrentDirectionUp()) {
+		posCowsButt.x = this->getBounds().left + (this->getBounds().width / 4.f);
+		posCowsButt.y = this->getBounds().top + (this->getBounds().height / 4.f) * 3;
 	}
-	else if (currentDirection == Direction::Left) {
-		posCowsButt.x = this->getBounds().left + this->getBounds().width;
-		posCowsButt.y = this->getBounds().top + this->getBounds().height / 4; 
+	else if (getAnimationHelper()->isCurrentDirectionLeft()) {
+		posCowsButt.x = this->getBounds().left + (this->getBounds().width / 4.f) * 3;
+		posCowsButt.y = this->getBounds().top + (this->getBounds().height / 2.f) ;
 	}
-	else if (currentDirection == Direction::Right) {
+	else if (getAnimationHelper()->isCurrentDirectionRight()) {
 		
-		posCowsButt.x = this->getBounds().left;
-		posCowsButt.y = this->getBounds().top + this->getBounds().height / 4;
+		posCowsButt.x = this->getBounds().left - (this->getBounds().width / 4.f);
+		posCowsButt.y = this->getBounds().top + (this->getBounds().height / 2.f) ;
 	
 	}
 	Poo* poo = new Poo(posCowsButt);
