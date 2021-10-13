@@ -39,12 +39,13 @@ bool Wheat::use(Player* playerPtr)
 void Wheat::collided(Entity* collidedWith)
 {
     if (status == Status::Dropped) {
-        this->setPosition(-100.f, -100.f);
-        status = Status::Collided;
-        this->terminate();
-
+        
         auto cow = dynamic_cast<Cow*>(collidedWith);
         if (cow) {
+            this->setPosition(-100.f, -100.f);
+            status = Status::Collided;
+            this->terminate();
+
             cow->setRelieavingWaste(true);
            
             cow->setGoal(sf::Vector2f(0.f, 0.f)); // TODO: This should cause cow to go back to plane

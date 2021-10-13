@@ -161,8 +161,8 @@ State Game::update()
 	
 	elapsedTimeSinceLastUpdate += clock.restart();	
 	
-	//while (elapsedTimeSinceLastUpdate > timePerFrame)
-	//{
+	while (elapsedTimeSinceLastUpdate > timePerFrame)
+	{
 		elapsedTimeSinceLastUpdate -= timePerFrame;
 		
 		
@@ -197,7 +197,7 @@ State Game::update()
 		
 		this->shop.updateItems();
 		storeText.setString("Buy Item: " + this->shop.presentItem());
-	/*}*/
+	}
 
 	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
 
