@@ -69,7 +69,7 @@ Game::Game()
 	playerOne.setShop(&shop);
 	playerTwo.setShop(&shop);
 
-	cowCapacity = 1;
+	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];
 	for (int i = 0; i < cowCapacity; i++)
 	{
@@ -80,7 +80,7 @@ Game::Game()
 	allEntities[0] = &playerOne;
 	allEntities[1] = &playerTwo;
 	allEntities[2] = cows[0];
-	//allEntities[3] = cows[1];
+	allEntities[3] = cows[1];
 
 	shop.setGamePtr(this);
 	//shop.restockItems();

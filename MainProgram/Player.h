@@ -27,9 +27,8 @@ private:
 	BingoBoard *bingoBoard;
 	Shop *shop;
 	int money; 
-
-	//TODO: Rethink array... 
-	static const int itemsCAP = 10;
+	
+	static const int itemsCAP = 12;  //TOOD: Should be based on how many items the Shop allows...
 	int nrOfItems;
 	int selectedItem;
 	Item* items[itemsCAP];

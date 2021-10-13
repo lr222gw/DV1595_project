@@ -4,9 +4,9 @@
 Shop::Shop()
 	: nrOfItem(0), gamePtr(nullptr), nrOfSoldItem(0), nrOfTerminatedItems(0)
 {
-	this->itemsCAP = 4;
-	this->soldItemsCAP = 4;
-	this->terminatedItemsCAP = 4;
+	this->itemsCAP = 12;
+	this->soldItemsCAP = 12;
+	this->terminatedItemsCAP = 12;
 	items = new Item * [this->itemsCAP]{ nullptr };
 	soldItems = new Item * [this->soldItemsCAP]{ nullptr };
 	terminatedItems = new Item * [this->terminatedItemsCAP]{ nullptr };
@@ -47,16 +47,18 @@ void Shop::setGamePtr(Game* gamePtr)
 
 void Shop::initShop()
 {
-	Stone* tempStone = new Stone(gamePtr);
-	Stone* tempStone2 = new Stone(gamePtr);
-	//Stone* tempStone3 = new Stone();
-	Wheat* tempWheat = new Wheat(gamePtr);
-	DungBeetle* tempBeetle = new DungBeetle(gamePtr);
-	items[this->nrOfItem++] = tempBeetle;
-	items[this->nrOfItem++] = tempWheat;
-	items[this->nrOfItem++] = tempStone;
-	items[this->nrOfItem++] = tempStone2;
-	//items[this->nrOfItem++] = tempStone3;
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Wheat(gamePtr);
+	items[this->nrOfItem++] = new DungBeetle(gamePtr);
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Wheat(gamePtr);
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Wheat(gamePtr);
+	items[this->nrOfItem++] = new DungBeetle(gamePtr);
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Stone(gamePtr);
+	items[this->nrOfItem++] = new Wheat(gamePtr);
 }
 
 
