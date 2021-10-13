@@ -40,6 +40,8 @@ private:
 
 	bool wonTheGame;
 
+	void updateNextItemIconPosition();
+
 public :
 	Player(PlayerId player, sf::RectangleShape *gameArea);
 	virtual ~Player();

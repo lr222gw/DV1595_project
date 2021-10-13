@@ -2,6 +2,8 @@
 #include "Shop.h"
 
 
+
+
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
 {
@@ -19,6 +21,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	nextItemTexture.loadFromFile("../Images/NEXT.png");
 	nextItem.setTexture(nextItemTexture);
 	nextItem.setScale(0.08f, 0.08f);
+	updateNextItemIconPosition();
 
 	switch (player) {
 		case PlayerId::PlayerOne:
@@ -112,14 +115,17 @@ void Player::recieveItem(Item* item)
 		if (this->playerId == PlayerId::PlayerOne) {
 
 			this->items[nrOfItems - 1]->setPosition(40.f + ((nrOfItems -2) * (int)distanceBetweenItems) % widthOfRow, distanceFromTop + ((nrOfItems - 2) / itemsPerRow)* distanceBetweenItems);
-			nextItem.setPosition((float)((nrOfItems ) * (int)distanceBetweenItems % widthOfRow), distanceBetweenItems + (float) (distanceFromTop + ((nrOfItems ) / itemsPerRow) * distanceBetweenItems));
+			
+			updateNextItemIconPosition();						
 		}
 		else if (this->playerId == PlayerId::PlayerTwo) {
 
 			this->items[nrOfItems - 1]->setPosition(				
 					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f  + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
-				distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
+					distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
 			);
+
+			updateNextItemIconPosition();
 		}
 
 		this->items[nrOfItems - 1]->setThumbnailScale();
@@ -186,6 +192,7 @@ void Player::checkEventInput(sf::Event event)
 			items[selectedItem]->setDefaultScale();
 			items[selectedItem] = nullptr;
 			items[selectedItem] = items[--nrOfItems];
+			updateNextItemIconPosition();
 		}
 	}
 }
@@ -255,4 +262,31 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*bingoBoard);		
 	target.draw(this->status_string);
 	target.draw(nextItem);
+}
+
+
+void Player::updateNextItemIconPosition()
+{
+	if (nrOfItems > 1) {
+		float distanceFromTop = 300.f;
+		float distanceBetweenItems = 20.f;
+		int itemsPerRow = 5;
+		int widthOfRow = 100;
+
+		if (this->playerId == PlayerId::PlayerOne)
+		{
+			nextItem.setPosition((float)(40.f + (nrOfItems - 2) * (int)distanceBetweenItems % widthOfRow), distanceBetweenItems + (float)(distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems));
+		}
+		else
+		{
+			nextItem.setPosition(
+				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
+				distanceBetweenItems + distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
+			);
+		}
+	}
+	else {
+
+		nextItem.setPosition(-100.f, -100.f);
+	}
 }
