@@ -25,6 +25,8 @@ public:
 	void setTexture(std::string texturePath, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
 	void moveSprite(float x, float y);
 	void setSpriteScale(float x, float y);
+	void setSpriteColor(sf::Color color);
+	void resetSpriteColor();
 
 	sf::FloatRect getBounds() const;
 	bool hitBy(const sf::FloatRect &ref);

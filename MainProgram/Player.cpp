@@ -52,11 +52,9 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 			this->moveSprite(60.f,0.f);
 			this->playerId = PlayerId::PlayerTwo;
-
 			
 			break;
-	}
-	
+	}	
 }
 
 Player::~Player()
@@ -73,7 +71,7 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
 		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(0.f, 0.f);
-		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f;
+		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
 		this->bingoBoard->setPosition(sf::Vector2f(margin, margin));
 	}
 	else if (this->playerId == PlayerId::PlayerTwo) {
@@ -86,7 +84,7 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
 				500.f)
 		);
-		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f;
+		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
 		this->bingoBoard->setPosition(sf::Vector2f(margin + this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width, margin));
 
 		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
@@ -170,30 +168,45 @@ std::string Player::getPlayerIdentity()
 }
 
 void Player::checkEventInput(sf::Event event)
-{
-	if (event.type == event.KeyPressed && event.key.code == (this->bingoKey))
-	{
-		if (this->bingoBoard->checkBingo()) {
-			this->wonTheGame = true;
-			//Rotate player to look into camera...
-			this->getAnimationHelper()->animateDown();
+{ 
+	if (!punished) {
+
+		if (event.type == event.KeyPressed && event.key.code == (this->bingoKey))
+		{
+			if (this->bingoBoard->checkBingo()) {
+				this->wonTheGame = true;
+				//Rotate player to look into camera...
+				this->getAnimationHelper()->animateDown();
+			}
+			//else if (Check IF other player has bingo) {
+				// sabbotage...
+			//}
+			else {
+				//Punish! 
+				this->setSpriteColor(sf::Color::Color(255, 200, 200, 100));
+				punished = true;
+				countPunishedTime = 0;
+			}
 		}
-	}
 
-	if (event.type == event.KeyPressed && event.key.code == (this->buyKey))
-	{
-		this->shop->buyItem(this);
+		if (event.type == event.KeyPressed && event.key.code == (this->buyKey))
+		{
+			this->shop->buyItem(this);
 
-	}
+		}
 	
-	if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
-	{
-		if (items[selectedItem]->use(this)) {
-			items[selectedItem]->setDefaultScale();
-			items[selectedItem] = nullptr;
-			items[selectedItem] = items[--nrOfItems];
-			updateNextItemIconPosition();
+		if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
+		{
+			if (items[selectedItem]->use(this)) {
+				items[selectedItem]->setDefaultScale();
+				items[selectedItem] = nullptr;
+				items[selectedItem] = items[--nrOfItems];
+				updateNextItemIconPosition();
+			}
 		}
+	}
+	else {
+		// Play a bad sound...
 	}
 }
 
@@ -252,6 +265,15 @@ void Player::move()
 	this->bingoBoard->updateBingoBoard();
 	if (this->bingoBoard->checkSpecialTiles()) {
 		money += 50;
+	}
+
+	count++;
+	if (punished && count % 60 == 0) {
+		countPunishedTime = (countPunishedTime + 1) % (punishTime +1);
+	}
+	if (punishTime <= countPunishedTime) {
+		punished = false;
+		this->resetSpriteColor();
 	}
 }
 

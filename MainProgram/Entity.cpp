@@ -41,6 +41,16 @@ void Entity::setSpriteScale(float x, float y)
 	this->sprite.setScale(x, y);
 }
 
+void Entity::setSpriteColor(sf::Color color)
+{
+	this->sprite.setColor(color);
+}
+
+void Entity::resetSpriteColor()
+{
+	this->sprite.setColor(sf::Color::Color(255,255,255,255));
+}
+
 sf::FloatRect Entity::getBounds() const
 {
 	return this->sprite.getGlobalBounds();

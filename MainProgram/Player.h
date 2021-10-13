@@ -11,6 +11,11 @@ enum class PlayerId {PlayerOne, PlayerTwo};
 class Player : public Entity {
 
 private:		
+
+	int count = 0; 
+	int countPunishedTime = 0;
+	int punishTime = 5;
+
 	PlayerId playerId;
 	sf::Keyboard::Key upKey;
 	sf::Keyboard::Key downKey;
@@ -38,6 +43,7 @@ private:
 	sf::Font status_font;
 	sf::Text status_string;
 
+	bool punished;
 	bool wonTheGame;
 
 	void updateNextItemIconPosition();
