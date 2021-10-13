@@ -1,6 +1,6 @@
 #include "BingoBoard.h"
 
-bool BingoBoard::checkBingo()
+bool BingoBoard::checkBingo() const
 {
 	bool gotBingo = false;
 
@@ -50,6 +50,14 @@ bool BingoBoard::checkBingo()
 	return gotBingo;
 }
 
+void BingoBoard::sabbotageBingo()
+{
+	/// Find Tile that causes bingo.
+	Tile* tile = findCommonBingoTile();
+
+	this->theNumberBoard->cleanTile(tile->getId());
+}
+
 bool BingoBoard::updateSpecialTile(int currentIndex, bool isSoiled )
 {
 	auto temp = numberBoardsTiles[currentIndex];
@@ -68,6 +76,115 @@ bool BingoBoard::updateSpecialTile(int currentIndex, bool isSoiled )
 		}
 	}
 	return wasSpecial;
+}
+
+Tile* BingoBoard::findCommonBingoTile()
+{
+
+	int nrOfBingoTiles = 0;
+	Tile* bingoTiles[25]; 
+	bool gotBingo = false;
+
+	// Check each Row
+	for (int i = 0; i < 5 && !gotBingo; i++) {
+		int j = 0;
+		while (j < 5 && this->numberBoardsTiles[(i * 5) + j]->isSoiled()) {
+			j++;
+		}
+
+		if (j == 5) {
+			gotBingo = true;			
+		}
+		else {
+			j = 0;
+		}
+		if (gotBingo) {
+			j = 0;
+			while (j < 5 && this->numberBoardsTiles[(i * 5) + j]->isSoiled()) {
+				bingoTiles[nrOfBingoTiles++] = this->numberBoardsTiles[(i * 5) + j];
+				j++;
+			}
+		}
+	}
+
+	// Check each Column
+	for (int i = 0; i < 5 && !gotBingo; i++) {
+		int j = 0;
+		while (j < 5 && this->numberBoardsTiles[((j * 5)) + i]->isSoiled()) {
+			j++;
+		}
+		if (j == 5) {
+			gotBingo = true;
+		}
+		else {
+			j = 0;
+		}
+		if (gotBingo) {
+			j = 0;
+			while (j < 5 && this->numberBoardsTiles[((j * 5)) + i]->isSoiled()) {
+				bingoTiles[nrOfBingoTiles++] = this->numberBoardsTiles[((j * 5)) + i];
+				j++;
+			}
+		}
+	}
+
+	// Check first Diagonal
+	int i = 0;
+	while (i <= 24 && this->numberBoardsTiles[i]->isSoiled()) {
+		i += 6;
+	}
+	//gotBingo = i == 30 ? true : gotBingo;
+	if (i == 30) {
+		int j = 0;
+		while (j <= 24 && this->numberBoardsTiles[j]->isSoiled()) {
+			bingoTiles[nrOfBingoTiles++] = this->numberBoardsTiles[j];			
+			j += 6;
+		}
+	}
+
+	// Check second Diagonal
+	i = 4;
+	while (i <= 20 && this->numberBoardsTiles[i]->isSoiled()) {
+		i += 4;
+	}
+	//gotBingo = i == 24 ? true : gotBingo;
+	if (i == 24) {
+		int j = 4;
+		while (j <= 20 && this->numberBoardsTiles[j]->isSoiled()) {
+			bingoTiles[nrOfBingoTiles++] = this->numberBoardsTiles[j];
+			j += 4;
+		}
+	}
+
+	int nrOfCommonBingoTiles = 0;
+	struct CommonBingoTile {
+		Tile* commonBingoTile = nullptr;
+		int occurrence = 0;
+	};
+	CommonBingoTile commonBingoTiles[25];
+
+	// Look for common tile
+	for (int i = 0; i < nrOfBingoTiles; i++) {
+		commonBingoTiles[i].commonBingoTile = bingoTiles[i];
+		nrOfCommonBingoTiles++;
+		for (int j = i; j < nrOfBingoTiles; j++) {
+			if (bingoTiles[i] == bingoTiles[j]) {
+				commonBingoTiles[i].occurrence++;
+			}
+		}
+	}
+
+	//Pick the one that occourdd the most...
+	int max_index = 0;
+	for (int i = 0; i < nrOfBingoTiles; i++) {
+		
+		if (commonBingoTiles[i].occurrence > commonBingoTiles[max_index].occurrence ) {
+			max_index = i;
+		}
+		
+	}
+
+	return commonBingoTiles[max_index].commonBingoTile;
 }
 
 bool BingoBoard::checkSpecialTiles()
@@ -93,6 +210,8 @@ BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 	this->bingoImage_sprite.setPosition(drawPos.x, drawPos.y + 150.f);
 	this->bingoImage_sprite.setColor(sf::Color(0, 0, 0, 0));
 	
+	this->theNumberBoard = numberBoard;
+
 	Tile* tempArr[5*5]{ 0 };
 	Tile* specialTilesArr[5 * 5];
 	Tile* specialTilesArr_temp[5 * 5];
@@ -198,5 +317,7 @@ void BingoBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(squares[i]);
 		target.draw(texts[i]);
 	}
-	target.draw(bingoImage_sprite);
+	if (this->checkBingo()) {
+		target.draw(bingoImage_sprite);
+	}	
 }

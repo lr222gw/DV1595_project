@@ -23,7 +23,7 @@ public:
 	~NumberBoard();
 
 	bool checkBingo();
-	void cleanTile();
+	void cleanTile(int tileValue);
 	void markTileAsCrapped(sf::FloatRect marking);
 	void unmarkTileAsCrapped(sf::FloatRect marking);
 

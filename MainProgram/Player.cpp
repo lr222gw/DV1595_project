@@ -97,6 +97,11 @@ void Player::setShop(Shop* shop)
 	this->shop = shop;
 }
 
+void Player::setOpponent(Player* opponent)
+{
+	this->opponent = opponent;
+}
+
 const sf::Vector2f Player::getDirection() const
 {
 	return direction;
@@ -178,11 +183,12 @@ void Player::checkEventInput(sf::Event event)
 				//Rotate player to look into camera...
 				this->getAnimationHelper()->animateDown();
 			}
-			//else if (Check IF other player has bingo) {
+			else if (opponent->bingoBoard->checkBingo()) {
 				// sabbotage...
-			//}
+				opponent->bingoBoard->sabbotageBingo();
+			}
 			else {
-				//Punish! 
+				//Punish! Cant use item for 5 seconds...
 				this->setSpriteColor(sf::Color::Color(255, 200, 200, 100));
 				punished = true;
 				countPunishedTime = 0;
@@ -281,7 +287,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw( target, states);
 	target.draw(this->playerInfoBox);
-	target.draw(*bingoBoard);		
+	
+	target.draw(*bingoBoard);
 	target.draw(this->status_string);
 	target.draw(nextItem);
 }

@@ -55,6 +55,11 @@ NumberBoard::~NumberBoard()
 	delete[] poos;
 }
 
+void NumberBoard::cleanTile(int tileID)
+{
+	unmarkTileAsCrapped(squares[tileID].getGlobalBounds());
+}
+
 void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 {
 	for (int i = 0; i < 5 * 5 ; i++) {

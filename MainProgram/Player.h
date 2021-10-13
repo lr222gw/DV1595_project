@@ -16,6 +16,8 @@ private:
 	int countPunishedTime = 0;
 	int punishTime = 5;
 
+	Player* opponent;
+
 	PlayerId playerId;
 	sf::Keyboard::Key upKey;
 	sf::Keyboard::Key downKey;
@@ -53,6 +55,7 @@ public :
 	virtual ~Player();
 	void initBingoBoard(NumberBoard* numberBoard);
 	void setShop(Shop* shop);
+	void setOpponent(Player* opponent);
 
 	const sf::Vector2f getDirection() const;
 

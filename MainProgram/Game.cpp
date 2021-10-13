@@ -68,6 +68,8 @@ Game::Game()
 	playerTwo.initBingoBoard(theNumberBoard);
 	playerOne.setShop(&shop);
 	playerTwo.setShop(&shop);
+	playerOne.setOpponent(&playerTwo);
+	playerTwo.setOpponent(&playerOne);
 
 	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];

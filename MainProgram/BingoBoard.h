@@ -12,6 +12,8 @@ private:
 	sf::RectangleShape squares[5 * 5];
 	sf::Text texts[5 * 5];
 	sf::Font bingoFont;
+
+	NumberBoard* theNumberBoard;
 	
 	sf::Texture bingoImage_texture;
 	sf::Sprite bingoImage_sprite;
@@ -21,6 +23,7 @@ private:
 
 	bool updateSpecialTile(int currentIndex, bool isSoiled);
 
+	Tile* findCommonBingoTile();
 
 	float squareSize;
 	sf::Vector2f drawPos;
@@ -29,7 +32,8 @@ private:
 public:
 	BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos);
 
-	bool checkBingo();
+	bool checkBingo() const;
+	void sabbotageBingo();
 	bool checkSpecialTiles();	
 	void updateBingoBoard();
 	sf::Vector2f getBingoBoardSize();
