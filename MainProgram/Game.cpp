@@ -2,6 +2,21 @@
 #include <iostream>
 #include "State.h"
 
+void Game::togglePause()
+{
+	paused = !paused;
+	if (!paused) {
+		elapsedTimeSinceLastUpdate -= clock.getElapsedTime();
+		pauseSprite.setPosition(-100.f, -100.f);
+	}
+	else {
+		pauseSprite.setPosition(
+			window.getSize().x / 2.f - pauseSprite.getGlobalBounds().width / 2.f,
+			window.getSize().y / 2.f - pauseSprite.getGlobalBounds().height / 2.f
+		);
+	}
+}
+
 void Game::sortEntities()
 {
 	for (int i = 0; i < nrOfEntities-1; i++) 
@@ -35,9 +50,7 @@ Game::Game()
 	timePerFrame = sf::seconds(1 / 60.f);
 
 	srand(time(NULL));
-
 	
-
 	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
 	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;
 
@@ -62,6 +75,10 @@ Game::Game()
 		(float)this->window.getSize().x / 3.f,
 		(float)this->window.getSize().y / 1.2f
 	);
+
+	pauseTexture.loadFromFile("../Images/paused.png");
+	pauseSprite.setTexture(pauseTexture);
+	pauseSprite.setPosition(-100.f, -100.f);
 
 	theNumberBoard = new NumberBoard(gameArea.getGlobalBounds());
 	playerOne.initBingoBoard(theNumberBoard);
@@ -232,6 +249,10 @@ void Game::render()
 
 		//window.draw(playerOneInfoBox);
 		//window.draw(playerTwoInfoBox);
+
+		if (paused) {
+			window.draw(pauseSprite);
+		}
 	}
 	else {
 		window.draw(gameOverScreen);
@@ -257,17 +278,15 @@ void Game::handleEvents()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				currentState = State::MENU;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-				paused = !paused;
-				if (!paused) {
-					elapsedTimeSinceLastUpdate -= clock.getElapsedTime();
-				}
-				
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {				
+				togglePause();				
 			}
 		}
 
-		playerOne.checkEventInput(event);
-		playerTwo.checkEventInput(event);
+		if (!paused) {
+			playerOne.checkEventInput(event);
+			playerTwo.checkEventInput(event);
+		}
 	}
 }
 

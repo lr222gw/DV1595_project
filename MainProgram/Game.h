@@ -25,6 +25,8 @@ private:
 	sf::Text storeText;
 	Player* winner;
 	sf::RectangleShape gameOverScreen;
+	sf::Sprite pauseSprite;
+	sf::Texture pauseTexture;
 
 	NumberBoard* theNumberBoard;
 
@@ -38,6 +40,8 @@ private:
 	Shop shop;
 
 	bool paused = false;	
+
+	void togglePause();
 
 	void sortEntities();
 	static const int nrOfEntities = 4;
