@@ -33,7 +33,7 @@ void AnimationHelper::moveIntRectAtUpdateTime()
 }
 
 AnimationHelper::AnimationHelper(sf::Sprite& sprite)
-	: timeCounter(0), updateTime(60 ), nrOfRows(0), nrOfColumns(0), reversePlayback(false), rightDir_playback(true)
+	: timeCounter(0), updateTime(15 ), nrOfRows(0), nrOfColumns(0), reversePlayback(false), rightDir_playback(true)
 {
 	this->texture = nullptr;
 	down_row = 0;

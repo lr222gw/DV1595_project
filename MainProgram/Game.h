@@ -37,6 +37,8 @@ private:
 
 	Shop shop;
 
+	bool paused = false;	
+
 	void sortEntities();
 	static const int nrOfEntities = 4;
 	Entity* allEntities[nrOfEntities];

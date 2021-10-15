@@ -76,14 +76,14 @@ bool Entity::hitBy(const sf::FloatRect& ref)
 
 void Entity::update()
 {
-	this->move();
-	this->animationHelper->update();	
+	this->move();		
+	this->animationHelper->update();
 }
-
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	animationHelper->update();
+	
+
 	auto floatRect = this->sprite.getGlobalBounds();
 
 	//Collision Debug...

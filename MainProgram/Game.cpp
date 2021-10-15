@@ -29,7 +29,7 @@ Game::Game()
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
-	winner(nullptr), updateTime(60), timeCount(0), nrOfCows(0)
+	winner(nullptr), updateTime(60), timeCount(0), nrOfCows(0), cowCapacity(2)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -71,7 +71,6 @@ Game::Game()
 	playerOne.setOpponent(&playerTwo);
 	playerTwo.setOpponent(&playerOne);
 
-	cowCapacity = 2;
 	cows = new Cow * [cowCapacity];
 	for (int i = 0; i < cowCapacity; i++)
 	{
@@ -161,52 +160,54 @@ State Game::update()
 {
 	State finalState = currentState;
 	
-	elapsedTimeSinceLastUpdate += clock.restart();	
-	
-	while (elapsedTimeSinceLastUpdate > timePerFrame)
-	{
-		elapsedTimeSinceLastUpdate -= timePerFrame;
-		
-		
-		if (!playerOne.hasWon() && !playerTwo.hasWon()) {
-			
-			playerOne.update();
-			playerTwo.update();
-		
-			//Check if a item collides with any Cow
-			for (int i = 0; i < nrOfCows; i++)
-			{
-				Item* item = shop.checkCollision(cows[i]->getBounds()); // Checks collision with all items...
-				if (item) {
-					item->collided(cows[i]);					
+	if (!paused) {
+		elapsedTimeSinceLastUpdate += clock.restart();
+
+		while (elapsedTimeSinceLastUpdate > timePerFrame)
+		{
+			elapsedTimeSinceLastUpdate -= timePerFrame;
+
+
+			if (!playerOne.hasWon() && !playerTwo.hasWon()) {
+
+				playerOne.update();
+				playerTwo.update();
+
+				//Check if a item collides with any Cow
+				for (int i = 0; i < nrOfCows; i++)
+				{
+					Item* item = shop.checkCollision(cows[i]->getBounds()); // Checks collision with all items...
+					if (item) {
+						item->collided(cows[i]);
+					}
+					cows[i]->update();
+					cows[i]->updateTimeCounter();
 				}
-				cows[i]->update();
-				cows[i]->updateTimeCounter();
+
+				//Check if Poo Collides with any Items
+				checkCollisionPooAndItem();
+
+
+			}
+			else if (!gameOver) {
+				winner = playerOne.hasWon() ? &playerOne : &playerTwo;
+				endText.setString("Game Over!\nThe Winner is\n" + winner->getPlayerIdentity());
+				gameOver = true;
+				winner->setPosition(endText.getPosition().x + endText.getGlobalBounds().width, 500.f);
+
 			}
 
-			//Check if Poo Collides with any Items
-			checkCollisionPooAndItem();
-			
-
+			this->shop.updateItems();
+			storeText.setString("Buy Item: " + this->shop.presentItem());
 		}
-		else if(!gameOver) {
-			winner = playerOne.hasWon() ? &playerOne : &playerTwo;
-			endText.setString("Game Over!\nThe Winner is\n"+winner->getPlayerIdentity());
-			gameOver = true;
-			winner->setPosition(endText.getPosition().x + endText.getGlobalBounds().width, 500.f );
-			
+
+		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
+
+		timeCount = (timeCount + 1) % (60 * 5);
+		if (timeCount == 0) {
+			playerOne.addMoney(5);
+			playerTwo.addMoney(5);
 		}
-		
-		this->shop.updateItems();
-		storeText.setString("Buy Item: " + this->shop.presentItem());
-	}
-
-	//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
-
-	timeCount = (timeCount + 1) % (60*5);
-	if (timeCount == 0) {
-		playerOne.addMoney(5);
-		playerTwo.addMoney(5);
 	}
 
 	return finalState;
@@ -255,6 +256,13 @@ void Game::handleEvents()
 		if (event.type == sf::Event::KeyPressed) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				currentState = State::MENU;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+				paused = !paused;
+				if (!paused) {
+					elapsedTimeSinceLastUpdate -= clock.getElapsedTime();
+				}
+				
 			}
 		}
 
