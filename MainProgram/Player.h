@@ -29,6 +29,9 @@ private:
 	
 	sf::Vector2f direction;
 	
+	sf::SoundBuffer illegalAction;
+	sf::Sound soundPlayer;
+
 	sf::Texture nextItemTexture;
 	sf::Sprite nextItem;
 	sf::Texture playerInfoBox_texture;

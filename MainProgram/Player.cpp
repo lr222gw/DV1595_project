@@ -2,7 +2,7 @@
 #include "Shop.h"
 
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
-	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
+	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop),direction(0.f,1.f)
 {
 	static ControllerConfigurator configurator;	
 	configurator.loadConfig();
@@ -11,8 +11,11 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	this->status_string.setFont(status_font);
 	this->status_string.setCharacterSize(30);
+	this->status_string.setFillColor(sf::Color::Magenta);
 	this->status_string.setString("Money: 0");
 	
+	illegalAction.loadFromFile("../Sounds/illegal.wav");
+	soundPlayer.setBuffer(illegalAction);
 
 	nextItemTexture.loadFromFile("../Images/NEXT.png");
 	nextItem.setTexture(nextItemTexture);
@@ -32,7 +35,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			playerInfoBox_texture.loadFromFile("../Images/player_1_InfoBoxBackground.png");			
 			this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
-			this->moveSprite(100.f, 0.f);
+			this->setPosition(335.f, 100.f);
 			this->playerId = PlayerId::PlayerOne;				
 
 			break;
@@ -47,12 +50,14 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			playerInfoBox_texture.loadFromFile("../Images/player_2_InfoBoxBackground.png");
 			this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
-			this->moveSprite(60.f,0.f);
+			this->setPosition(800.f, 100.f);
 			this->playerId = PlayerId::PlayerTwo;
 			
 			break;
 	}	
 	playerInfoBox.setTexture(playerInfoBox_texture);
+	this->getAnimationHelper()->animateDown();
+	this->getAnimationHelper()->update();
 }
 
 Player::~Player()
@@ -214,8 +219,13 @@ void Player::checkEventInput(sf::Event event)
 			}
 		}
 	}
-	else {
-		// Play a bad sound...
+	else if(event.type == event.KeyPressed){
+		if (event.key.code == (this->actionKey) || 
+			event.key.code == (this->buyKey) ||
+			event.key.code == (this->bingoKey) ) {
+			// Play a bad sound...
+			soundPlayer.play();
+		}
 	}
 }
 

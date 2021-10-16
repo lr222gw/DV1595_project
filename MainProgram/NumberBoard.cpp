@@ -20,7 +20,7 @@ NumberBoard::NumberBoard(sf::FloatRect gameArea)
 	float squareSize = gameArea.width / 10.f;
 	float margin = 1.f;
 
-	background.setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)80, (sf::Uint8)5));
+	background.setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)80, (sf::Uint8)5, (sf::Uint8)40));
 	background.setSize(sf::Vector2f(squareSize* 5.f + (5.f * margin), squareSize * 5.f + (5.f * margin)));
 	background.setPosition(gameArea.left + (gameArea.width / 4.f) - 2.5f, (gameArea.height / 6.f) - 2.5f);
 
@@ -28,7 +28,7 @@ NumberBoard::NumberBoard(sf::FloatRect gameArea)
 	Tile::resetAllStaticData();
 	for (int i = 0; i < 5 * 5; i++) {
 		this->tiles[i] = new Tile();
-		squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));		
+		squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45, (sf::Uint8)105));
 		squares[i].setSize(sf::Vector2f(squareSize- margin, squareSize - margin));
 		float posX = gameArea.left + (gameArea.width / 4.f) + squareSize * (i % 5);
 		float posY = (gameArea.height / 6.f) + squareSize * ((i / 5));
@@ -64,7 +64,7 @@ void NumberBoard::markTileAsCrapped(sf::FloatRect marking)
 {
 	for (int i = 0; i < 5 * 5 ; i++) {
 		if (squares[i].getGlobalBounds().intersects(marking) && !tiles[i]->isSoiled()) {
-			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25));
+			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)100, (sf::Uint8)25, (sf::Uint8)105));
 			tiles[i]->soilTile();
 		}
 	}
@@ -74,7 +74,7 @@ void NumberBoard::unmarkTileAsCrapped(sf::FloatRect marking)
 {	
 	for (int i = 0; i < 5 * 5; i++) {
 		if (squares[i].getGlobalBounds().intersects(marking) && tiles[i]->isSoiled()) {			
-			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45));
+			squares[i].setFillColor(sf::Color((sf::Uint8)0, (sf::Uint8)150, (sf::Uint8)45, (sf::Uint8)105));
 			tiles[i]->unsoilTile();
 		}
 	}

@@ -35,6 +35,7 @@ public:
 
 	void toggleReversePlayback();
 	void setRowAnimationInstruction(int up, int down, int left, int right, int idle);
+
 	void animateUp();
 	void animateDown();
 	void animateLeft();
