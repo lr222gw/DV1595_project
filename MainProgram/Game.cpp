@@ -52,10 +52,9 @@ Game::Game()
 	srand(time(NULL));
 	
 	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
-	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;
-	
+	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;	
 	float padding = 4;
-	//gameArea.setFillColor(sf::Color::Green);
+
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
 
@@ -75,6 +74,7 @@ Game::Game()
 
 	storeText.setFont(endFont);
 	storeText.setCharacterSize(30);
+	storeText.setFillColor(sf::Color::Magenta);
 	storeText.setPosition(
 		(float)this->window.getSize().x / 3.f,
 		(float)this->window.getSize().y / 1.2f
@@ -110,7 +110,7 @@ Game::Game()
 
 	gameOver_soundB.loadFromFile("../Sounds/game_over.wav");
 
-	
+	clock.restart();
 	currentState = State::NO_CHANGE;	
 }
 

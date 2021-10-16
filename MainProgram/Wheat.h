@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h"
 #include "Cow.h"
+#include <SFML/Audio.hpp>
 
 class Game;
 class Wheat : public Item {
@@ -9,6 +10,10 @@ private:
 	Status status;
 	Game* gamePtr;
 	Cow* goToCow;
+
+	sf::SoundBuffer eatingSound;
+	sf::Sound soundPlayer;
+
 protected:
 	// Inherited via Item
 	virtual void resetItemSpecifics() override;

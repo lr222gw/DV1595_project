@@ -8,6 +8,9 @@ Wheat::Wheat(Game* gamePtr)
     this->getAnimationHelper()->setRowAnimationInstruction(0,0,0,0,0);    
     this->getAnimationHelper()->animateDown();
     
+    eatingSound.loadFromFile("../Sounds/eat.wav");
+    soundPlayer.setBuffer(eatingSound);
+
 }
 
 void Wheat::move()
@@ -42,6 +45,8 @@ void Wheat::collided(Entity* collidedWith)
         
         auto cow = dynamic_cast<Cow*>(collidedWith);
         if (cow) {
+            soundPlayer.play();
+
             this->setPosition(-100.f, -100.f);
             status = Status::Collided;
             this->terminate();

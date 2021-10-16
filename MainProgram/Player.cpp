@@ -189,7 +189,8 @@ void Player::checkEventInput(sf::Event event)
 			if (this->bingoBoard->checkBingo()) {
 				this->wonTheGame = true;
 				//Rotate player to look into camera...
-				this->getAnimationHelper()->animateDown();
+				this->getAnimationHelper()->animateDown();				
+				this->getAnimationHelper()->update();				
 			}
 			else if (opponent->bingoBoard->checkBingo()) {
 				// sabbotage...

@@ -24,10 +24,11 @@ int main()
 
 	current = new Menu();
 	currentState = State::MENU;
-
+	GameState* switched = nullptr;
 	while (currentState != State::EXIT)
 	{
 		current->handleEvents();
+		current->render();
 		currentState = current->update();
 		
 		if (currentState != State::NO_CHANGE)
@@ -36,20 +37,25 @@ int main()
 			switch (currentState)
 			{
 			case State::MENU:
-				delete current;
-				current = new Menu();
+				switched = current;
+				current = new Menu();				
 				break;
 			case State::PLAY:
-				delete current;
-				current = new Game();
+				switched = current;
+				current = new Game();				
 				break;
 			case State::OPTIONS:
-				delete current;
-				current = new OptionsMenu();
+				switched = current;
+				current = new OptionsMenu();				
 				break;
 			}
+
+			if(switched){
+				delete switched;
+				switched = nullptr;
+			}
 		}
-		current->render();
+		
 	}
 
 	delete current;
