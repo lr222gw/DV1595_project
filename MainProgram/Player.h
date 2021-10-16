@@ -64,7 +64,7 @@ public :
 	void addMoney(int amount);
 	int getMoney() const;
 	void removeMoney(int amount);
-	bool hasWon();	
+	bool hasWon() const;	
 
 	std::string getPlayerIdentity();
 

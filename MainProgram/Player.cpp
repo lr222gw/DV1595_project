@@ -154,7 +154,7 @@ void Player::removeMoney(int amount)
 	updateStatusString();
 }
 
-bool Player::hasWon()
+bool Player::hasWon() const
 {
 	return wonTheGame;
 }

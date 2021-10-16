@@ -98,13 +98,12 @@ void Shop::buyItem(Player* buyer)
 void Shop::updateItems()
 {
 	for (int i = 0; i < this->nrOfSoldItem; i++) {
-		if (this->soldItems[i]) {
-			this->soldItems[i]->move();
-
+		if (this->soldItems[i]) {			
+			this->soldItems[i]->update();
 			if (this->soldItems[i]->isTerminated()) {
 				auto temp = this->soldItems[i];
 				this->soldItems[i] = this->soldItems[--this->nrOfSoldItem];
-				//delete temp;
+				
 				terminatedItems[nrOfTerminatedItems++] = temp;
 				restockItems();
 			}
