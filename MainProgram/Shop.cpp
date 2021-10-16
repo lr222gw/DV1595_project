@@ -10,6 +10,10 @@ Shop::Shop()
 	items = new Item * [this->itemsCAP]{ nullptr };
 	soldItems = new Item * [this->soldItemsCAP]{ nullptr };
 	terminatedItems = new Item * [this->terminatedItemsCAP]{ nullptr };
+
+	buyingSound.loadFromFile("../Sounds/buy_item.wav");
+	soundPlayer.setBuffer(buyingSound);
+
 }
 
 Shop::~Shop()
@@ -71,6 +75,7 @@ std::string Shop::presentItem()
 void Shop::buyItem(Player* buyer)
 {
 	if (nrOfItem > 0 && buyer->getMoney() >= items[0]->getPrice()) {
+		soundPlayer.play();
 		buyer->removeMoney(items[0]->getPrice());
 		soldItems[nrOfSoldItem++] = items[0];
 		items[0] = items[--nrOfItem];

@@ -7,6 +7,9 @@ Stone::Stone(Game* gamePtr)
 {
 	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->getAnimationHelper()->toggleReversePlayback();
+	throwingSound.loadFromFile("../Sounds/throwed.wav");
+	hitSound.loadFromFile("../Sounds/hit_cow.wav");
+	soundPlayer.setBuffer(throwingSound);
 }
 
 Stone::~Stone()
@@ -26,7 +29,8 @@ void Stone::setDirection(sf::Vector2f direction)
 
 bool Stone::use(Player* playerPtr)
 {
-		
+	soundPlayer.setBuffer(throwingSound);
+	soundPlayer.play();
 	this->getAnimationHelper()->animateDown();
 	this->setDirection(playerPtr->getDirection());
 	status = Status::Thrown;
@@ -40,10 +44,12 @@ void Stone::collided(Entity* collidedWith)
 						
 		auto cow = dynamic_cast<Cow*>(collidedWith);
 		if (cow) {
-			cow->setRelieavingWaste(true);
+			cow->relieaveWaste();
 			this->moveSprite(0.f, 1.f);
 			status = Status::Collided;
 			timeCount = 0;
+			soundPlayer.setBuffer(hitSound);
+			soundPlayer.play();
 		}
 	}
 }

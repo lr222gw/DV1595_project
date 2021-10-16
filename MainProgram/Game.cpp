@@ -104,6 +104,8 @@ Game::Game()
 	//shop.restockItems();
 	shop.initShop();
 
+	gameOver_soundB.loadFromFile("../Sounds/game_over.wav");
+
 	
 	currentState = State::NO_CHANGE;	
 }
@@ -211,7 +213,9 @@ State Game::update()
 				endText.setString("Game Over!\nThe Winner is\n" + winner->getPlayerIdentity());
 				gameOver = true;
 				winner->setPosition(endText.getPosition().x + endText.getGlobalBounds().width, 500.f);
-
+				
+				sound.setBuffer(this->gameOver_soundB);
+				sound.play();
 			}
 
 			this->shop.updateItems();

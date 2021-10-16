@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h"
 #include "Cow.h"
+#include <SFML/Audio.hpp>
 
 class Game;
 enum class Status {Held, Thrown, Collided, Landed};
@@ -11,7 +12,12 @@ private:
 	sf::Vector2f direction;
 	void setDirection(sf::Vector2f direction);
 	Game* gamePtr;
-	int timeCount; 	
+	int timeCount;
+
+	sf::SoundBuffer throwingSound;
+	sf::SoundBuffer hitSound;
+	sf::Sound soundPlayer;
+
 protected:
 	// Inherited via Item
 	virtual void resetItemSpecifics() override;

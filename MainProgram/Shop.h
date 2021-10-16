@@ -18,6 +18,9 @@ private:
 	int terminatedItemsCAP;
 	Item** terminatedItems;
 
+	sf::SoundBuffer buyingSound;	
+	sf::Sound soundPlayer;
+
 	Game* gamePtr;
 	void expand();
 public:

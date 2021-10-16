@@ -201,7 +201,11 @@ bool BingoBoard::checkSpecialTiles()
 }
 
 BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
+	:playedBingoSound(false)
 {
+
+	this->bingoSound.loadFromFile("../Sounds/has_bingo.wav");
+	this->soundPlayer.setBuffer(bingoSound);
 
 	this->drawPos = drawPos;
 	this->bingoImage_texture.loadFromFile("../Images/bingo.png");
@@ -290,7 +294,14 @@ void BingoBoard::updateBingoBoard()
 
 	if (checkBingo()) 
 	{
-		this->bingoImage_sprite.setColor(sf::Color(255, 255, 255, 255));
+		this->bingoImage_sprite.setColor(sf::Color(255, 255, 255, 255));		
+		if (this->soundPlayer.getStatus() == sf::Sound::Status::Stopped && playedBingoSound == false) {			
+			this->soundPlayer.play();
+			playedBingoSound = true;
+		}
+	}
+	else {
+		playedBingoSound = false;
 	}
 }
 

@@ -13,11 +13,24 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 	this->setDirectionToAorB(Direction::Left,Direction::Right);
 	this->setPosition(gameArea.left + (gameArea.width / 10.f) * (rand() % (9-1) + 1),
 		(gameArea.height/ 10.f) * (rand() % (9 - 1) + 1));
+
+	this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
+	this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
+	this->sound_moo[2].loadFromFile("../Sounds/moo_3.wav");
+	this->sound_moo[3].loadFromFile("../Sounds/moo_4.wav");
+	play_moo.setLoop(false);
 }
 
 bool Cow::hasGoal()
 {
 	return goal != sf::Vector2f(0.f,0.f);
+}
+
+void Cow::relieaveWaste()
+{
+	this->setRelieavingWaste(true);	
+	play_moo.setBuffer(sound_moo[rand() % 4]);
+	play_moo.play();
 }
 
 void Cow::setDirectionToAorB(Direction alternativeOne, Direction alternativeTwo)
@@ -141,14 +154,19 @@ void Cow::move()
 
 			if (getCrapTimeCount() == 0) {
 				setRelieavingWaste(false);
-				crapOnTile();
+				crapOnTile();		
+				
 			}
 		}
 
 		if (getCrapIntervalCount() == 0) {
 			this->getAnimationHelper()->animateIdle();
-			setRelieavingWaste(true);
-			resetCrapTimeInterval();
+			//setRelieavingWaste(true);
+			relieaveWaste();
+			resetCrapTimeInterval();	
+			play_moo.setBuffer(sound_moo[rand() % 4]);			
+			play_moo.play();
+			
 		}
 	}
 	

@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Shop.h"
 #include <stdlib.h>
+#include <SFML/Audio.hpp>
 
 class Game : public GameState
 {
@@ -19,6 +20,8 @@ private:
 	
 	sf::RectangleShape gameArea;
 
+	sf::SoundBuffer gameOver_soundB;
+	sf::Sound sound;
 	bool gameOver;
 	sf::Font endFont;
 	sf::Text endText;

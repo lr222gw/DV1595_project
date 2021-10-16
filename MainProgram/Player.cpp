@@ -1,9 +1,6 @@
 #include "Player.h"
 #include "Shop.h"
 
-
-
-
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop)
 {

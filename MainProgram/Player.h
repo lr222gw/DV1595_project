@@ -36,7 +36,7 @@ private:
 	BingoBoard *bingoBoard;
 	Shop *shop;
 	int money; 
-	
+
 	static const int itemsCAP = 12;  //TOOD: Should be based on how many items the Shop allows...
 	int nrOfItems;
 	int selectedItem;

@@ -34,6 +34,7 @@ void Animal::setRelieavingWaste(bool status)
 	this->relieavingWaste = status;
 }
 
+
 void Animal::setCrapTimeInterval(int minTimeBetweenCrap, int maxTimeBetweenCrap)
 {
 	this->minTimeBetweenCrap = minTimeBetweenCrap;

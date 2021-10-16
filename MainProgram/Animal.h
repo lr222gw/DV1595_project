@@ -32,6 +32,7 @@ public:
 
 	bool			isRelieavingWaste();
 	void			setRelieavingWaste(bool status);	
+
 	void			resetCrapTimeInterval();
 	void			setCrapTimeInterval(int minTimeBetweenCrap, int maxTimeBetweenCrap);
 

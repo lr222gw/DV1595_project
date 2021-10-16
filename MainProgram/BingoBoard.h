@@ -4,7 +4,7 @@
 #include <string>
 #include "NumberBoard.h"
 #include "Tile.h"
-
+#include <SFML/Audio.hpp>
 
 class BingoBoard : public sf::Drawable {
 private:
@@ -28,6 +28,10 @@ private:
 	float squareSize;
 	sf::Vector2f drawPos;
 	sf::Vector2f bingoBoardSize;
+
+	sf::SoundBuffer bingoSound;
+	bool playedBingoSound;
+	sf::Sound soundPlayer;
 
 public:
 	BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos);
