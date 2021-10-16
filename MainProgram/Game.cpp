@@ -53,11 +53,15 @@ Game::Game()
 	
 	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
 	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;
-
+	
 	float padding = 4;
-	gameArea.setFillColor(sf::Color::Green);
+	//gameArea.setFillColor(sf::Color::Green);
 	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
+
+	gameArea_texture.loadFromFile("../Images/grass.png");
+	gameArea.setTexture(&gameArea_texture, true);
+	
 
 	gameOverScreen.setSize(sf::Vector2f((float)this->window.getSize().x, (float)this->window.getSize().y));
 	gameOverScreen.setFillColor(sf::Color::Black);

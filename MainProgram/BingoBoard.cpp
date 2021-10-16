@@ -211,7 +211,7 @@ BingoBoard::BingoBoard(NumberBoard* numberBoard, sf::Vector2f drawPos)
 	this->bingoImage_texture.loadFromFile("../Images/bingo.png");
 	this->bingoImage_sprite.setTexture(bingoImage_texture);
 	this->bingoImage_sprite.setScale(.2,.2f);
-	this->bingoImage_sprite.setPosition(drawPos.x, drawPos.y + 150.f);
+	this->bingoImage_sprite.setPosition(drawPos.x, drawPos.y + 200.f);
 	this->bingoImage_sprite.setColor(sf::Color(0, 0, 0, 0));
 	
 	this->theNumberBoard = numberBoard;

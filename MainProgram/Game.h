@@ -18,6 +18,8 @@ private:
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
 	
+	sf::Texture gameArea_texture;
+	//sf::Sprite gameArea;
 	sf::RectangleShape gameArea;
 
 	sf::SoundBuffer gameOver_soundB;
