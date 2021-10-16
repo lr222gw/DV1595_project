@@ -139,7 +139,8 @@ void Player::recieveItem(Item* item)
 void Player::addMoney(int amount)
 {
 	this->money += amount;
-	this->status_string.setString("Money: "+ std::to_string(this->money));
+	updateStatusString();
+	
 }
 
 int Player::getMoney() const
@@ -150,6 +151,7 @@ int Player::getMoney() const
 void Player::removeMoney(int amount)
 {
 	this->money -= amount;
+	updateStatusString();
 }
 
 bool Player::hasWon()
@@ -318,4 +320,9 @@ void Player::updateNextItemIconPosition()
 
 		nextItem.setPosition(-100.f, -100.f);
 	}
+}
+
+void Player::updateStatusString()
+{
+	this->status_string.setString("Money: " + std::to_string(this->money));
 }

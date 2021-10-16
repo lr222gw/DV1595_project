@@ -49,6 +49,7 @@ private:
 	bool wonTheGame;
 
 	void updateNextItemIconPosition();
+	void updateStatusString();
 
 public :
 	Player(PlayerId player, sf::RectangleShape *gameArea);
