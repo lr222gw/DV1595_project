@@ -31,7 +31,8 @@ private:
 	
 	sf::Texture nextItemTexture;
 	sf::Sprite nextItem;
-	sf::RectangleShape playerInfoBox;
+	sf::Texture playerInfoBox_texture;
+	sf::Sprite playerInfoBox;
 	sf::RectangleShape* gameArea;
 	BingoBoard *bingoBoard;
 	Shop *shop;

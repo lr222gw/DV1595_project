@@ -13,7 +13,6 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->status_string.setCharacterSize(30);
 	this->status_string.setString("Money: 0");
 	
-	playerInfoBox.setFillColor(sf::Color::Black);
 
 	nextItemTexture.loadFromFile("../Images/NEXT.png");
 	nextItem.setTexture(nextItemTexture);
@@ -30,7 +29,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			bingoKey = configurator.getActionKey(Actions::P1_Bingo);
 			buyKey	 = configurator.getActionKey(Actions::P1_Buy);
 			actionKey= configurator.getActionKey(Actions::P1_Action);
-
+			playerInfoBox_texture.loadFromFile("../Images/player_1_InfoBoxBackground.png");			
 			this->setTexture("../Images/sprites/player1_test.png", 4,4,4,4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
 			this->moveSprite(100.f, 0.f);
@@ -45,6 +44,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			bingoKey = configurator.getActionKey(Actions::P2_Bingo);
 			buyKey	 = configurator.getActionKey(Actions::P2_Buy);
 			actionKey= configurator.getActionKey(Actions::P2_Action);
+			playerInfoBox_texture.loadFromFile("../Images/player_2_InfoBoxBackground.png");
 			this->setTexture("../Images/sprites/xperiment2.png", 4, 4, 4, 4);
 			this->getAnimationHelper()->setRowAnimationInstruction(1,0,2,3,0);
 			this->moveSprite(60.f,0.f);
@@ -52,6 +52,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			
 			break;
 	}	
+	playerInfoBox.setTexture(playerInfoBox_texture);
 }
 
 Player::~Player()
@@ -61,15 +62,16 @@ Player::~Player()
 
 void Player::initBingoBoard(NumberBoard* numberBoard)
 {	
-	
+	float extraMarginTop = 28.99f;
 	if (this->playerId == PlayerId::PlayerOne) {
 
 		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f(0.f, 0.f));
 		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
-		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
+		//playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(0.f, 0.f);
 		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
-		this->bingoBoard->setPosition(sf::Vector2f(margin, margin));
+		float playerOneLeftMargin = -6.f;
+		this->bingoBoard->setPosition(sf::Vector2f(margin + playerOneLeftMargin, margin+ extraMarginTop));
 	}
 	else if (this->playerId == PlayerId::PlayerTwo) {
 
@@ -82,9 +84,10 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 				500.f)
 		);
 		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
-		this->bingoBoard->setPosition(sf::Vector2f(margin + this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width, margin));
+		float playerTwoLeftMargin = 15;
+		this->bingoBoard->setPosition(sf::Vector2f(margin + playerTwoLeftMargin + this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width, margin + extraMarginTop));
 
-		playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
+		//playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(gameArea->getGlobalBounds().left + gameArea->getGlobalBounds().width, 0.f);
 	}
 }
@@ -108,20 +111,21 @@ void Player::recieveItem(Item* item)
 {
 	if (nrOfItems < itemsCAP) {
 		this->items[nrOfItems++] = item;
-		float distanceFromTop = 300.f;
-		float distanceBetweenItems = 20.f;
+		float distanceFromTop = 360.f;
+		float distanceBetweenItems = 25.f;
 		int itemsPerRow = 5;
-		int widthOfRow = 100;
+		int widthOfRow = itemsPerRow * (int)distanceBetweenItems;
+		float marginLeft = 30.f;
 		if (this->playerId == PlayerId::PlayerOne) {
 
-			this->items[nrOfItems - 1]->setPosition(40.f + ((nrOfItems -2) * (int)distanceBetweenItems) % widthOfRow, distanceFromTop + ((nrOfItems - 2) / itemsPerRow)* distanceBetweenItems);
+			this->items[nrOfItems - 1]->setPosition(marginLeft + ((nrOfItems -2) * (int)distanceBetweenItems) % widthOfRow, distanceFromTop + ((nrOfItems - 2) / itemsPerRow)* distanceBetweenItems);
 			
 			updateNextItemIconPosition();						
 		}
 		else if (this->playerId == PlayerId::PlayerTwo) {
 
 			this->items[nrOfItems - 1]->setPosition(				
-					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f  + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
+					this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + marginLeft + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
 					distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
 			);
 
@@ -296,19 +300,19 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Player::updateNextItemIconPosition()
 {
 	if (nrOfItems > 1) {
-		float distanceFromTop = 300.f;
-		float distanceBetweenItems = 20.f;
+		float distanceFromTop = 360.f;
+		float distanceBetweenItems = 25.f;
 		int itemsPerRow = 5;
-		int widthOfRow = 100;
-
+		int widthOfRow = (int)distanceBetweenItems * itemsPerRow ;
+		float marginLeft = 30.f;
 		if (this->playerId == PlayerId::PlayerOne)
 		{
-			nextItem.setPosition((float)(40.f + (nrOfItems - 2) * (int)distanceBetweenItems % widthOfRow), distanceBetweenItems + (float)(distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems));
+			nextItem.setPosition((float)(marginLeft + (nrOfItems - 2) * (int)distanceBetweenItems % widthOfRow), distanceBetweenItems + (float)(distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems));
 		}
 		else
 		{
 			nextItem.setPosition(
-				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + 40.f + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
+				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width + marginLeft + ((nrOfItems - 2) * (int)distanceBetweenItems) % widthOfRow,
 				distanceBetweenItems + distanceFromTop + ((nrOfItems - 2) / itemsPerRow) * distanceBetweenItems
 			);
 		}
