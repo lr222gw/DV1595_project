@@ -2,7 +2,7 @@
 #include "Game.h"
 
 DungBeetle::DungBeetle(Game* gamePtr)
-	:Item(3, 50, 1.5f, 0.5f), gamePtr(gamePtr), status(Status::Held), direction(0)
+	:Item(3, 60, 1.5f, 0.5f), gamePtr(gamePtr), status(Status::Held), direction(0)
 {
     this->setTexture("../Images/sprites/dungbeetle.png", 4, 2, 4, 2);    
     this->getAnimationHelper()->setRowAnimationInstruction(0, 0, 0, 1, 1);

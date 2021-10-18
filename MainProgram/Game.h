@@ -17,6 +17,7 @@ private:
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
+	sf::Time elapsedTimeSinceLastPay;
 		
 	sf::Texture gameArea_texture;
 	sf::RectangleShape gameArea;

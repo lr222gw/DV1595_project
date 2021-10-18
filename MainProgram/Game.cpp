@@ -223,11 +223,14 @@ State Game::update()
 		}
 
 		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
-
+		//elapsedTimeSinceLastPay = (int)(elapsedTimeSinceLastPay + elapsedTimeSinceLastUpdate.asSeconds()) % 5;
+		elapsedTimeSinceLastPay += elapsedTimeSinceLastUpdate;
 		timeCount = (timeCount + 1) % (60 * 5);
-		if (timeCount == 0) {
+		//if (timeCount == 0) {
+		if (elapsedTimeSinceLastPay.asSeconds() > 5.f) {
 			playerOne.addMoney(5);
 			playerTwo.addMoney(5);
+			elapsedTimeSinceLastPay = sf::Time::Zero;
 		}
 	}
 
