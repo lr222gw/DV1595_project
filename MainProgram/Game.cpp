@@ -44,7 +44,7 @@ Game::Game()
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
-	winner(nullptr), updateTime(60), timeCount(0), nrOfCows(0), cowCapacity(2)
+	winner(nullptr), nrOfCows(0), cowCapacity(2)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -223,10 +223,8 @@ State Game::update()
 		}
 
 		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
-		//elapsedTimeSinceLastPay = (int)(elapsedTimeSinceLastPay + elapsedTimeSinceLastUpdate.asSeconds()) % 5;
+
 		elapsedTimeSinceLastPay += elapsedTimeSinceLastUpdate;
-		timeCount = (timeCount + 1) % (60 * 5);
-		//if (timeCount == 0) {
 		if (elapsedTimeSinceLastPay.asSeconds() > 5.f) {
 			playerOne.addMoney(5);
 			playerTwo.addMoney(5);

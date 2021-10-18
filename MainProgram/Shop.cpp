@@ -54,7 +54,12 @@ Shop::~Shop()
 
 void Shop::setPositionOfNextItem()
 {
-	items[0]->setPosition(this->gamePtr->getWindowSize().x / 2.f + 135.f, this->gamePtr->getWindowSize().y - 40.f);
+	if (items[0]) {
+
+		items[0]->setPosition(this->gamePtr->getWindowSize().x / 2.f + 135.f, this->gamePtr->getWindowSize().y - 40.f);		
+		items[0]->setThumbnailScale();
+		
+	}
 }
 
 void Shop::restockItems()
@@ -124,7 +129,7 @@ std::string Shop::presentItemPrice()
 
 void Shop::buyItem(Player* buyer)
 {
-	if (nrOfItem > 0 && buyer->getMoney() >= items[0]->getPrice()) {
+	if ( nrOfItem > 0 && buyer->getMoney() >= items[0]->getPrice()) {
 		soundPlayer.play();
 		buyer->removeMoney(items[0]->getPrice());
 		soldItems[nrOfSoldItem++] = items[0];
@@ -145,8 +150,8 @@ void Shop::buyItem(Player* buyer)
 		if (nrOfItem == 0) {
 			restockItems();
 		}
-		this->setPositionOfNextItem();
-		items[0]->setThumbnailScale();
+		this->setPositionOfNextItem();		
+		
 		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
 	}		
 }
@@ -162,10 +167,10 @@ void Shop::updateItems()
 				
 				terminatedItems[nrOfTerminatedItems++] = temp;
 				restockItems();
+				this->setPositionOfNextItem();
 			}
 		}
-	}
-
+	}	
 	shopNextItemNameText.setString("Buy Item: " + this->presentItemName());
 	shopNextItemPriceText.setString( "$" + this->presentItemPrice() );
 }

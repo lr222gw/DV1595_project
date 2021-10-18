@@ -11,8 +11,6 @@
 class Game : public GameState
 {
 private:
-	int timeCount;
-	int updateTime;
 
 	sf::Clock clock;
 	sf::Time timePerFrame;
