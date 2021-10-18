@@ -10,9 +10,9 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->gameArea = gameArea;
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	this->status_string.setFont(status_font);
-	this->status_string.setCharacterSize(30);
-	this->status_string.setFillColor(sf::Color::Magenta);
-	this->status_string.setString("Money: 0");
+	this->status_string.setCharacterSize(40);
+	this->status_string.setFillColor(sf::Color::Color(35, 145, 35));
+	this->status_string.setString("$0");
 	
 	illegalAction.loadFromFile("../Sounds/illegal.wav");
 	soundPlayer.setBuffer(illegalAction);
@@ -71,7 +71,7 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 	if (this->playerId == PlayerId::PlayerOne) {
 
 		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f(0.f, 0.f));
-		this->status_string.setPosition(sf::Vector2f(40.f, 500.f));
+		this->status_string.setPosition(sf::Vector2f(20.f, 520.f));
 		//playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(0.f, 0.f);
 		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
@@ -86,7 +86,7 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 		this->status_string.setPosition(
 			sf::Vector2f(
 				this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width +40.f,
-				500.f)
+				520.f)
 		);
 		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
 		float playerTwoLeftMargin = 15;
@@ -336,5 +336,5 @@ void Player::updateNextItemIconPosition()
 
 void Player::updateStatusString()
 {
-	this->status_string.setString("Money: " + std::to_string(this->money));
+	this->status_string.setString("$" + std::to_string(this->money));
 }

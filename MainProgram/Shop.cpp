@@ -52,6 +52,11 @@ Shop::~Shop()
 	delete[] this->terminatedItems;
 }
 
+void Shop::setPositionOfNextItem()
+{
+	items[0]->setPosition(this->gamePtr->getWindowSize().x / 2.f + 135.f, this->gamePtr->getWindowSize().y - 40.f);
+}
+
 void Shop::restockItems()
 {
 	for (int i = 0; nrOfTerminatedItems != 0 ; i++) {
@@ -101,6 +106,8 @@ void Shop::initShop()
 	items[this->nrOfItem++] = new Stone(gamePtr);
 	items[this->nrOfItem++] = new Stone(gamePtr);
 	items[this->nrOfItem++] = new Wheat(gamePtr);
+
+	this->setPositionOfNextItem();
 }
 
 
@@ -138,7 +145,7 @@ void Shop::buyItem(Player* buyer)
 		if (nrOfItem == 0) {
 			restockItems();
 		}
-		items[0]->setPosition(this->gamePtr->getWindowSize().x / 2.f + 135.f , this->gamePtr->getWindowSize().y - 40.f );
+		this->setPositionOfNextItem();
 		items[0]->setThumbnailScale();
 		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
 	}		

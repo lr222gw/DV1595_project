@@ -30,6 +30,7 @@ private:
 
 	Game* gamePtr;
 	void expand();
+	void setPositionOfNextItem();
 public:
 	void restockItems();
 	Shop();
