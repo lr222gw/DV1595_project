@@ -21,7 +21,7 @@ public:
 
 	void resetItem();
 	
-	virtual std::string present() = 0;
+	virtual std::string getName() = 0;
 	virtual bool use(Player* playerPtr) = 0;
 	virtual void collided(Entity* collidedWith) = 0;
 

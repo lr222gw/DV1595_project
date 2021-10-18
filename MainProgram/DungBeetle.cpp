@@ -20,7 +20,7 @@ void DungBeetle::move()
     }
 }
 
-std::string DungBeetle::present()
+std::string DungBeetle::getName()
 {
     return "Dung beetle";
 }

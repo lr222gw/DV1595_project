@@ -18,7 +18,7 @@ void Wheat::move()
     // Not needed here...
 }
 
-std::string Wheat::present()
+std::string Wheat::getName()
 {
     return "Wheat";
 }

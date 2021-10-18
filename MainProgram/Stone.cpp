@@ -17,7 +17,7 @@ Stone::~Stone()
 	int i = 0;
 }
 
-std::string Stone::present()
+std::string Stone::getName()
 {
 	return "Stone";
 }

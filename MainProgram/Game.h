@@ -17,17 +17,16 @@ private:
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
-	
+		
 	sf::Texture gameArea_texture;
-	//sf::Sprite gameArea;
 	sf::RectangleShape gameArea;
 
 	sf::SoundBuffer gameOver_soundB;
 	sf::Sound sound;
 	bool gameOver;
 	sf::Font endFont;
-	sf::Text endText;
-	sf::Text storeText;
+	sf::Text endText;	
+	
 	Player* winner;
 	sf::RectangleShape gameOverScreen;
 	sf::Sprite pauseSprite;
@@ -60,7 +59,7 @@ public:
 	virtual ~Game();	
 
 	Cow* cowGoTo(sf::Vector2f pos);
-	
+	sf::Vector2f getWindowSize();
 	void checkCollisionPooAndItem() const;
 	void unmarkTileAsCrapped_forwarded(sf::FloatRect poo_floatRect);
 	bool isOutSideGameArea(sf::FloatRect floatRect) const;

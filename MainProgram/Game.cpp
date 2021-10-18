@@ -70,15 +70,7 @@ Game::Game()
 	endText.setPosition(
 		(float)this->window.getSize().x/4.f, 
 		(float)this->window.getSize().y / 4.f 
-	);    
-
-	storeText.setFont(endFont);
-	storeText.setCharacterSize(30);
-	storeText.setFillColor(sf::Color::Magenta);
-	storeText.setPosition(
-		(float)this->window.getSize().x / 3.f,
-		(float)this->window.getSize().y / 1.2f
-	);
+	);    	
 
 	pauseTexture.loadFromFile("../Images/paused.png");
 	pauseSprite.setTexture(pauseTexture);
@@ -109,7 +101,7 @@ Game::Game()
 	shop.initShop();
 
 	gameOver_soundB.loadFromFile("../Sounds/game_over.wav");
-
+	
 	clock.restart();
 	currentState = State::NO_CHANGE;	
 }
@@ -140,6 +132,11 @@ Cow* Game::cowGoTo(sf::Vector2f pos)
 		}
 	}
 	return goToCow;
+}
+
+sf::Vector2f Game::getWindowSize()
+{
+	return (sf::Vector2f)this->window.getSize();
 }
 
 void Game::checkCollisionPooAndItem() const
@@ -210,7 +207,6 @@ State Game::update()
 				//Check if Poo Collides with any Items
 				checkCollisionPooAndItem();
 
-
 			}
 			else if (!gameOver) {
 				winner = playerOne.hasWon() ? &playerOne : &playerTwo;
@@ -223,7 +219,7 @@ State Game::update()
 			}
 
 			this->shop.updateItems();
-			storeText.setString("Buy Item: " + this->shop.presentItem());
+			
 		}
 
 		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
@@ -252,8 +248,9 @@ void Game::render()
 			window.draw(*allEntities[i]);
 		}
 		
+		//window.draw(this->shopBox);
+		//window.draw(this->shopText);
 		window.draw(this->shop);
-		window.draw(this->storeText);
 
 		//window.draw(playerOneInfoBox);
 		//window.draw(playerTwoInfoBox);

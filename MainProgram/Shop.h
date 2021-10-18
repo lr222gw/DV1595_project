@@ -18,6 +18,13 @@ private:
 	int terminatedItemsCAP;
 	Item** terminatedItems;
 
+	sf::Font shopFont;
+	sf::Text shopText;
+	sf::Text shopNextItemNameText;
+	sf::Text shopNextItemPriceText;
+	sf::Texture shopBox_texture;
+	sf::RectangleShape shopBox;
+
 	sf::SoundBuffer buyingSound;	
 	sf::Sound soundPlayer;
 
@@ -30,7 +37,8 @@ public:
 	void setGamePtr(Game* gamePtr);
 	void initShop();
 	
-	std::string presentItem();
+	std::string presentItemName();
+	std::string presentItemPrice();
 	void buyItem(Player* buyer);
 
 	void updateItems();

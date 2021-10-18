@@ -24,7 +24,7 @@ protected:
 public:
 	Stone(Game* gamePtr);
 	~Stone();
-	virtual std::string present() override;
+	virtual std::string getName() override;
 	virtual bool use(Player* playerPtr) override;
 	virtual void collided(Entity* collidedWith) override;
 	void move() override;

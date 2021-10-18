@@ -16,7 +16,7 @@ public:
 
 	// Inherited via Item
 	virtual void move() override;
-	virtual std::string present() override;
+	virtual std::string getName() override;
 	virtual bool use(Player* playerPtr) override;
 	virtual void collided(Entity* collidedWith) override;
 
