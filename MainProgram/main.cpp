@@ -28,7 +28,7 @@ int main()
 	while (currentState != State::EXIT)
 	{
 		current->handleEvents();
-		current->render();
+		
 		currentState = current->update();
 		
 		if (currentState != State::NO_CHANGE)
@@ -55,6 +55,7 @@ int main()
 				switched = nullptr;
 			}
 		}
+		current->render();
 		
 	}
 

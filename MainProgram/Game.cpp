@@ -261,7 +261,7 @@ void Game::render()
 			window.draw(pauseSprite);
 		}
 	}
-	else {
+	else {		
 		window.draw(gameOverScreen);
 		window.draw(endText);
 		window.draw(*winner);

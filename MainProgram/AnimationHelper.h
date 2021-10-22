@@ -29,7 +29,7 @@ private:
 	//We've hardcoded 60 as our fps... thus 30 = 0.5sec, 60 = 1sec ...
 	int timeCounter;	//increases each tick
 	int updateTime;		//How many ticks before we change image
-	void moveIntRectAtUpdateTime();
+	void moveIntRectAtUpdateTime(bool forceUpdate);
 public:
 	AnimationHelper(sf::Sprite &sprite);
 
@@ -51,5 +51,6 @@ public:
 	void setTexture(sf::Texture& texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
 
 	void update();
+	void forceUpdate();
 
 };

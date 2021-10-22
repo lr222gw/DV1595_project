@@ -1,8 +1,8 @@
 #include "AnimationHelper.h"
 
-void AnimationHelper::moveIntRectAtUpdateTime()
+void AnimationHelper::moveIntRectAtUpdateTime(bool forceUpdate = false)
 {
-	if (this->timeCounter == 0) {
+	if (this->timeCounter == 0 || forceUpdate) {
 
 		if (reversePlayback) {
 
@@ -131,6 +131,12 @@ void AnimationHelper::update()
 	}
 
 	this->timeCounter = (this->timeCounter + 1) % this->updateTime;
+}
+
+void AnimationHelper::forceUpdate()
+{
+	update();
+	moveIntRectAtUpdateTime(true);
 }
 
 void AnimationHelper::animateDown() {

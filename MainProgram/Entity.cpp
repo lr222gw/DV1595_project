@@ -83,7 +83,6 @@ void Entity::update()
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {		
 	auto floatRect = this->sprite.getGlobalBounds();
-
 	//Collision Debug...
 
 	sf::FloatRect smallerHitBox;
