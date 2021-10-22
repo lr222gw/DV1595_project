@@ -136,7 +136,8 @@ Cow* Game::cowGoTo(sf::Vector2f pos)
 
 sf::Vector2f Game::getWindowSize()
 {
-	return (sf::Vector2f)this->window.getSize();
+	static sf::Vector2f initializedWindowSize = (sf::Vector2f)this->window.getSize();
+	return initializedWindowSize;
 }
 
 void Game::checkCollisionPooAndItem() const
@@ -225,7 +226,7 @@ State Game::update()
 		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
 
 		elapsedTimeSinceLastPay += elapsedTimeSinceLastUpdate;
-		if (elapsedTimeSinceLastPay.asSeconds() > 5.f) {
+		if (elapsedTimeSinceLastPay.asSeconds() > 2.f) {
 			playerOne.addMoney(5);
 			playerTwo.addMoney(5);
 			elapsedTimeSinceLastPay = sf::Time::Zero;

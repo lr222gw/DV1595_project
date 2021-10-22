@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Game.h"
 Wheat::Wheat(Game* gamePtr)
-    :Item(0, 40, .30f, .20f), status(Status::Held), gamePtr(gamePtr)
+    :Item(0, 30, .30f, .20f), status(Status::Held), gamePtr(gamePtr)
 {
     this->setTexture("../Images/sprites/wheat.png", 1, 1, 1, 1);        
     this->getAnimationHelper()->setRowAnimationInstruction(0,0,0,0,0);    

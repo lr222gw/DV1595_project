@@ -3,7 +3,7 @@
 #include "Game.h"
 
 Stone::Stone(Game* gamePtr)
-	: Item(8, 20, .1f, .1f), status(Status::Held), gamePtr(gamePtr)
+	: Item(8, 5, .1f, .1f), status(Status::Held), gamePtr(gamePtr)
 {
 	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->getAnimationHelper()->toggleReversePlayback();
