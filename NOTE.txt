@@ -1,0 +1,6 @@
+The Folders "Images" and "Sounds" should be placed next to the folder that contain the executable.
+Like this: 
+
+/home/user/CowBingo/bin/CowBingo.exe
+/home/user/CowBingo/Sounds
+/home/user/CowBingo/Images
