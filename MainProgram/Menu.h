@@ -21,7 +21,7 @@ private:
 
 
 public:
-	Menu();
+	Menu(sf::RenderWindow* window);
 	virtual ~Menu();
 
 	// Inherited via GameState

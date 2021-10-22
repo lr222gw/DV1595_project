@@ -6,9 +6,9 @@
 class GameState
 {
 protected: 
-	sf::RenderWindow window;
+	sf::RenderWindow* window;
 public:
-	GameState(std::string title);
+	GameState(std::string title, sf::RenderWindow* window);
 	virtual ~GameState();
 	virtual State update() = 0;
 	virtual void render() = 0;

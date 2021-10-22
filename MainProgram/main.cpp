@@ -19,10 +19,12 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1200, 600), "CowBingo");
+
 	GameState* current = nullptr;
 	State currentState = State::NO_CHANGE;
 
-	current = new Menu();
+	current = new Menu(window);
 	currentState = State::MENU;
 	GameState* switched = nullptr;
 	while (currentState != State::EXIT)
@@ -38,15 +40,15 @@ int main()
 			{
 			case State::MENU:
 				switched = current;
-				current = new Menu();				
+				current = new Menu(window);
 				break;
 			case State::PLAY:
 				switched = current;
-				current = new Game();				
+				current = new Game(window);
 				break;
 			case State::OPTIONS:
 				switched = current;
-				current = new OptionsMenu();				
+				current = new OptionsMenu(window);
 				break;
 			}
 
@@ -60,6 +62,7 @@ int main()
 	}
 
 	delete current;
+	delete window;
 	getchar();
 	return 0;
 }

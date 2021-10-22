@@ -1,8 +1,9 @@
 #include "GameState.h"
 
-GameState::GameState(std::string title)
-	:window(sf::VideoMode(1200, 600), title)
+GameState::GameState(std::string title, sf::RenderWindow* window)	
 {
+	this->window = window;
+	this->window->setTitle(title);
 }
 
 GameState::~GameState()

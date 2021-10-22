@@ -36,7 +36,7 @@ void OptionsMenu::updateOptions()
 		alternatives[i].setCharacterSize(20);
 		char asChar3 = ((char)((int)conf.getActionKey((Actions)i)) + 97);
 		alternatives[i].setString(conf.actionsEnumToString((Actions)i) + ": " + (char)((int)conf.getActionKey((Actions)i) + 97));
-		alternatives[i].setPosition(200.f, 120.f + (float)(window.getSize().y / 16) * i);
+		alternatives[i].setPosition(200.f, 120.f + (float)(window->getSize().y / 16) * i);
 	}
 
 	int j = 0;
@@ -45,13 +45,13 @@ void OptionsMenu::updateOptions()
 		alternatives[i].setFillColor(sf::Color::Yellow);
 		alternatives[i].setCharacterSize(20);
 		alternatives[i].setString(conf.actionsEnumToString((Actions)i) + ": " + (char)((int)conf.getActionKey((Actions)i) + 97));
-		alternatives[i].setPosition(400.f, 120.f + (float)(window.getSize().y / 16) * j);
+		alternatives[i].setPosition(400.f, 120.f + (float)(window->getSize().y / 16) * j);
 		j++;
 	}
 }
 
-OptionsMenu::OptionsMenu()
-	:GameState("Options")
+OptionsMenu::OptionsMenu(sf::RenderWindow* window)
+	:GameState("Options", window)
 {
 	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 	Presentation.setFont(font);
@@ -66,7 +66,7 @@ OptionsMenu::OptionsMenu()
 	alternatives[DONE].setFillColor(sf::Color::Yellow);
 	alternatives[DONE].setCharacterSize(15);
 	alternatives[DONE].setString("Done");
-	alternatives[DONE].setPosition(100.f, (float)(window.getSize().y / 10) * 9);
+	alternatives[DONE].setPosition(100.f, (float)(window->getSize().y / 10) * 9);
 
 
 	selected = 0;
@@ -101,23 +101,23 @@ State OptionsMenu::update()
 
 void OptionsMenu::render()
 {
-	window.clear();
-	window.draw(Presentation);
+	window->clear();
+	window->draw(Presentation);
 	for (int i = 0; i < NR_OF_ALT; i++)
 	{
-		window.draw(alternatives[i]);
+		window->draw(alternatives[i]);
 	}
-	window.display();
+	window->display();
 }
 
 void OptionsMenu::handleEvents()
 {
 	sf::Event event;
-	while (window.pollEvent(event))
+	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			window.close();
+			window->close();
 		}
 
 		if (done && selected != 0 && event.type == sf::Event::KeyPressed) {

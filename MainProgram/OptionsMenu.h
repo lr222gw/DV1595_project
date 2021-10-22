@@ -37,7 +37,7 @@ private:
 	void updateOptions();
 
 public:
-	OptionsMenu();
+	OptionsMenu(sf::RenderWindow* window);
 	virtual ~OptionsMenu();
 
 	// Inherited via GameState

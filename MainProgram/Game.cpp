@@ -39,8 +39,8 @@ void Game::sortEntities()
 	}
 }
 
-Game::Game()
-	:GameState("Game"),
+Game::Game(sf::RenderWindow* window)
+	:GameState("Game", window),
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
@@ -136,7 +136,7 @@ Cow* Game::cowGoTo(sf::Vector2f pos)
 
 sf::Vector2f Game::getWindowSize()
 {
-	static sf::Vector2f initializedWindowSize = (sf::Vector2f)this->window.getSize();
+	static sf::Vector2f initializedWindowSize = (sf::Vector2f)this->window->getSize();
 	return initializedWindowSize;
 }
 
@@ -245,48 +245,48 @@ State Game::update()
 
 void Game::render()
 {
-	window.clear();
+	window->clear();
 	
-	window.draw(gameArea);
+	window->draw(gameArea);
 	
 	if (!gameOver) {
-		window.draw(*theNumberBoard);
+		window->draw(*theNumberBoard);
 
 		this->sortEntities();
 		for (int i = 0; i < nrOfEntities; i++) {
-			window.draw(*allEntities[i]);
+			window->draw(*allEntities[i]);
 		}
 		
 		//window.draw(this->shopBox);
 		//window.draw(this->shopText);
-		window.draw(this->shop);
+		window->draw(this->shop);
 
 		//window.draw(playerOneInfoBox);
 		//window.draw(playerTwoInfoBox);
 
 		if (paused) {
-			window.draw(pauseSprite);
+			window->draw(pauseSprite);
 		}
 	}
 	else {		
-		window.draw(gameOverScreen);
-		window.draw(endText);
-		window.draw(*winner);
+		window->draw(gameOverScreen);
+		window->draw(endText);
+		window->draw(*winner);
 	}
 
-	window.display();
+	window->display();
 }
 
 void Game::handleEvents()
 {
 	sf::Event event;
-	while (window.pollEvent(event))
+	while (window->pollEvent(event))
 	{
 		
 		if (event.type == sf::Event::Closed)
 		{
 			currentState = State::EXIT;
-			window.close();
+			window->close();
 		}
 		if (event.type == sf::Event::KeyPressed) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {

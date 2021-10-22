@@ -54,7 +54,7 @@ private:
 
 
 public:
-	Game();
+	Game(sf::RenderWindow* window);
 	virtual ~Game();	
 
 	Cow* cowGoTo(sf::Vector2f pos);

@@ -43,8 +43,8 @@ void Menu::moveDown()
 	alternatives[prvSelected].setCharacterSize(30);
 }
 
-Menu::Menu()
-	:GameState("Menu")
+Menu::Menu(sf::RenderWindow* window)
+	:GameState("Menu", window)
 {
 	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 	alternatives[PLAY].setFont(font);
@@ -104,23 +104,23 @@ State Menu::update()
 
 void Menu::render()
 {
-	window.clear();
+	window->clear();
 
 	for (int i = 0; i < NR_OF_ALT; i++) {
-		window.draw(alternatives[i]);
+		window->draw(alternatives[i]);
 	}
 	
-	window.display();
+	window->display();
 }
 
 void Menu::handleEvents()
 {
 	sf::Event event;
-	while (window.pollEvent(event))
+	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			window.close();
+			window->close();
 		}
 
 		/*
