@@ -69,7 +69,7 @@ Game::Game(sf::RenderWindow* window)
 	endText.setFont(endFont);
 	endText.setCharacterSize(50);
 	endText.setPosition(
-		(float)this->getWindowSize().x / 4.f, 
+		(float)this->getWindowSize().x / 2.f, 
 		(float)this->getWindowSize().y / 8.f 
 	);    	
 
@@ -119,19 +119,31 @@ Game::~Game()
 
 Cow* Game::cowGoTo(sf::Vector2f pos)
 {
-	Cow *goToCow = nullptr;
-	for (int i = 0; i < nrOfCows && !goToCow; i++)
-	{
-		if (!cows[i]->hasGoal()) {
-			goToCow = cows[i];
-			sf::Vector2f cowPos(
-				goToCow->getBounds().left + goToCow->getBounds().width / 2.f,
-				goToCow->getBounds().top + goToCow->getBounds().height/ 2.f
-			);
-			goToCow->setGoal(pos - cowPos);
-			
+	//Cow *goToCow = nullptr;
+	Cow *goToCow = cows[rand() % nrOfCows];
+	//for (int i = 0; i < nrOfCows && !goToCow; i++)
+	if (goToCow->hasGoal()) {
+		goToCow = nullptr;
+		for (int i = 0; i < nrOfCows && !goToCow; i++)
+		{
+			if (!cows[i]->hasGoal()) {
+				goToCow = cows[i];
+				sf::Vector2f cowPos(
+					goToCow->getBounds().left + goToCow->getBounds().width / 2.f,
+					goToCow->getBounds().top + goToCow->getBounds().height / 2.f
+				);
+				goToCow->setGoal(pos - cowPos);
+			}
 		}
 	}
+	else {
+		sf::Vector2f cowPos(
+			goToCow->getBounds().left + goToCow->getBounds().width / 2.f,
+			goToCow->getBounds().top + goToCow->getBounds().height / 2.f
+		);
+		goToCow->setGoal(pos - cowPos);
+	}
+	
 	return goToCow;
 }
 
