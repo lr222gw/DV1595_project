@@ -165,6 +165,13 @@ bool Player::hasWon() const
 	return wonTheGame;
 }
 
+void Player::punish()
+{
+	this->setSpriteColor(sf::Color::Color(255, 200, 200, 100));
+	punished = true;
+	countPunishedTime = 0;
+}
+
 std::string Player::getPlayerIdentity()
 {
 	std::string toReturn; 
@@ -198,9 +205,7 @@ void Player::checkEventInput(sf::Event event)
 			}
 			else {
 				//Punish! Cant use item for 5 seconds...
-				this->setSpriteColor(sf::Color::Color(255, 200, 200, 100));
-				punished = true;
-				countPunishedTime = 0;
+				this->punish();
 			}
 		}
 

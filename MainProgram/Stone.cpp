@@ -51,6 +51,16 @@ void Stone::collided(Entity* collidedWith)
 			soundPlayer.setBuffer(hitSound);
 			soundPlayer.play();
 		}
+		else if (auto player = dynamic_cast<Player*>(collidedWith)) {
+			if (player != getOwner()) {
+
+				player->punish();
+				status = Status::Collided;
+				timeCount = 0;
+				soundPlayer.setBuffer(hitSound);
+				soundPlayer.play();
+			}
+		}
 	}
 }
 

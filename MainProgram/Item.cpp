@@ -3,6 +3,7 @@
 
 Item::Item(float speed, int price, float defaultScale, float thumbnailScale)
 	: Entity(speed), shouldTerminate(false), price(price), defaultScale(defaultScale), thumbnailScale(thumbnailScale)
+	,owner(nullptr)
 {
 	this->setDefaultScale();
 }
@@ -30,6 +31,15 @@ void Item::setDefaultScale()
 void Item::setThumbnailScale()
 {
 	this->setSpriteScale(thumbnailScale, thumbnailScale);
+}
+
+void Item::setOwner(Player* playerPtr)
+{
+	owner = playerPtr;
+}
+Player* Item::getOwner() const
+{
+	return owner;
 }
 
 void Item::resetItem()

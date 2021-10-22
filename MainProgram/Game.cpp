@@ -194,6 +194,13 @@ State Game::update()
 				playerOne.update();
 				playerTwo.update();
 
+				if (auto item = shop.checkCollision(playerOne.getBounds())) {
+					item->collided(&playerOne);
+				}
+				if (auto item = shop.checkCollision(playerTwo.getBounds())) {
+					item->collided(&playerTwo);
+				}
+
 				//Check if a item collides with any Cow
 				for (int i = 0; i < nrOfCows; i++)
 				{

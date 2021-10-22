@@ -152,6 +152,7 @@ void Shop::buyItem(Player* buyer)
 		}
 		this->setPositionOfNextItem();		
 		
+		soldItems[nrOfSoldItem - 1]->setOwner(buyer);
 		buyer->recieveItem(soldItems[nrOfSoldItem-1]);
 	}		
 }

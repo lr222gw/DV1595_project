@@ -9,6 +9,7 @@ private:
 	int price;
 	float defaultScale;
 	float thumbnailScale;
+	Player* owner;
 protected:
 	virtual void resetItemSpecifics() = 0;
 public:
@@ -18,6 +19,9 @@ public:
 	int getPrice() const;
 	void setDefaultScale();
 	void setThumbnailScale();
+
+	void setOwner(Player* playerPtr);
+	Player* getOwner() const;
 
 	void resetItem();
 	

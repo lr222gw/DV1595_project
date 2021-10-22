@@ -70,6 +70,8 @@ public :
 	void removeMoney(int amount);
 	bool hasWon() const;	
 
+	void punish();
+
 	std::string getPlayerIdentity();
 
 	void checkEventInput(sf::Event event);
