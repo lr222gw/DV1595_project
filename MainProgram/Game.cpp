@@ -44,7 +44,7 @@ Game::Game(sf::RenderWindow* window)
 	playerOne(PlayerId::PlayerOne, &this->gameArea),
 	playerTwo(PlayerId::PlayerTwo, &this->gameArea),
 	gameOver(false),
-	winner(nullptr), nrOfCows(0), cowCapacity(2)
+	winner(nullptr), loser(nullptr), nrOfCows(0), cowCapacity(2)
 {
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -60,16 +60,17 @@ Game::Game(sf::RenderWindow* window)
 
 	gameArea_texture.loadFromFile("../Images/grass.png");
 	gameArea.setTexture(&gameArea_texture, true);
-	
 
-	gameOverScreen.setSize(sf::Vector2f((float)this->getWindowSize().x, (float)this->getWindowSize().y));
-	gameOverScreen.setFillColor(sf::Color::Black);
+	gameOver_texture.loadFromFile("../Images/gameOver_wide.png");
+	gameOverScreen.setSize(sf::Vector2f((float)this->getWindowSize().x, (float)this->getWindowSize().y));	
+	gameOverScreen.setTexture(&gameOver_texture);
+
 	endFont.loadFromFile("../Images/fonts/BingoReky.ttf");
 	endText.setFont(endFont);
-	endText.setCharacterSize(80);
+	endText.setCharacterSize(50);
 	endText.setPosition(
-		(float)this->getWindowSize().x/4.f, 
-		(float)this->getWindowSize().y / 4.f 
+		(float)this->getWindowSize().x / 4.f, 
+		(float)this->getWindowSize().y / 8.f 
 	);    	
 
 	pauseTexture.loadFromFile("../Images/paused.png");
@@ -218,9 +219,18 @@ State Game::update()
 			}
 			else if (!gameOver) {
 				winner = playerOne.hasWon() ? &playerOne : &playerTwo;
-				endText.setString("Game Over!\nThe Winner is\n" + winner->getPlayerIdentity());
+				loser = playerOne.hasWon()  ? &playerTwo : &playerOne;
+				endText.setString("Game Over!");
 				gameOver = true;
-				winner->setPosition(endText.getPosition().x + endText.getGlobalBounds().width, 500.f);
+				winner->setPosition(
+					this->getWindowSize().x / 2.f + winner->getBounds().width /2.f - 65.f,
+					this->getWindowSize().y / 2.f + winner->getBounds().height / 2.f - 110.f
+				);
+				float distanceToSecondPlace = 50.f;
+				loser->setPosition(
+					this->getWindowSize().x / 2.f + distanceToSecondPlace - 20.f + loser->getBounds().width / 2.f,
+					this->getWindowSize().y / 2.f + loser->getBounds().height / 2.f + distanceToSecondPlace - 80.f
+				);
 				
 				sound.setBuffer(this->gameOver_soundB);
 				sound.play();
@@ -275,6 +285,7 @@ void Game::render()
 		window->draw(gameOverScreen);
 		window->draw(endText);
 		window->draw(*winner);
+		window->draw(*loser);
 	}
 
 	window->display();

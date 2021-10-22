@@ -29,7 +29,6 @@ private:
 	sf::Sound soundPlayer;
 
 	Game* gamePtr;
-	void expand();
 	void setPositionOfNextItem();
 public:
 	void restockItems();

@@ -37,7 +37,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 			this->getAnimationHelper()->setRowAnimationInstruction(1, 0, 2, 3, 0);
 			this->setPosition(335.f, 100.f);
 			this->playerId = PlayerId::PlayerOne;				
-
+			
 			break;
 		case PlayerId::PlayerTwo:
 			upKey	 = configurator.getActionKey(Actions::P2_Up);
@@ -216,7 +216,7 @@ void Player::checkEventInput(sf::Event event)
 		}
 	
 		if (event.type == event.KeyPressed && event.key.code == (this->actionKey) && items[selectedItem])
-		{
+		{			
 			if (items[selectedItem]->use(this)) {
 				items[selectedItem]->setDefaultScale();
 				items[selectedItem] = nullptr;

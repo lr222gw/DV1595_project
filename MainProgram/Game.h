@@ -28,6 +28,7 @@ private:
 	
 	Player* winner;
 	Player* loser;
+	sf::Texture gameOver_texture;
 	sf::RectangleShape gameOverScreen;
 	sf::Sprite pauseSprite;
 	sf::Texture pauseTexture;
