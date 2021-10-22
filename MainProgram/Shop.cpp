@@ -206,6 +206,6 @@ void Shop::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(shopNextItemNameText);
 		target.draw(shopNextItemPriceText);
 	}
-	target.draw(shopText);
-	
+	target.draw(shopText);	
 }
+

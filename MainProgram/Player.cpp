@@ -305,13 +305,28 @@ void Player::move()
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	Entity::draw( target, states);
-	target.draw(this->playerInfoBox);
-	
+
 	target.draw(*bingoBoard);
-	target.draw(this->status_string);
-	target.draw(nextItem);
 }
 
+void Player::drawHUD(sf::RenderWindow& window) const
+{
+	window.draw(this->playerInfoBox);
+	window.draw(this->status_string);
+	window.draw(nextItem);
+	window.draw(*bingoBoard);
+	for (int i = 0; i < this->nrOfItems; i++) {
+
+		if (items[i]) {
+			window.draw(*items[i]);
+		}
+	}
+}
+
+void Player::drawBingoBoard(sf::RenderWindow& window) const
+{
+	window.draw(*bingoBoard);
+}
 
 void Player::updateNextItemIconPosition()
 {

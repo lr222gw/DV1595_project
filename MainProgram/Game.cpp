@@ -261,6 +261,9 @@ void Game::render()
 		//window.draw(this->shopText);
 		window->draw(this->shop);
 
+		playerOne.drawHUD(*this->window);		
+		playerTwo.drawHUD(*this->window);		
+
 		//window.draw(playerOneInfoBox);
 		//window.draw(playerTwoInfoBox);
 

@@ -27,6 +27,7 @@ private:
 	sf::Text endText;	
 	
 	Player* winner;
+	Player* loser;
 	sf::RectangleShape gameOverScreen;
 	sf::Sprite pauseSprite;
 	sf::Texture pauseTexture;

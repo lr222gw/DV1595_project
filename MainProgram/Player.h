@@ -80,5 +80,7 @@ public :
 	virtual void move() override;
 	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void drawHUD(sf::RenderWindow& window) const;
+	void drawBingoBoard(sf::RenderWindow& window) const;
 
 };
