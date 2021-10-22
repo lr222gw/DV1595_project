@@ -37,7 +37,7 @@ void Menu::moveDown()
 Menu::Menu(sf::RenderWindow* window)
 	:GameState("Menu", window)
 {
-	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
+	font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	alternatives[PLAY].setFont(font);
 	alternatives[PLAY].setFillColor(sf::Color::Red);
 	alternatives[PLAY].setCharacterSize(30);

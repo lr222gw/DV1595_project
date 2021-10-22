@@ -2,7 +2,8 @@
 #include "Shop.h"
 
 Player::Player(PlayerId player, sf::RectangleShape* gameArea)
-	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop),direction(0.f,1.f)
+	: Entity(4), bingoBoard(nullptr), wonTheGame(false), nrOfItems(0), selectedItem(0), shop(shop),direction(0.f,1.f),
+	money(0)
 {
 	static ControllerConfigurator configurator;	
 	configurator.loadConfig();
@@ -11,7 +12,7 @@ Player::Player(PlayerId player, sf::RectangleShape* gameArea)
 	this->status_font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	this->status_string.setFont(status_font);
 	this->status_string.setCharacterSize(40);
-	this->status_string.setFillColor(sf::Color::Color(35, 145, 35));
+	this->status_string.setFillColor(sf::Color(35, 145, 35));
 	this->status_string.setString("$0");
 	
 	illegalAction.loadFromFile("../Sounds/illegal.wav");
@@ -166,7 +167,7 @@ bool Player::hasWon() const
 
 void Player::punish()
 {
-	this->setSpriteColor(sf::Color::Color(255, 200, 200, 100));
+	this->setSpriteColor(sf::Color(255, 200, 200, 100));
 	punished = true;
 	countPunishedTime = 0;
 }

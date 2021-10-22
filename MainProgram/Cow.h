@@ -1,6 +1,7 @@
 #pragma once
 #include "Animal.h"
 #include <SFML/Audio.hpp>
+#include <cmath>
 
 class Cow : public Animal {
 private:

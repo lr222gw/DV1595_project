@@ -253,11 +253,15 @@ State Game::update()
 			
 		}
 
+		float elapsedSeconds = elapsedTimeSinceLastUpdate.asSeconds();
 		elapsedTimeSinceLastPay += elapsedTimeSinceLastUpdate;
-		if (elapsedTimeSinceLastPay.asSeconds() > 2.f) {
+		static float timeSince; 
+		timeSince += elapsedSeconds;
+		if (sf::seconds(timeSince) > sf::seconds(100.f)) { //TODO: This is wierd, but by using sf::seconds(100.f) I get about 5 seconds between payments... only on linux!
 			playerOne.addMoney(5);
 			playerTwo.addMoney(5);
-			elapsedTimeSinceLastPay = sf::Time::Zero;
+			timeSince = 0;
+			
 		}
 	}
 

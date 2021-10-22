@@ -31,7 +31,7 @@ Shop::Shop()
 	
 	shopNextItemPriceText.setFont(shopFont);
 	shopNextItemPriceText.setCharacterSize(32);
-	shopNextItemPriceText.setFillColor(sf::Color::Color(35,145,35));	
+	shopNextItemPriceText.setFillColor(sf::Color(35,145,35));	
 	shopNextItemPriceText.setStyle(sf::Text::Bold );
 }
 
