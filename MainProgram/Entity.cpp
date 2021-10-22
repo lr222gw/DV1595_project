@@ -32,7 +32,6 @@ void Entity::setTexture(std::string texturePath, int nrOfColumns, int nrOfRows, 
 
 void Entity::setTexture(sf::Texture* texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset)
 {
-	//this->texture.loadFromFile(texturePath);
 	this->texture = *texture;
 	this->sprite.setTexture(this->texture);
 	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows, columnsSubset, rowsSubset);
@@ -78,7 +77,6 @@ bool Entity::hitBy(const sf::FloatRect& ref)
 	refSmallerHitBox.top = ref.top + refSmallerHitBox.height / 2.f;
 	
 	return smallerHitBox.intersects(refSmallerHitBox);
-	//return this->sprite.getGlobalBounds().intersects(ref);
 }
 
 void Entity::update()
@@ -92,6 +90,7 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	auto floatRect = this->sprite.getGlobalBounds();
 	//Collision Debug...
 
+#ifdef _DEBUG
 	sf::FloatRect smallerHitBox;
 	smallerHitBox.width = this->sprite.getGlobalBounds().width / 2.f;
 	smallerHitBox.height = this->sprite.getGlobalBounds().height / 2.f;
@@ -113,13 +112,15 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	sf::RectangleShape rectBottom(sf::Vector2f(smallerHitBox.width, 2.f));
 	rectBottom.setPosition(smallerHitBox.left, smallerHitBox.top + smallerHitBox.height);
 	rectBottom.setFillColor(sf::Color::White);
-
+#endif // DEBUG
 	
-
 	target.draw(this->sprite);
-	//target.draw(rectTop);
-	//target.draw(rectLeft);
-	//target.draw(rectRight);
-	//target.draw(rectBottom);
+#ifdef _DEBUG
+	target.draw(rectTop);
+	target.draw(rectLeft);
+	target.draw(rectRight);
+	target.draw(rectBottom);
+#endif // DEBUG
+	
 }
  

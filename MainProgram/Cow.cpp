@@ -17,7 +17,6 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 		moo_4.loadFromFile("../Sounds/moo_4.wav");
 	}
 
-	//this->setTexture("../Images/sprites/cow_2.png",12,8, 3,4);
 	this->setTexture(&textur,12,8, 3,4);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
 	this->getAnimationHelper()->toggleReversePlayback();
@@ -27,10 +26,6 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 	this->setPosition(gameArea.left + (gameArea.width / 10.f) * (rand() % (9-1) + 1),
 		(gameArea.height/ 10.f) * (rand() % (9 - 1) + 1));
 
-	//this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
-	//this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
-	//this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
-	//this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
 	this->sound_moo[0] = moo_1;
 	this->sound_moo[1] = moo_2;
 	this->sound_moo[2] = moo_3;
@@ -86,8 +81,6 @@ void Cow::move()
 	}
 	else {
 		if (!this->isRelieavingWaste()) {
-
-			//sf::Vector2f dirToMove(0.f,0.f); 
 			
 			this->moveSprite(dirToMove.x, dirToMove.y);
 
@@ -123,7 +116,6 @@ void Cow::move()
 					this->getAnimationHelper()->animateLeft();
 					dirToMove.x = LEFT; 
 					dirToMove.y = 0.f;
-					//this->moveSprite(LEFT, 0.f);
 				}
 				else {
 					this->setCurrentDirection(Direction::Up);
@@ -135,7 +127,6 @@ void Cow::move()
 					this->getAnimationHelper()->animateRight();
 					dirToMove.x = RIGHT;
 					dirToMove.y = 0.f;
-					//this->moveSprite(RIGHT, 0.f);
 				}
 				else {
 					this->setCurrentDirection(Direction::Down);
@@ -147,7 +138,6 @@ void Cow::move()
 					this->getAnimationHelper()->animateUp();
 					dirToMove.x = 0.f;
 					dirToMove.y = UP;
-					//this->moveSprite(0.f, UP);
 				}
 				else {
 					this->setCurrentDirection(Direction::Right);
@@ -159,7 +149,6 @@ void Cow::move()
 					this->getAnimationHelper()->animateDown();
 					dirToMove.x = 0.f;
 					dirToMove.y = DOWN;
-					//this->moveSprite(0.f, DOWN);
 				}
 				else {
 					this->setCurrentDirection(Direction::Left);
@@ -178,7 +167,6 @@ void Cow::move()
 
 		if (getCrapIntervalCount() == 0) {
 			this->getAnimationHelper()->animateIdle();
-			//setRelieavingWaste(true);
 			relieaveWaste();
 			resetCrapTimeInterval();	
 			play_moo.setBuffer(sound_moo[rand() % 4]);			

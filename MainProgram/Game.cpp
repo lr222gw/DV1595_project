@@ -67,11 +67,12 @@ Game::Game(sf::RenderWindow* window)
 
 	endFont.loadFromFile("../Images/fonts/BingoReky.ttf");
 	endText.setFont(endFont);
-	endText.setCharacterSize(50);
+	endText.setCharacterSize(80);
 	endText.setPosition(
-		(float)this->getWindowSize().x / 2.f, 
+		(float)this->getWindowSize().x / 3.f, 
 		(float)this->getWindowSize().y / 8.f 
 	);    	
+	endText.setFillColor(sf::Color::Yellow);
 
 	pauseTexture.loadFromFile("../Images/paused.png");
 	pauseSprite.setTexture(pauseTexture);
@@ -98,7 +99,7 @@ Game::Game(sf::RenderWindow* window)
 	allEntities[3] = cows[1];
 
 	shop.setGamePtr(this);
-	//shop.restockItems();
+
 	shop.initShop();
 
 	gameOver_soundB.loadFromFile("../Sounds/game_over.wav");
@@ -119,9 +120,9 @@ Game::~Game()
 
 Cow* Game::cowGoTo(sf::Vector2f pos)
 {
-	//Cow *goToCow = nullptr;
+
 	Cow *goToCow = cows[rand() % nrOfCows];
-	//for (int i = 0; i < nrOfCows && !goToCow; i++)
+
 	if (goToCow->hasGoal()) {
 		goToCow = nullptr;
 		for (int i = 0; i < nrOfCows && !goToCow; i++)
@@ -251,8 +252,6 @@ State Game::update()
 			this->shop.updateItems();
 			
 		}
-
-		//theNumberBoard->markTileAsCrapped(this->playerOne.getBounds());
 
 		elapsedTimeSinceLastPay += elapsedTimeSinceLastUpdate;
 		if (elapsedTimeSinceLastPay.asSeconds() > 2.f) {

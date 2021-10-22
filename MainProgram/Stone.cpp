@@ -14,12 +14,9 @@ Stone::Stone(Game* gamePtr)
 		hit.loadFromFile("../Sounds/hit_cow.wav");
 	}
 	
-
-	//this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
 	this->setTexture(&textur, 8, 8, 8, 8);
 	this->getAnimationHelper()->toggleReversePlayback();
-	//throwingSound.loadFromFile("../Sounds/throwed.wav");
-	//hitSound.loadFromFile("../Sounds/hit_cow.wav");
+
 	throwingSound = throwed;
 	hitSound = hit;
 	soundPlayer.setBuffer(throwingSound);

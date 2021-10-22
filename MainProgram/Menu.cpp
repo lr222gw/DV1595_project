@@ -3,11 +3,7 @@
 
 void Menu::moveUp()
 {
-	/*
 
-	uppdatera selected om möjligt och byt färg så att aktivt menyalterantiv är rött (annars gult)
-	
-	*/
 	prvSelected = selected;
 	selected = (selected - 1) % (NR_OF_ALT);
 	
@@ -27,11 +23,6 @@ void Menu::moveUp()
 
 void Menu::moveDown()
 {
-	/*
-	
-	uppdatera selected om möjligt och byt färg  så att aktivt menyalterantiv är rött (annars gult)
-	
-	*/
 
 	prvSelected = selected;
 	selected = (selected + 1) % (NR_OF_ALT);
@@ -77,11 +68,6 @@ Menu::~Menu()
 State Menu::update()
 {
 	State finalState = State::NO_CHANGE;
-	/*
-
-	om ingen förändring har skett ska retur göras motsvarande ingen förändring och annars ska ett relevant State returneras
-
-	*/
 
 	if (done) {
 		switch (selected) {
@@ -123,11 +109,6 @@ void Menu::handleEvents()
 			window->close();
 		}
 
-		/*
-
-		undersök och agera på tangetnedtryckningar (Up, Down, Return) där Return betyder att användaren bekräftar sitt val
-
-		*/
 		if (event.type == sf::Event::KeyPressed) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				

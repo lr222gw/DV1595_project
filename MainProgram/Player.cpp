@@ -72,7 +72,7 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 
 		this->bingoBoard = new BingoBoard(numberBoard,sf::Vector2f(0.f, 0.f));
 		this->status_string.setPosition(sf::Vector2f(20.f, 520.f));
-		//playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
+		
 		playerInfoBox.setPosition(0.f, 0.f);
 		float margin = (gameArea->getGlobalBounds().left / 2.f) - this->bingoBoard->getBingoBoardSize().x / 2.f; // Needs to be executed after initialization of bingoBoard...
 		float playerOneLeftMargin = -6.f;
@@ -92,7 +92,6 @@ void Player::initBingoBoard(NumberBoard* numberBoard)
 		float playerTwoLeftMargin = 15;
 		this->bingoBoard->setPosition(sf::Vector2f(margin + playerTwoLeftMargin + this->gameArea->getGlobalBounds().left + this->gameArea->getGlobalBounds().width, margin + extraMarginTop));
 
-		//playerInfoBox.setSize(sf::Vector2f(gameArea->getGlobalBounds().left, gameArea->getGlobalBounds().height));
 		playerInfoBox.setPosition(gameArea->getGlobalBounds().left + gameArea->getGlobalBounds().width, 0.f);
 	}
 }
