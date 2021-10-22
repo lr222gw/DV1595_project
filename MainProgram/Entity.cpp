@@ -27,8 +27,15 @@ void Entity::setTexture(std::string texturePath, int nrOfColumns, int nrOfRows, 
 {
 	this->texture.loadFromFile(texturePath);
 	this->sprite.setTexture(this->texture);
-	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows,  columnsSubset,  rowsSubset);
-	
+	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows,  columnsSubset,  rowsSubset);	
+}
+
+void Entity::setTexture(sf::Texture* texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset)
+{
+	//this->texture.loadFromFile(texturePath);
+	this->texture = *texture;
+	this->sprite.setTexture(this->texture);
+	animationHelper->setTexture(this->texture, nrOfColumns, nrOfRows, columnsSubset, rowsSubset);
 }
 
 void Entity::moveSprite(float x, float y)

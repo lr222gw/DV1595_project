@@ -4,8 +4,21 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 	: Animal(theNumberBoard,gameArea, speed, 10, 30),
 	lastCollidedPoo(nullptr), goal(0.f,0.f)
 {
-	
-	this->setTexture("../Images/sprites/cow_2.png",12,8, 3,4);
+	static sf::Texture textur;
+	static sf::SoundBuffer moo_1;
+	static sf::SoundBuffer moo_2;
+	static sf::SoundBuffer moo_3;
+	static sf::SoundBuffer moo_4;	
+	if (textur.getSize().x == 0) {
+		textur.loadFromFile("../Images/sprites/cow_2.png");		
+		moo_1.loadFromFile("../Sounds/moo_1.wav");
+		moo_2.loadFromFile("../Sounds/moo_2.wav");
+		moo_3.loadFromFile("../Sounds/moo_3.wav");
+		moo_4.loadFromFile("../Sounds/moo_4.wav");
+	}
+
+	//this->setTexture("../Images/sprites/cow_2.png",12,8, 3,4);
+	this->setTexture(&textur,12,8, 3,4);
 	this->getAnimationHelper()->setRowAnimationInstruction(3,0,1,2,1);
 	this->getAnimationHelper()->toggleReversePlayback();
 
@@ -14,10 +27,14 @@ Cow::Cow(NumberBoard* theNumberBoard,sf::FloatRect gameArea, float speed)
 	this->setPosition(gameArea.left + (gameArea.width / 10.f) * (rand() % (9-1) + 1),
 		(gameArea.height/ 10.f) * (rand() % (9 - 1) + 1));
 
-	this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
-	this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
-	this->sound_moo[2].loadFromFile("../Sounds/moo_3.wav");
-	this->sound_moo[3].loadFromFile("../Sounds/moo_4.wav");
+	//this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
+	//this->sound_moo[0].loadFromFile("../Sounds/moo_1.wav");	
+	//this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
+	//this->sound_moo[1].loadFromFile("../Sounds/moo_2.wav");
+	this->sound_moo[0] = moo_1;
+	this->sound_moo[1] = moo_2;
+	this->sound_moo[2] = moo_3;
+	this->sound_moo[3] = moo_4;
 	play_moo.setLoop(false);
 }
 

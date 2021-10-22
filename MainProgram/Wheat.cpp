@@ -4,11 +4,20 @@
 Wheat::Wheat(Game* gamePtr)
     :Item(0, 30, .30f, .20f), status(Status::Held), gamePtr(gamePtr)
 {
-    this->setTexture("../Images/sprites/wheat.png", 1, 1, 1, 1);        
+
+    static sf::SoundBuffer eating;
+    static sf::Texture textur;
+    if (textur.getSize().x == 0) {
+        textur.loadFromFile("../Images/sprites/wheat.png");
+        eating.loadFromFile("../Sounds/eat.wav");
+    }
+    //this->setTexture("../Images/sprites/wheat.png", 1, 1, 1, 1);        
+    this->setTexture(&textur, 1, 1, 1, 1);
     this->getAnimationHelper()->setRowAnimationInstruction(0,0,0,0,0);    
     this->getAnimationHelper()->animateDown();
     
-    eatingSound.loadFromFile("../Sounds/eat.wav");
+    //eatingSound.loadFromFile("../Sounds/eat.wav");
+    eatingSound = eating;
     soundPlayer.setBuffer(eatingSound);
 
 }

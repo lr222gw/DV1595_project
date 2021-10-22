@@ -23,6 +23,7 @@ public:
 
 	void setPosition(float x, float y);
 	void setTexture(std::string texturePath, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
+	void setTexture(sf::Texture *texture, int nrOfColumns, int nrOfRows, int columnsSubset, int rowsSubset);
 	void moveSprite(float x, float y);
 	void setSpriteScale(float x, float y);
 	void setSpriteColor(sf::Color color);

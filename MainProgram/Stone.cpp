@@ -5,10 +5,23 @@
 Stone::Stone(Game* gamePtr)
 	: Item(8, 5, .1f, .1f), status(Status::Held), gamePtr(gamePtr)
 {
-	this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
+	static sf::Texture textur; 
+	static sf::SoundBuffer hit;
+	static sf::SoundBuffer throwed;
+	if (textur.getSize().x == 0) {
+		textur.loadFromFile("../Images/sprites/stone.png");
+		throwed.loadFromFile("../Sounds/throwed.wav");
+		hit.loadFromFile("../Sounds/hit_cow.wav");
+	}
+	
+
+	//this->setTexture("../Images/sprites/stone.png", 8, 8, 8, 8);	
+	this->setTexture(&textur, 8, 8, 8, 8);
 	this->getAnimationHelper()->toggleReversePlayback();
-	throwingSound.loadFromFile("../Sounds/throwed.wav");
-	hitSound.loadFromFile("../Sounds/hit_cow.wav");
+	//throwingSound.loadFromFile("../Sounds/throwed.wav");
+	//hitSound.loadFromFile("../Sounds/hit_cow.wav");
+	throwingSound = throwed;
+	hitSound = hit;
 	soundPlayer.setBuffer(throwingSound);
 }
 

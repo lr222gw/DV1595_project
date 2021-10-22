@@ -267,15 +267,10 @@ void Game::render()
 			window->draw(*allEntities[i]);
 		}
 		
-		//window.draw(this->shopBox);
-		//window.draw(this->shopText);
 		window->draw(this->shop);
 
 		playerOne.drawHUD(*this->window);		
 		playerTwo.drawHUD(*this->window);		
-
-		//window.draw(playerOneInfoBox);
-		//window.draw(playerTwoInfoBox);
 
 		if (paused) {
 			window->draw(pauseSprite);
