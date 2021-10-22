@@ -10,9 +10,9 @@ void Game::togglePause()
 		pauseSprite.setPosition(-100.f, -100.f);
 	}
 	else {
-		pauseSprite.setPosition(
-			window.getSize().x / 2.f - pauseSprite.getGlobalBounds().width / 2.f,
-			window.getSize().y / 2.f - pauseSprite.getGlobalBounds().height / 2.f
+		pauseSprite.setPosition(			
+			this->getWindowSize().x / 2.f - pauseSprite.getGlobalBounds().width / 2.f,
+			this->getWindowSize().y / 2.f - pauseSprite.getGlobalBounds().height / 2.f
 		);
 	}
 }
@@ -51,25 +51,25 @@ Game::Game()
 
 	srand(time(NULL));
 	
-	float oneSixthOfScreenWidth = window.getSize().x / 6.f;
+	float oneSixthOfScreenWidth = this->getWindowSize().x / 6.f;
 	float fourSixthOfScreenWidth = oneSixthOfScreenWidth * 4;	
 	float padding = 4;
 
-	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, window.getSize().y));
+	gameArea.setSize(sf::Vector2f(fourSixthOfScreenWidth - padding, this->getWindowSize().y));
 	gameArea.setPosition(oneSixthOfScreenWidth + padding/2, 0.f);	
 
 	gameArea_texture.loadFromFile("../Images/grass.png");
 	gameArea.setTexture(&gameArea_texture, true);
 	
 
-	gameOverScreen.setSize(sf::Vector2f((float)this->window.getSize().x, (float)this->window.getSize().y));
+	gameOverScreen.setSize(sf::Vector2f((float)this->getWindowSize().x, (float)this->getWindowSize().y));
 	gameOverScreen.setFillColor(sf::Color::Black);
 	endFont.loadFromFile("../Images/fonts/BingoReky.ttf");
 	endText.setFont(endFont);
 	endText.setCharacterSize(80);
 	endText.setPosition(
-		(float)this->window.getSize().x/4.f, 
-		(float)this->window.getSize().y / 4.f 
+		(float)this->getWindowSize().x/4.f, 
+		(float)this->getWindowSize().y / 4.f 
 	);    	
 
 	pauseTexture.loadFromFile("../Images/paused.png");
