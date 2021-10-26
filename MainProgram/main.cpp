@@ -17,10 +17,10 @@
 
 int main()
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1200, 600), "CowBingo");
-
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1200, 600), "CowBingo", sf::Style::Titlebar | sf::Style::Close);
+	window->setSize(sf::Vector2u(1200,600));
 	GameState* current = nullptr;
 	State currentState = State::NO_CHANGE;
 
@@ -63,6 +63,6 @@ int main()
 
 	delete current;
 	delete window;
-	getchar();
+	
 	return 0;
 }

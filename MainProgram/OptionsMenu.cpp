@@ -53,7 +53,7 @@ void OptionsMenu::updateOptions()
 OptionsMenu::OptionsMenu(sf::RenderWindow* window)
 	:GameState("Options", window)
 {
-	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
+	font.loadFromFile("../Images/fonts/BingoReky.ttf");
 	Presentation.setFont(font);
 	Presentation.setFillColor(sf::Color::Magenta);
 	Presentation.setCharacterSize(45);

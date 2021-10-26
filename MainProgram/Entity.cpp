@@ -54,7 +54,7 @@ void Entity::setSpriteColor(sf::Color color)
 
 void Entity::resetSpriteColor()
 {
-	this->sprite.setColor(sf::Color::Color(255,255,255,255));
+	this->sprite.setColor(sf::Color(255,255,255,255));
 }
 
 sf::FloatRect Entity::getBounds() const

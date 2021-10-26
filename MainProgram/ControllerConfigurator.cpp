@@ -3,7 +3,7 @@
 void ControllerConfigurator::createDefaultConfFile()
 {
 	//Create file
-	std::ofstream file(configFilePath, std::ios::beg);
+	std::ofstream file(configFilePath.c_str());
 	file.close();
 	//Default Settings
 	appendInputPair(Actions::P1_Left,	sf::Keyboard::Key::A);
@@ -32,9 +32,10 @@ void ControllerConfigurator::appendInputPair(Actions action, sf::Keyboard::Key i
 	file.close();
 }
 
-std::ifstream* ControllerConfigurator::createOrOpenFile(std::string path, std::ios_base::openmode mode)
+std::ifstream* ControllerConfigurator::createOrOpenFile(std::string path)
 {
-	std::ifstream *file = new std::ifstream(configFilePath, std::ios::beg);
+	
+	std::ifstream *file = new std::ifstream(configFilePath.c_str());
 	if (!file->is_open()) {
 		createDefaultConfFile(); 
 	}
@@ -44,7 +45,7 @@ std::ifstream* ControllerConfigurator::createOrOpenFile(std::string path, std::i
 void ControllerConfigurator::loadConfig()
 {
 	
-	std::ifstream* file = createOrOpenFile(configFilePath, std::ios::beg);
+	std::ifstream* file = createOrOpenFile(configFilePath.c_str());
 	
 	
 	if (file->is_open()) {
@@ -77,7 +78,7 @@ void ControllerConfigurator::loadConfig()
 
 void ControllerConfigurator::saveConfig()
 {
-	std::ofstream file(configFilePath, std::ios::beg);
+	std::ofstream file(configFilePath.c_str());
 
 	if (file.is_open()) {
 		for (int i = 0; i < nrOfPairs; i++) {

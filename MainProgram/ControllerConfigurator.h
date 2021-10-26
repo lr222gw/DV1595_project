@@ -26,7 +26,7 @@ private:
 	std::string configFilePath;
 	void createDefaultConfFile();
 	void appendInputPair(Actions action, sf::Keyboard::Key inputKey);
-	std::ifstream* createOrOpenFile(std::string path, std::ios_base::openmode mode);	
+	std::ifstream* createOrOpenFile(std::string path);	
 	void saveConfig();
 	static const int nrOfPairs = 14;
 	InputPair inputPairs[nrOfPairs];
